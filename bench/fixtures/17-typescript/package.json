@@ -1,0 +1,9 @@
+{
+  "name": "fx-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "json5": "2.2.1",
+    "jsonwebtoken": "8.5.1"
+  }
+}

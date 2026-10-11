@@ -1,0 +1,14 @@
+{
+  "description": "trim-newlines imported but only .start() is used.",
+  "results": [
+    {
+      "id": "GHSA-7p7h-4mm5-852v",
+      "package": "trim-newlines",
+      "version": "3.0.0",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only .start() is used; .end() and the main export are never referenced"
+    }
+  ]
+}

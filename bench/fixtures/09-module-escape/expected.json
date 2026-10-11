@@ -1,0 +1,50 @@
+{
+  "description": "The lodash module object is passed to a function in another file, which calls lib.template.",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "unreachable",
+      "why": "not curated (toNumber/trim/trimEnd have many internal callers); the code calls none of them"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "reachable",
+      "why": "helpers.js calls lib.template on the passed-in lodash object"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "reachable",
+      "why": "helpers.js calls lib.template on the passed-in lodash object"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "unreachable",
+      "why": "the receiving code only calls template"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "unreachable",
+      "why": "the receiving code only calls template"
+    }
+  ]
+}

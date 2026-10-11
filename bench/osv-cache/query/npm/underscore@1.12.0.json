@@ -1,0 +1,16 @@
+{
+  "package": "underscore",
+  "ecosystem": "npm",
+  "version": "1.12.0",
+  "fetchedAt": "2026-10-11T20:26:15.574Z",
+  "vulns": [
+    {
+      "id": "GHSA-cf4h-3jhx-xvhq",
+      "modified": "2025-11-04T16:33:59Z"
+    },
+    {
+      "id": "GHSA-qpx9-hpmf-5gmw",
+      "modified": "2026-09-10T03:51:00.752419Z"
+    }
+  ]
+}

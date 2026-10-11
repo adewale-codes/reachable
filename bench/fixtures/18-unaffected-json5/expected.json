@@ -1,0 +1,14 @@
+{
+  "description": "json5 imported but only stringify is used.",
+  "results": [
+    {
+      "id": "GHSA-9c47-m6qq-7p4h",
+      "package": "json5",
+      "version": "2.2.1",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only JSON5.stringify is used; parse is never referenced"
+    }
+  ]
+}

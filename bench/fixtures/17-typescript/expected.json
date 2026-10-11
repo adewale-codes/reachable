@@ -1,0 +1,41 @@
+{
+  "description": "TypeScript `import x = require()` plus a type-only import, and a .tsx file.",
+  "results": [
+    {
+      "id": "GHSA-9c47-m6qq-7p4h",
+      "package": "json5",
+      "version": "2.2.1",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "JSON5.parse is called on caller-supplied text"
+    },
+    {
+      "id": "GHSA-8cf7-32gw-wr33",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "unreachable",
+      "why": "jsonwebtoken is only imported as a type (erased at compile time)"
+    },
+    {
+      "id": "GHSA-hjrf-2m68-5959",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "cant_tell",
+      "reason": "no_import_found",
+      "truth": "unreachable",
+      "why": "jsonwebtoken is only imported as a type (erased at compile time)"
+    },
+    {
+      "id": "GHSA-qwph-4952-7xr6",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "cant_tell",
+      "reason": "no_import_found",
+      "truth": "unreachable",
+      "why": "jsonwebtoken is only imported as a type (erased at compile time)"
+    }
+  ]
+}

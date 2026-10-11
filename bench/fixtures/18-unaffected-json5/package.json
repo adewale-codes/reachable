@@ -1,0 +1,9 @@
+{
+  "name": "fx-unaffected-json5",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "json5": "2.2.1"
+  }
+}

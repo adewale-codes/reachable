@@ -1,0 +1,50 @@
+{
+  "description": "require(moduleName) with a runtime value, next to a static lodash import.",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "unreachable",
+      "why": "not curated (toNumber/trim/trimEnd have many internal callers); the code calls none of them"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "dynamic_require",
+      "truth": "reachable",
+      "why": "require(moduleName) can load lodash and plugin.template(...) is then called"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "dynamic_require",
+      "truth": "reachable",
+      "why": "require(moduleName) can load lodash and plugin.template(...) is then called"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "dynamic_require",
+      "truth": "unreachable",
+      "why": "the dynamically loaded module only has .template called; unset/omit are never referenced"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "dynamic_require",
+      "truth": "unreachable",
+      "why": "the dynamically loaded module only has .template called; unset/omit are never referenced"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "$comment": [
+    "Hand-curated affected-symbol data. Each advisory entry was written after reading the advisory text on OSV.dev / GitHub (quoted in 'evidence').",
+    "'symbols' are names of the package's exports through which the vulnerable code is reached. The special symbol '(module)' means calling the package's main export itself (e.g. require('minimist')(argv)).",
+    "An advisory is only listed here when its text names the affected function(s) and the curator found no other public export that reaches the same vulnerable code. Advisories left out on purpose are listed in 'excluded' with the reason; they get verdict cant_tell / no_symbol_data.",
+    "'packages' holds per-package facts the analysis needs: 'gateways' are exports that return an object exposing the package's other functions (e.g. lodash's chain wrapper), and 'subpaths' says how deep imports like 'lodash/merge' map onto exports. A package with no 'subpaths' entry: every deep import is cant_tell."
+  ],
+  "packages": {
+    "lodash": {
+      "gateways": ["chain", "runInContext", "noConflict", "mixin", "prototype", "fp", "templateSettings"],
+      "subpaths": {
+        "mode": "export-per-file",
+        "moduleAliases": ["index", "lodash", "lodash.min", "core", "core.min"],
+        "privatePrefix": "_"
+      },
+      "notes": "lodash/<name>.js exports the same function as _.<name>. Files starting with '_' are internal helpers (e.g. _baseMerge) and can reach vulnerable code, so they are never mapped. lodash/fp wraps every function, and _(), _.chain(), _.runInContext(), _.noConflict() and _.mixin() return objects exposing all functions; _.templateSettings.imports._ is lodash itself."
+    },
+    "underscore": {
+      "gateways": ["chain", "noConflict", "mixin", "prototype"],
+      "notes": "_() and _.chain() return wrapper objects exposing every function. Deep imports such as 'underscore/modules/template.js' are not mapped."
+    }
+  },
+  "advisories": {
+    "GHSA-jf85-cpcp-j695": {
+      "package": "lodash",
+      "symbols": ["defaultsDeep"],
+      "source": "https://github.com/advisories/GHSA-jf85-cpcp-j695",
+      "osv": "https://osv.dev/vulnerability/GHSA-jf85-cpcp-j695",
+      "evidence": "The function `defaultsDeep` allows a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}`",
+      "notes": "merge/mergeWith share baseMerge, but with a plain merge the inherited `constructor` value is a function and is replaced by a fresh clone; only defaultsDeep's customDefaultsMerge recurses into it. Consistent with the advisory naming defaultsDeep alone."
+    },
+    "GHSA-4xc9-xhrj-v574": {
+      "package": "lodash",
+      "symbols": ["defaultsDeep", "merge", "mergeWith"],
+      "source": "https://github.com/advisories/GHSA-4xc9-xhrj-v574",
+      "osv": "https://osv.dev/vulnerability/GHSA-4xc9-xhrj-v574",
+      "evidence": "The vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}`"
+    },
+    "GHSA-fvqr-27wr-82fm": {
+      "package": "lodash",
+      "symbols": ["defaultsDeep", "merge", "mergeWith"],
+      "source": "https://github.com/advisories/GHSA-fvqr-27wr-82fm",
+      "osv": "https://osv.dev/vulnerability/GHSA-fvqr-27wr-82fm",
+      "evidence": "The vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `__proto__`"
+    },
+    "GHSA-p6mc-m468-83gw": {
+      "package": "lodash",
+      "symbols": ["pick", "set", "setWith", "update", "updateWith", "zipObjectDeep"],
+      "source": "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+      "osv": "https://osv.dev/vulnerability/GHSA-p6mc-m468-83gw",
+      "evidence": "The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep` allow a malicious user to modify the prototype of Object if the property identifiers are user-supplied.",
+      "notes": "pickBy also calls baseSet, but only with single-segment paths taken from the object's own keys, so it cannot write through __proto__ into Object.prototype. Not added."
+    },
+    "GHSA-35jh-r3h4-6jhm": {
+      "package": "lodash",
+      "symbols": ["template"],
+      "source": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+      "osv": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+      "evidence": "`lodash` versions prior to 4.17.21 are vulnerable to Command Injection via the template function."
+    },
+    "GHSA-r5fr-rjxr-66jc": {
+      "package": "lodash",
+      "symbols": ["template"],
+      "source": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+      "osv": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+      "evidence": "The fix for CVE-2021-23337 added validation for the `variable` option in `_.template` but did not apply the same validation to `options.imports` key names. Both paths flow into the same `Function()` constructor sink."
+    },
+    "GHSA-xxjr-mmjv-4gpg": {
+      "package": "lodash",
+      "symbols": ["unset", "omit"],
+      "source": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+      "osv": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+      "evidence": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions."
+    },
+    "GHSA-f23m-r3pf-42rh": {
+      "package": "lodash",
+      "symbols": ["unset", "omit"],
+      "source": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+      "osv": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+      "evidence": "Lodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions."
+    },
+    "GHSA-xvch-5gv4-984h": {
+      "package": "minimist",
+      "symbols": ["(module)"],
+      "source": "https://github.com/advisories/GHSA-xvch-5gv4-984h",
+      "osv": "https://osv.dev/vulnerability/GHSA-xvch-5gv4-984h",
+      "evidence": "Minimist prior to 1.2.6 and 0.2.4 is vulnerable to Prototype Pollution via file `index.js`, function `setKey()` (lines 69-95).",
+      "notes": "setKey is internal. minimist's only export is the parse function `module.exports = function (args, opts)`, which calls setKey (checked in minimist@1.2.0 source)."
+    },
+    "GHSA-vh95-rmgr-6w4m": {
+      "package": "minimist",
+      "symbols": ["(module)"],
+      "source": "https://github.com/advisories/GHSA-vh95-rmgr-6w4m",
+      "osv": "https://osv.dev/vulnerability/GHSA-vh95-rmgr-6w4m",
+      "evidence": "Parsing the argument `--__proto__.y=Polluted` adds a `y` property with value `Polluted` to all objects. ... This is exploitable if attackers have control over the arguments being passed to `minimist`.",
+      "notes": "The arguments are parsed by the module's main export."
+    },
+    "GHSA-qwph-4952-7xr6": {
+      "package": "jsonwebtoken",
+      "symbols": ["verify"],
+      "source": "https://github.com/advisories/GHSA-qwph-4952-7xr6",
+      "osv": "https://osv.dev/vulnerability/GHSA-qwph-4952-7xr6",
+      "evidence": "lack of algorithm definition and a falsy secret or key in the `jwt.verify()` function can lead to signature validation bypass"
+    },
+    "GHSA-hjrf-2m68-5959": {
+      "package": "jsonwebtoken",
+      "symbols": ["verify"],
+      "source": "https://github.com/advisories/GHSA-hjrf-2m68-5959",
+      "osv": "https://osv.dev/vulnerability/GHSA-hjrf-2m68-5959",
+      "evidence": "You will be affected if your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function."
+    },
+    "GHSA-9c47-m6qq-7p4h": {
+      "package": "json5",
+      "symbols": ["parse"],
+      "source": "https://github.com/advisories/GHSA-9c47-m6qq-7p4h",
+      "osv": "https://osv.dev/vulnerability/GHSA-9c47-m6qq-7p4h",
+      "evidence": "The `parse` method of the JSON5 library before and including version `2.2.1` does not restrict parsing of keys named `__proto__`",
+      "notes": "json5/lib/register (a require hook that parses .json5 files) is a deep import and is never mapped, so it yields cant_tell."
+    },
+    "GHSA-cf4h-3jhx-xvhq": {
+      "package": "underscore",
+      "symbols": ["template"],
+      "source": "https://github.com/advisories/GHSA-cf4h-3jhx-xvhq",
+      "osv": "https://osv.dev/vulnerability/GHSA-cf4h-3jhx-xvhq",
+      "evidence": "vulnerable to Arbitrary Code Execution via the template function, particularly when a variable property is passed as an argument as it is not sanitized."
+    },
+    "GHSA-7p7h-4mm5-852v": {
+      "package": "trim-newlines",
+      "symbols": ["end", "(module)"],
+      "source": "https://github.com/advisories/GHSA-7p7h-4mm5-852v",
+      "osv": "https://osv.dev/vulnerability/GHSA-7p7h-4mm5-852v",
+      "evidence": "The trim-newlines package before 3.0.1 and 4.x before 4.0.1 for Node.js has an issue related to regular expression denial-of-service (ReDoS) for the `.end()` method.",
+      "notes": "The advisory names only .end(). '(module)' is added conservatively: in 3.0.0 the main export runs the same /[\\r\\n]+$/ regex (module.exports = string => string.replace(/^[\\r\\n]+/, '').replace(/[\\r\\n]+$/, '')), and 3.0.1 left it unchanged, so calling the main export may be just as slow. .start() uses only the anchored /^[\\r\\n]+/ and is not included."
+    }
+  },
+  "excluded": {
+    "GHSA-29mw-wpgm-hmr9": "lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.",
+    "GHSA-qpx9-hpmf-5gmw": "underscore recursion DoS names flatten and isEqual, but _.pick, _.omit and _.bindAll call flatten deeply on caller-supplied arrays. The full set of entry points was not established.",
+    "GHSA-8cf7-32gw-wr33": "jsonwebtoken key-type advisory describes verification but its fix applies to both sign() and verify(); the affected function is not clearly identifiable from the text.",
+    "GHSA-g4rg-993r-mgx7": "shell-quote advisory does not name the affected function.",
+    "GHSA-x5rq-j2xg-h7qm": "lodash ReDoS names only a 'Date handler' component, not a function."
+  }
+}

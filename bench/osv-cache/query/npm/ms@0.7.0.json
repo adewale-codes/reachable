@@ -1,0 +1,16 @@
+{
+  "package": "ms",
+  "ecosystem": "npm",
+  "version": "0.7.0",
+  "fetchedAt": "2026-10-11T20:26:12.154Z",
+  "vulns": [
+    {
+      "id": "GHSA-3fx5-fwvr-xrjg",
+      "modified": "2024-08-01T16:44:35Z"
+    },
+    {
+      "id": "GHSA-w9mr-4mfr-499f",
+      "modified": "2025-11-04T16:42:14Z"
+    }
+  ]
+}

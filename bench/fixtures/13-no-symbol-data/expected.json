@@ -1,0 +1,23 @@
+{
+  "description": "An advisory with no curated symbol data (ms ReDoS), on a package that is used.",
+  "results": [
+    {
+      "id": "GHSA-3fx5-fwvr-xrjg",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "reachable",
+      "why": "ms(header) parses a caller-supplied string"
+    },
+    {
+      "id": "GHSA-w9mr-4mfr-499f",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "reachable",
+      "why": "ms(header) parses a caller-supplied string"
+    }
+  ]
+}

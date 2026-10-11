@@ -1,0 +1,12 @@
+{
+  "package": "json5",
+  "ecosystem": "npm",
+  "version": "2.2.1",
+  "fetchedAt": "2026-10-11T20:26:14.293Z",
+  "vulns": [
+    {
+      "id": "GHSA-9c47-m6qq-7p4h",
+      "modified": "2026-09-10T03:49:56.250129Z"
+    }
+  ]
+}

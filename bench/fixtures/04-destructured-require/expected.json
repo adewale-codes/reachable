@@ -1,0 +1,68 @@
+{
+  "description": "Destructured CommonJS require: const { defaultsDeep, map } = require(\"lodash\").",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "unreachable",
+      "why": "not curated (toNumber/trim/trimEnd have many internal callers); the code calls none of them"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "template is never referenced"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "template is never referenced"
+    },
+    {
+      "id": "GHSA-jf85-cpcp-j695",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "defaultsDeep is destructured from require and called with caller options"
+    },
+    {
+      "id": "GHSA-p6mc-m468-83gw",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "none of the set family is referenced"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "unset/omit are never referenced"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.11",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "unset/omit are never referenced"
+    }
+  ]
+}

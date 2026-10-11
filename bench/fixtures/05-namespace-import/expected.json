@@ -1,0 +1,32 @@
+{
+  "description": "TypeScript namespace import: import * as jwt; jwt.verify(...).",
+  "results": [
+    {
+      "id": "GHSA-8cf7-32gw-wr33",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "reachable",
+      "why": "not curated (sign vs verify is ambiguous); verify is called, which is the verification path the advisory describes"
+    },
+    {
+      "id": "GHSA-hjrf-2m68-5959",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "jwt.verify is called"
+    },
+    {
+      "id": "GHSA-qwph-4952-7xr6",
+      "package": "jsonwebtoken",
+      "version": "8.5.1",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "jwt.verify is called with no algorithms option"
+    }
+  ]
+}

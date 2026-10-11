@@ -1,0 +1,33 @@
+{
+  "name": "reachable",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tells you which dependency vulnerability alerts your JavaScript code can actually trigger: reachable, unreachable, or cant_tell, with evidence for each.",
+  "type": "module",
+  "bin": {
+    "reachable": "bin/reachable.js"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "data"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "test": "node --test test/analysis.test.js test/cli.test.js",
+    "bench": "node bench/run.js",
+    "bench:record": "node bench/record.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "tree-sitter-javascript": "0.25.0",
+    "tree-sitter-typescript": "0.23.2",
+    "web-tree-sitter": "0.25.10"
+  }
+}
