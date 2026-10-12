@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-28wg-ghj8-5hjv",
+  "package": "nanoid",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T18:06:19.909Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"customAlphabet\",\"quote\":\"the customAlphabet and nanoid functions of its non-secure module (nanoid/non-secure)\",\"module\":\"nanoid/non-secure\"},{\"symbol\":\"nanoid\",\"quote\":\"the customAlphabet and nanoid functions of its non-secure module (nanoid/non-secure)\",\"module\":\"nanoid/non-secure\"}]}"
+}

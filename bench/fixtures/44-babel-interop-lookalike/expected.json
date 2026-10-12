@@ -1,0 +1,50 @@
+{
+  "description": "Look-alike _interopRequireDefault that does more than the Babel helper (it passes the module on to audit(), which calls template).",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "not curated; toNumber/trim not called"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "reachable",
+      "why": "audit(obj) calls template at load time"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "reachable",
+      "why": "audit(obj) calls template at load time"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "unreachable",
+      "why": "nothing calls unset/omit"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "module_escapes",
+      "truth": "unreachable",
+      "why": "nothing calls unset/omit"
+    }
+  ]
+}

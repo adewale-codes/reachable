@@ -15,6 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { builtinModules } from 'node:module';
 import { createParser, SOURCE_EXTENSIONS } from './parser.js';
+import { GENUINE_HELPERS } from './babel-helpers.js';
 
 const BUILTINS = new Set(builtinModules);
 const SKIP_DIRS = new Set(['node_modules', '.git', '.hg', '.svn']);
@@ -147,6 +148,51 @@ function staticPrefix(node) {
  * it sits entirely inside one properly delimited string literal, which cannot
  * contain code. Anything else stays a parse error.
  */
+/**
+ * The same grammar limitation in JSX text: `<h1>React & Tailwind</h1>` is valid
+ * JSX (Babel/TypeScript accept it) but tree-sitter emits an ERROR for the bare
+ * `&`. Tolerated only when the ERROR is a direct child of a JSX element and its
+ * text contains `&` and none of `{ } < >`. JSX text cannot hold code without
+ * those characters, so the region is plain text.
+ */
+function isErrorInJsxText(node) {
+  const p = node.parent;
+  if (!p || p.type !== 'jsx_element' || node.type !== 'ERROR') return false;
+  const text = node.text;
+  return text.includes('&') && !/[{}<>]/.test(text);
+}
+
+/**
+ * Bundler config files at the project root whose `external` list is exempt
+ * from name_as_string: rollup, vite and esbuild use `external`, webpack uses
+ * `externals`.
+ */
+export function bundlerConfigKind(file) {
+  if (!file || file.includes('/')) return null; // project root only
+  const m = file.match(/^(rollup|vite|esbuild|webpack)\.config\.(js|cjs|mjs|ts|cts|mts)$/);
+  if (!m) return null;
+  return m[1] === 'webpack' ? 'externals' : 'external';
+}
+
+/**
+ * True only for a plain string literal that is a direct element of an array
+ * literal that is itself the value of an `external` (or `externals`) property.
+ * Computed, spread, function or object forms are not exempt.
+ */
+function isExternalListEntry(stringNode, key) {
+  if (stringNode.type !== 'string') return false;
+  const arr = stringNode.parent;
+  if (!arr || arr.type !== 'array') return false;
+  const pair = arr.parent;
+  if (!pair || pair.type !== 'pair') return false;
+  const value = pair.childForFieldName('value');
+  if (!value || value.id !== arr.id) return false;
+  const k = pair.childForFieldName('key');
+  if (!k) return false;
+  const name = k.type === 'property_identifier' ? k.text : k.type === 'string' ? staticString(k) : null;
+  return name === key;
+}
+
 function isErrorInsideJsxString(node) {
   let n = node.parent;
   while (n && n.type !== 'string') {
@@ -227,6 +273,7 @@ export function analyzeTree(tree, source, file, tracked) {
     unknownImports: [],
     relative: [], // relative specifiers ('./x'), used to follow files inside a package
     typeImports: [], // type-only imports of tracked packages (erased at compile time)
+    externalEntries: [], // literal entries of bundler `external` lists (exempt from name_as_string)
   };
 
   // ---- one pass over the tree to collect the nodes we care about
@@ -238,14 +285,22 @@ export function analyzeTree(tree, source, file, tracked) {
   const news = [];
   const strings = [];
   const evalMembers = [];
+  const fnDecls = [];
+  const assigns = [];
+  const declarators = [];
 
   const cursor = tree.walk();
   for (;;) {
     const type = cursor.nodeType;
+    let skipChildren = false;
     if (type === 'ERROR' || cursor.nodeIsMissing) {
       const n = cursor.currentNode;
       if (isErrorInsideJsxString(n)) {
         result.tolerated.push({ ...loc(n), message: "'&' in a JSX attribute string (tree-sitter grammar limitation; the string holds no code)" });
+        skipChildren = true; // the words inside are string content, not identifiers
+      } else if (isErrorInJsxText(n)) {
+        result.tolerated.push({ ...loc(n), message: "'&' in JSX text (tree-sitter grammar limitation; the text holds no code)" });
+        skipChildren = true;
       } else if (result.parseErrors.length < 5) {
         result.parseErrors.push({ ...loc(n), message: type === 'ERROR' ? 'syntax error' : `missing ${type}` });
       }
@@ -268,6 +323,9 @@ export function analyzeTree(tree, source, file, tracked) {
       case 'import_statement': importStmts.push(cursor.currentNode); break;
       case 'export_statement': exportStmts.push(cursor.currentNode); break;
       case 'call_expression': calls.push(cursor.currentNode); break;
+      case 'function_declaration': fnDecls.push(cursor.currentNode); break;
+      case 'assignment_expression': assigns.push(cursor.currentNode); break;
+      case 'variable_declarator': declarators.push(cursor.currentNode); break;
       case 'new_expression': news.push(cursor.currentNode); break;
       case 'string': case 'template_string': strings.push(cursor.currentNode); break;
       case 'member_expression': {
@@ -278,7 +336,7 @@ export function analyzeTree(tree, source, file, tracked) {
       }
       default: break;
     }
-    if (cursor.gotoFirstChild()) continue;
+    if (!skipChildren && cursor.gotoFirstChild()) continue;
     let more = true;
     while (!cursor.gotoNextSibling()) {
       if (!cursor.gotoParent()) { more = false; break; }
@@ -408,7 +466,8 @@ export function analyzeTree(tree, source, file, tracked) {
    * Walk upward from `start` (an expression whose value is the imported value,
    * or something reached from it by `steps`) and record what happens to it.
    */
-  const follow = (start, origin, baseSteps, trail) => {
+  const follow = (start, originIn, baseSteps, trail) => {
+    let origin = originIn;
     const steps = [...baseSteps];
     let cur = start;
     for (;;) {
@@ -445,6 +504,13 @@ export function analyzeTree(tree, source, file, tracked) {
           if (field(p, 'name', cur)) { steps.push({ t: 'call' }); return emitUse(origin, steps, 'harmless', 'rendered as a JSX component', cur, trail); }
           return emitUse(origin, steps, 'escape', 'used in a JSX element', cur, trail);
         case 'arguments':
+          // Babel interop: helper(require('pkg')) returns the module (or a {default}
+          // wrapper around it) when the helper is the genuine Babel one.
+          if (cur.id === start.id && steps.length === 0 && isInteropWrap(p)) {
+            origin = { ...origin, interop: true };
+            cur = p.parent;
+            continue;
+          }
           return emitUse(origin, steps, 'escape', 'passed as an argument to a function', cur, trail);
         case 'variable_declarator': {
           const name = p.childForFieldName('name');
@@ -487,6 +553,13 @@ export function analyzeTree(tree, source, file, tracked) {
         case 'sequence_expression': {
           const kids = namedKids(p);
           if (kids[kids.length - 1].id !== cur.id) return emitUse(origin, steps, 'harmless', 'discarded', cur, trail);
+          // Babel's call idiom `(0, _x.default)(args)` on an interop binding is a plain call.
+          if (origin.interop && kids.length === 2 && kids[0].type === 'number' && kids[0].text === '0' &&
+              p.parent && p.parent.type === 'parenthesized_expression' && p.parent.parent &&
+              p.parent.parent.type === 'call_expression' && field(p.parent.parent, 'function', p.parent)) {
+            cur = p;
+            continue;
+          }
           return emitUse(origin, steps, 'escape', 'value of a comma expression', cur, trail);
         }
         case 'for_in_statement':
@@ -591,6 +664,62 @@ export function analyzeTree(tree, source, file, tracked) {
       flagPkg(r.pkg, 'reexport_all', st, `export * from '${spec}'`);
     }
   }
+
+  // ---- genuine Babel interop helpers in this file
+  const HELPER_RE = /^(_interopRequireDefault|_interopRequireWildcard|_getRequireWildcardCache)\d*$/;
+  const RUNTIME_HELPER_RE = /^@babel\/runtime\/helpers\/(esm\/)?(interopRequireDefault|interopRequireWildcard)(\.js)?$/;
+  const declCount = new Map();
+  const bump = (n) => declCount.set(n, (declCount.get(n) || 0) + 1);
+  for (const d of fnDecls) { const n = d.childForFieldName('name'); if (n) bump(n.text); }
+  for (const d of declarators) { const n = d.childForFieldName('name'); if (n && n.type === 'identifier') bump(n.text); }
+  const within = (node, ancestor) => { for (let x = node; x; x = x.parent) if (x.id === ancestor.id) return true; return false; };
+  const reassigned = (name, ownDecl) => assigns.some((a) => {
+    const l = a.childForFieldName('left');
+    return l && l.type === 'identifier' && l.text === name && !(ownDecl && within(a, ownDecl));
+  });
+  const genuineDecl = new Map(); // name -> base helper name
+  for (const d of fnDecls) {
+    const n = d.childForFieldName('name');
+    if (!n || !HELPER_RE.test(n.text) || declCount.get(n.text) !== 1) continue;
+    const base = n.text.replace(/\d+$/, '');
+    const norm = d.text.replace(/\s+/g, '').replace(/^function_\w+?\d*\(/, `function${base}(`);
+    if (!(GENUINE_HELPERS[base] || []).includes(norm)) continue;
+    // Only _getRequireWildcardCache may reassign itself (inside its own body).
+    if (reassigned(n.text, base === '_getRequireWildcardCache' ? d : null)) continue;
+    genuineDecl.set(n.text, { base, node: d });
+  }
+  const interopHelpers = new Set();
+  for (const [name, { base, node }] of genuineDecl) {
+    if (base === '_getRequireWildcardCache') continue;
+    const usesCache = node.text.match(/_getRequireWildcardCache\d*/);
+    if (usesCache && !(genuineDecl.has(usesCache[0]) && genuineDecl.get(usesCache[0]).base === '_getRequireWildcardCache')) continue;
+    interopHelpers.add(name);
+  }
+  // var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault")
+  for (const d of declarators) {
+    const n = d.childForFieldName('name');
+    const v = d.childForFieldName('value');
+    if (!n || n.type !== 'identifier' || !v || v.type !== 'call_expression') continue;
+    const fn = v.childForFieldName('function');
+    const arg = namedKids(v.childForFieldName('arguments') || v)[0];
+    if (!fn || fn.type !== 'identifier' || fn.text !== 'require') continue;
+    const spec = staticString(arg);
+    if (spec && RUNTIME_HELPER_RE.test(spec) && declCount.get(n.text) === 1 && !reassigned(n.text, null)) interopHelpers.add(n.text);
+  }
+  for (const st of importStmts) {
+    const src = st.childForFieldName('source');
+    const spec = src && staticString(src);
+    const clause = namedKids(st).find((c) => c.type === 'import_clause');
+    const def = clause && namedKids(clause).find((c) => c.type === 'identifier');
+    if (spec && RUNTIME_HELPER_RE.test(spec) && def && !reassigned(def.text, null) && !declCount.get(def.text)) interopHelpers.add(def.text);
+  }
+  /** argsNode is the arguments of helper(require('pkg')) with exactly one argument. */
+  const isInteropWrap = (argsNode) => {
+    const call = argsNode.parent;
+    if (!call || call.type !== 'call_expression' || namedKids(argsNode).length !== 1) return false;
+    const fn = call.childForFieldName('function');
+    return Boolean(fn && fn.type === 'identifier' && interopHelpers.has(fn.text));
+  };
 
   // ---- require(), import(), createRequire, eval-like calls
   const requireNames = new Set(['require']);
@@ -712,9 +841,16 @@ export function analyzeTree(tree, source, file, tracked) {
   }
 
   // ---- package names that appear as plain strings (alias maps, plugin names, mocks, ...)
+  const bundlerKind = bundlerConfigKind(file);
   for (const s of strings) {
     if (consumedStrings.has(s.id)) continue;
     if (s.parent && (s.parent.type === 'module' || s.parent.type === 'import_require_clause')) continue;
+    // A literal entry of a bundler `external` list only says "do not bundle
+    // this"; it loads nothing. Exempt it (and only it) from name_as_string.
+    if (bundlerKind && isExternalListEntry(s, bundlerKind)) {
+      result.externalEntries.push({ file, line: s.startPosition.row + 1, text: s.text });
+      continue;
+    }
     const v = staticString(s);
     if (!v || v.length > 214) continue;
     const r = resolveSpecifier(v, null);
@@ -793,11 +929,11 @@ function scanAliasConfigs(root, packageJson, tracked, warnings) {
  * Scan a whole project.
  * @returns {{ filesScanned, imports, uses, unresolved, global, parseErrors, fileErrors, unknownImports, warnings }}
  */
-export async function extractUsage(root, { tracked, packageJson, files: explicitFiles = null, aliasConfigs = true } = {}) {
+export async function extractUsage(root, { tracked, packageJson, files: explicitFiles = null, sources = null, aliasConfigs = true } = {}) {
   const parse = await createParser();
   const { files, skippedLinks } = explicitFiles ? { files: explicitFiles.map((file) => ({ file })), skippedLinks: [] } : listSourceFiles(root);
   const out = {
-    filesScanned: 0, files: [], relative: [], typeImports: [], imports: [], uses: [], unresolved: [], global: [], parseErrors: [], tolerated: [], fileErrors: [], unknownImports: [], warnings: [],
+    filesScanned: 0, files: [], relative: [], typeImports: [], externalEntries: [], imports: [], uses: [], unresolved: [], global: [], parseErrors: [], tolerated: [], fileErrors: [], unknownImports: [], warnings: [],
   };
   if (skippedLinks.length) out.warnings.push(`symbolic links were not followed: ${skippedLinks.slice(0, 5).join(', ')}${skippedLinks.length > 5 ? ', ...' : ''}`);
 
@@ -806,7 +942,7 @@ export async function extractUsage(root, { tracked, packageJson, files: explicit
     if (error) { out.fileErrors.push({ file: rel, message: error }); continue; }
     let source;
     try {
-      source = fs.readFileSync(file, 'utf8');
+      source = sources && sources.has(file) ? sources.get(file) : fs.readFileSync(file, 'utf8');
     } catch (err) {
       out.fileErrors.push({ file: rel, message: `cannot read: ${err.code || err.message}` });
       continue;
@@ -822,7 +958,7 @@ export async function extractUsage(root, { tracked, packageJson, files: explicit
       const r = analyzeTree(tree, source, rel, tracked);
       out.filesScanned++;
       out.files.push(rel);
-      for (const k of ['imports', 'uses', 'unresolved', 'global', 'parseErrors', 'tolerated', 'unknownImports', 'relative', 'typeImports']) out[k].push(...r[k]);
+      for (const k of ['imports', 'uses', 'unresolved', 'global', 'parseErrors', 'tolerated', 'unknownImports', 'relative', 'typeImports', 'externalEntries']) out[k].push(...r[k]);
     } finally {
       tree.delete();
     }

@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-29mw-wpgm-hmr9",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T14:58:35.208Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"toNumber\",\"quote\":\"via the `toNumber`, `trim` and `trimEnd` functions\"},{\"symbol\":\"trim\",\"quote\":\"via the `toNumber`, `trim` and `trimEnd` functions\"},{\"symbol\":\"trimEnd\",\"quote\":\"via the `toNumber`, `trim` and `trimEnd` functions\"}]}"
+}

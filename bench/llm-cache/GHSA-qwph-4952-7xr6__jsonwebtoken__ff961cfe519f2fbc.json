@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-qwph-4952-7xr6",
+  "package": "jsonwebtoken",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:33.768Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"verify\",\"quote\":\"lack of algorithm definition and a falsy secret or key in the `jwt.verify()` function can lead to signature validation bypass\"}]}"
+}

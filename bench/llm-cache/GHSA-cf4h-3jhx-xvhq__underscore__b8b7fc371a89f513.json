@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-cf4h-3jhx-xvhq",
+  "package": "underscore",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:39.911Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"template\",\"quote\":\"vulnerable to Arbitrary Code Execution via the template function\"}]}"
+}

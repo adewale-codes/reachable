@@ -5,10 +5,10 @@
       "id": "GHSA-29mw-wpgm-hmr9",
       "package": "lodash",
       "version": "4.17.20",
-      "expected": "TODO_LLM",
-      "reason": null,
+      "expected": "cant_tell",
+      "reason": "llm_tier_cannot_prove_unreachable",
       "truth": "unreachable",
-      "why": "get and template do not call toNumber/trim/trimEnd"
+      "why": "get and template do not call toNumber/trim/trimEnd. LLM (recorded): toNumber, trim, trimEnd; none referenced, but LLM data cannot prove unreachable"
     },
     {
       "id": "GHSA-35jh-r3h4-6jhm",

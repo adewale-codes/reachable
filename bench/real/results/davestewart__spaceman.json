@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "repo": "davestewart/spaceman",
+    "sha": "7e1b74bea898628bd7914cde6b13fcd8f56b217e",
+    "style": "monorepo-ish",
+    "scanMs": 486,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 11,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 11
+    }
+  },
+  "report": {
+    "tool": {
+      "name": "reachable",
+      "version": "0.1.0"
+    },
+    "project": {
+      "path": "C:\\Users\\adewa\\AppData\\Local\\Temp\\reachable-corpus\\davestewart__spaceman",
+      "name": "spaceman"
+    },
+    "scannedAt": "2026-10-12T18:32:33.142Z",
+    "complete": true,
+    "errors": [],
+    "warnings": [],
+    "notices": [],
+    "summary": {
+      "alerts": 11,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 11
+    },
+    "scopeCounts": {
+      "prod": 11,
+      "dev": 0
+    },
+    "prodOnly": false,
+    "hiddenDevAlerts": 0,
+    "inventory": {
+      "lockfileVersion": 2,
+      "installed": 40,
+      "direct": 5,
+      "transitive": 35,
+      "nodeModules": true
+    },
+    "source": {
+      "filesScanned": 9,
+      "parseErrors": 0
+    },
+    "osv": {
+      "mode": "offline",
+      "queriesFromNetwork": 0,
+      "queriesFromCache": 40,
+      "vulnsFromNetwork": 0,
+      "vulnsFromCache": 11,
+      "networkError": null,
+      "oldestCacheEntry": "2026-10-12T16:10:56.589Z",
+      "cacheDir": "C:\\Users\\adewa\\AppData\\Local\\reachable\\cache",
+      "url": "https://api.osv.dev"
+    },
+    "llm": {
+      "mode": "live",
+      "model": "claude-sonnet-5-5",
+      "calls": 0,
+      "cacheHits": 0,
+      "failures": 0
+    },
+    "transitiveAnalysis": {
+      "packagesAnalysed": 0,
+      "nodeModules": null,
+      "cache": {
+        "dir": "C:/Users/adewa/AppData/Local/Temp/claude/c--Users-adewa-OneDrive-Documents-reachable/88c1892c-4770-42a4-94d1-257cd9bd22ea/scratchpad/pc-fixes",
+        "hits": 0,
+        "misses": 0,
+        "writes": 0,
+        "uncacheable": 0
+      }
+    },
+    "analyzerVersion": "3.1.0",
+    "unresolvedImports": [],
+    "withdrawn": [],
+    "results": [
+      {
+        "id": "GHSA-3jxr-9vmj-r5cp",
+        "aliases": [
+          "CVE-2026-13149"
+        ],
+        "summary": "brace-expansion: DoS via exponential-time expansion of consecutive non-expanding {} groups",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3jxr-9vmj-r5cp",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6j4f-fj2g-mc7p",
+        "aliases": [
+          "CVE-2026-102276"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-6j4f-fj2g-mc7p",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f886-m6hf-6m8v",
+        "aliases": [
+          "CVE-2026-33750"
+        ],
+        "summary": "brace-expansion: Zero-step sequence causes process hang and memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f886-m6hf-6m8v",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh99-v99m-4gvg",
+        "aliases": [
+          "CVE-2026-14257"
+        ],
+        "summary": "brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-mh99-v99m-4gvg",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-q2hr-2g5m-vwhr",
+        "aliases": [
+          "CVE-2026-102277"
+        ],
+        "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-q2hr-2g5m-vwhr",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qhr7-859c-m2p7",
+        "aliases": [
+          "CVE-2026-102278"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qhr7-859c-m2p7",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rgw5-rvv9-x895",
+        "aliases": [
+          "CVE-2026-69152"
+        ],
+        "summary": "brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rgw5-rvv9-x895",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-v6h2-p8h4-qcjw",
+        "aliases": [
+          "CVE-2025-5889"
+        ],
+        "summary": "brace-expansion Regular Expression Denial of Service vulnerability",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-23c5-xmqv-rm74",
+        "aliases": [
+          "CVE-2026-27904"
+        ],
+        "summary": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-23c5-xmqv-rm74",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3ppc-4f35-3m26",
+        "aliases": [
+          "CVE-2026-26996"
+        ],
+        "summary": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3ppc-4f35-3m26",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-7r86-cg39-jmmj",
+        "aliases": [
+          "CVE-2026-27903"
+        ],
+        "summary": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-7r86-cg39-jmmj",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      }
+    ]
+  }
+}

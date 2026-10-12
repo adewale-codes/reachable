@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-7p7h-4mm5-852v",
+  "package": "trim-newlines",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:42.183Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"end\",\"quote\":\"regular expression denial-of-service (ReDoS) for the `.end()` method\"}]}"
+}

@@ -1,0 +1,2519 @@
+{
+  "meta": {
+    "repo": "Ruimve/microhook",
+    "sha": "857b62eff8069361adb15c57aaf22c5bbb4738b6",
+    "style": "library-typescript-react",
+    "scanMs": 24952,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 75,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 75
+    }
+  },
+  "report": {
+    "tool": {
+      "name": "reachable",
+      "version": "0.1.0"
+    },
+    "project": {
+      "path": "C:\\Users\\adewa\\AppData\\Local\\Temp\\reachable-corpus\\Ruimve__microhook",
+      "name": "microhook"
+    },
+    "scannedAt": "2026-10-12T18:22:57.107Z",
+    "complete": true,
+    "errors": [],
+    "warnings": [],
+    "notices": [],
+    "summary": {
+      "alerts": 75,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 75
+    },
+    "scopeCounts": {
+      "prod": 3,
+      "dev": 72
+    },
+    "prodOnly": false,
+    "hiddenDevAlerts": 0,
+    "inventory": {
+      "lockfileVersion": 2,
+      "installed": 681,
+      "direct": 28,
+      "transitive": 653,
+      "nodeModules": true
+    },
+    "source": {
+      "filesScanned": 30,
+      "parseErrors": 0
+    },
+    "osv": {
+      "mode": "offline",
+      "queriesFromNetwork": 0,
+      "queriesFromCache": 639,
+      "vulnsFromNetwork": 0,
+      "vulnsFromCache": 50,
+      "networkError": null,
+      "oldestCacheEntry": "2026-10-12T15:56:36.660Z",
+      "cacheDir": "C:\\Users\\adewa\\AppData\\Local\\reachable\\cache",
+      "url": "https://api.osv.dev"
+    },
+    "llm": {
+      "mode": "live",
+      "model": "claude-sonnet-5-5",
+      "calls": 0,
+      "cacheHits": 0,
+      "failures": 0
+    },
+    "transitiveAnalysis": {
+      "packagesAnalysed": 7,
+      "nodeModules": true,
+      "cache": {
+        "dir": "C:/Users/adewa/AppData/Local/Temp/claude/c--Users-adewa-OneDrive-Documents-reachable/88c1892c-4770-42a4-94d1-257cd9bd22ea/scratchpad/pc-fixes",
+        "hits": 512,
+        "misses": 175,
+        "writes": 175,
+        "uncacheable": 0
+      }
+    },
+    "analyzerVersion": "3.1.0",
+    "unresolvedImports": [],
+    "withdrawn": [],
+    "results": [
+      {
+        "id": "GHSA-hpx4-r86g-5jrg",
+        "aliases": [
+          "CVE-2023-26364"
+        ],
+        "summary": "@adobe/css-tools Regular Expression Denial of Service (ReDOS) while Parsing CSS",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-hpx4-r86g-5jrg",
+        "package": "@adobe/css-tools",
+        "installName": "@adobe/css-tools",
+        "version": "4.0.1",
+        "lockfilePath": "node_modules/@adobe/css-tools",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @adobe/css-tools functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-prr3-c3m5-p7q2",
+        "aliases": [
+          "CVE-2023-48631"
+        ],
+        "summary": "@adobe/css-tools Improper Input Validation and Inefficient Regular Expression Complexity",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-prr3-c3m5-p7q2",
+        "package": "@adobe/css-tools",
+        "installName": "@adobe/css-tools",
+        "version": "4.0.1",
+        "lockfilePath": "node_modules/@adobe/css-tools",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @adobe/css-tools functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-4x5r-pxfx-6jf8",
+        "aliases": [
+          "CVE-2026-49356"
+        ],
+        "summary": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-4x5r-pxfx-6jf8",
+        "package": "@babel/core",
+        "installName": "@babel/core",
+        "version": "7.20.7",
+        "lockfilePath": "node_modules/@babel/core",
+        "direct": true,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/core functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-968p-4wvh-cqc8",
+        "aliases": [
+          "CVE-2025-27789"
+        ],
+        "summary": "Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-968p-4wvh-cqc8",
+        "package": "@babel/helpers",
+        "installName": "@babel/helpers",
+        "version": "7.20.7",
+        "lockfilePath": "node_modules/@babel/helpers",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/helpers functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-fv7c-fp4j-7gwp",
+        "aliases": [
+          "CVE-2026-44728"
+        ],
+        "summary": "@babel/plugin-transform-modules-systemjs generates arbitrary code when compiling malicious input",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-fv7c-fp4j-7gwp",
+        "package": "@babel/plugin-transform-modules-systemjs",
+        "installName": "@babel/plugin-transform-modules-systemjs",
+        "version": "7.20.11",
+        "lockfilePath": "node_modules/@babel/plugin-transform-modules-systemjs",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/plugin-transform-modules-systemjs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-968p-4wvh-cqc8",
+        "aliases": [
+          "CVE-2025-27789"
+        ],
+        "summary": "Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-968p-4wvh-cqc8",
+        "package": "@babel/runtime",
+        "installName": "@babel/runtime",
+        "version": "7.20.7",
+        "lockfilePath": "node_modules/@babel/runtime",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/runtime functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-67hx-6x53-jw92",
+        "aliases": [
+          "CVE-2023-45133"
+        ],
+        "summary": "Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92",
+        "package": "@babel/traverse",
+        "installName": "@babel/traverse",
+        "version": "7.20.10",
+        "lockfilePath": "node_modules/@babel/traverse",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/traverse functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vpq2-c234-7xj6",
+        "aliases": [
+          "CVE-2026-3449"
+        ],
+        "summary": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-vpq2-c234-7xj6",
+        "package": "@tootallnate/once",
+        "installName": "@tootallnate/once",
+        "version": "2.0.0",
+        "lockfilePath": "node_modules/@tootallnate/once",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @tootallnate/once functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2g4f-4pwh-qvx6",
+        "aliases": [
+          "CVE-2025-69873"
+        ],
+        "summary": "ajv has ReDoS when using `$data` option",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-2g4f-4pwh-qvx6",
+        "package": "ajv",
+        "installName": "ajv",
+        "version": "8.12.0",
+        "lockfilePath": "node_modules/ajv",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ajv functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3jxr-9vmj-r5cp",
+        "aliases": [
+          "CVE-2026-13149"
+        ],
+        "summary": "brace-expansion: DoS via exponential-time expansion of consecutive non-expanding {} groups",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3jxr-9vmj-r5cp",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6j4f-fj2g-mc7p",
+        "aliases": [
+          "CVE-2026-102276"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-6j4f-fj2g-mc7p",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f886-m6hf-6m8v",
+        "aliases": [
+          "CVE-2026-33750"
+        ],
+        "summary": "brace-expansion: Zero-step sequence causes process hang and memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f886-m6hf-6m8v",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh99-v99m-4gvg",
+        "aliases": [
+          "CVE-2026-14257"
+        ],
+        "summary": "brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-mh99-v99m-4gvg",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-q2hr-2g5m-vwhr",
+        "aliases": [
+          "CVE-2026-102277"
+        ],
+        "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-q2hr-2g5m-vwhr",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qhr7-859c-m2p7",
+        "aliases": [
+          "CVE-2026-102278"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qhr7-859c-m2p7",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rgw5-rvv9-x895",
+        "aliases": [
+          "CVE-2026-69152"
+        ],
+        "summary": "brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rgw5-rvv9-x895",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-v6h2-p8h4-qcjw",
+        "aliases": [
+          "CVE-2025-5889"
+        ],
+        "summary": "brace-expansion Regular Expression Denial of Service vulnerability",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.11",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3jxr-9vmj-r5cp",
+        "aliases": [
+          "CVE-2026-13149"
+        ],
+        "summary": "brace-expansion: DoS via exponential-time expansion of consecutive non-expanding {} groups",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3jxr-9vmj-r5cp",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6j4f-fj2g-mc7p",
+        "aliases": [
+          "CVE-2026-102276"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-6j4f-fj2g-mc7p",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f886-m6hf-6m8v",
+        "aliases": [
+          "CVE-2026-33750"
+        ],
+        "summary": "brace-expansion: Zero-step sequence causes process hang and memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f886-m6hf-6m8v",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh99-v99m-4gvg",
+        "aliases": [
+          "CVE-2026-14257"
+        ],
+        "summary": "brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-mh99-v99m-4gvg",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-q2hr-2g5m-vwhr",
+        "aliases": [
+          "CVE-2026-102277"
+        ],
+        "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-q2hr-2g5m-vwhr",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qhr7-859c-m2p7",
+        "aliases": [
+          "CVE-2026-102278"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qhr7-859c-m2p7",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rgw5-rvv9-x895",
+        "aliases": [
+          "CVE-2026-69152"
+        ],
+        "summary": "brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rgw5-rvv9-x895",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-v6h2-p8h4-qcjw",
+        "aliases": [
+          "CVE-2025-5889"
+        ],
+        "summary": "brace-expansion Regular Expression Denial of Service vulnerability",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "2.0.1",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-73wf-gq98-2v4g",
+        "aliases": [
+          "CVE-2026-73088"
+        ],
+        "summary": "Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats)",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-73wf-gq98-2v4g",
+        "package": "browserslist",
+        "installName": "browserslist",
+        "version": "4.21.4",
+        "lockfilePath": "node_modules/browserslist",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which browserslist functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c83g-rgw3-j3cx",
+        "aliases": [
+          "CVE-2026-73089"
+        ],
+        "summary": "Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c83g-rgw3-j3cx",
+        "package": "browserslist",
+        "installName": "browserslist",
+        "version": "4.21.4",
+        "lockfilePath": "node_modules/browserslist",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which browserslist functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3xgq-45jj-v275",
+        "aliases": [
+          "CVE-2024-21538"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in cross-spawn",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275",
+        "package": "cross-spawn",
+        "installName": "cross-spawn",
+        "version": "7.0.3",
+        "lockfilePath": "node_modules/cross-spawn",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which cross-spawn functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-73rr-hh4g-fpgx",
+        "aliases": [
+          "CVE-2026-24001"
+        ],
+        "summary": "jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-73rr-hh4g-fpgx",
+        "package": "diff",
+        "installName": "diff",
+        "version": "4.0.2",
+        "lockfilePath": "node_modules/diff",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which diff functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-fjxv-7rqg-78g4",
+        "aliases": [
+          "CVE-2025-7783"
+        ],
+        "summary": "form-data uses unsafe random function in form-data for choosing boundary",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-fjxv-7rqg-78g4",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "4.0.0",
+        "lockfilePath": "node_modules/form-data",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hmw2-7cc7-3qxx",
+        "aliases": [
+          "CVE-2026-12143"
+        ],
+        "summary": "form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-hmw2-7cc7-3qxx",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "4.0.0",
+        "lockfilePath": "node_modules/form-data",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2883-xcg3-v3hh",
+        "aliases": [
+          "CVE-2026-84375"
+        ],
+        "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.14.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-52cp-r559-cp3m",
+        "aliases": [
+          "CVE-2026-59869"
+        ],
+        "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.14.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5p4m-2wfm-xmqj",
+        "aliases": [],
+        "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) — CVE-2026-59870 fix not backported",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.14.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-h67p-54hq-rp68",
+        "aliases": [
+          "CVE-2026-53550"
+        ],
+        "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.14.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh29-5h37-fv8m",
+        "aliases": [
+          "CVE-2025-64718"
+        ],
+        "summary": "js-yaml has prototype pollution in merge (<<)",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.14.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2883-xcg3-v3hh",
+        "aliases": [
+          "CVE-2026-84375"
+        ],
+        "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/cosmiconfig/node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-52cp-r559-cp3m",
+        "aliases": [
+          "CVE-2026-59869"
+        ],
+        "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/cosmiconfig/node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5p4m-2wfm-xmqj",
+        "aliases": [],
+        "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) — CVE-2026-59870 fix not backported",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/cosmiconfig/node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-h67p-54hq-rp68",
+        "aliases": [
+          "CVE-2026-53550"
+        ],
+        "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/cosmiconfig/node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh29-5h37-fv8m",
+        "aliases": [
+          "CVE-2025-64718"
+        ],
+        "summary": "js-yaml has prototype pollution in merge (<<)",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/cosmiconfig/node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "declared_unused",
+        "reasons": [
+          {
+            "code": "declared_unused",
+            "message": "lodash is a direct dependency but nothing in the scanned source, npm scripts or root config files refers to it. That is not proof: it may be loaded by a file type or tool that was not checked.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "@testing-library/jest-dom@5.16.5",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:12, node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:14, node_modules/@testing-library/jest-dom/dist/to-have-value.js:10; 10 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-changelog-conventionalcommits@5.0.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-changelog-conventionalcommits/index.js:3; 2 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-commits-parser@3.2.4",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-commits-parser/index.js:6, node_modules/conventional-commits-parser/lib/parser.js:2; 59 uses checked, none affected"
+            },
+            {
+              "loader": "git-raw-commits@2.0.11",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/git-raw-commits/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": null
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "transitive_parent_uses_symbol",
+        "reasons": [
+          {
+            "code": "transitive_parent_uses_symbol",
+            "message": "A package that loads lodash references template. Whether your code reaches that part of the package is not analysed yet, so this is not reported as reachable.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/git-raw-commits/index.js",
+                "line": 27,
+                "text": "const gitFormat = template('--format=<%= format %>%n' + DELIMITER)(gitOpts)",
+                "detail": "git-raw-commits@2.0.11 uses template"
+              }
+            ]
+          },
+          {
+            "code": "declared_unused",
+            "message": "lodash is a direct dependency but nothing in the scanned source, npm scripts or root config files refers to it. That is not proof: it may be loaded by a file type or tool that was not checked.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "@testing-library/jest-dom@5.16.5",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:12, node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:14, node_modules/@testing-library/jest-dom/dist/to-have-value.js:10; 10 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-changelog-conventionalcommits@5.0.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-changelog-conventionalcommits/index.js:3; 2 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-commits-parser@3.2.4",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-commits-parser/index.js:6, node_modules/conventional-commits-parser/lib/parser.js:2; 59 uses checked, none affected"
+            },
+            {
+              "loader": "git-raw-commits@2.0.11",
+              "declared": true,
+              "result": "uses affected symbol"
+            }
+          ],
+          "paths": null
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "declared_unused",
+        "reasons": [
+          {
+            "code": "declared_unused",
+            "message": "lodash is a direct dependency but nothing in the scanned source, npm scripts or root config files refers to it. That is not proof: it may be loaded by a file type or tool that was not checked.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "@testing-library/jest-dom@5.16.5",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:12, node_modules/@testing-library/jest-dom/dist/to-have-form-values.js:14, node_modules/@testing-library/jest-dom/dist/to-have-value.js:10; 10 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-changelog-conventionalcommits@5.0.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-changelog-conventionalcommits/index.js:3; 2 uses checked, none affected"
+            },
+            {
+              "loader": "conventional-commits-parser@3.2.4",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/conventional-commits-parser/index.js:6, node_modules/conventional-commits-parser/lib/parser.js:2; 59 uses checked, none affected"
+            },
+            {
+              "loader": "git-raw-commits@2.0.11",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/git-raw-commits/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": null
+        }
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "4.0.5",
+        "lockfilePath": "node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-23c5-xmqv-rm74",
+        "aliases": [
+          "CVE-2026-27904"
+        ],
+        "summary": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-23c5-xmqv-rm74",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3ppc-4f35-3m26",
+        "aliases": [
+          "CVE-2026-26996"
+        ],
+        "summary": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3ppc-4f35-3m26",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-7r86-cg39-jmmj",
+        "aliases": [
+          "CVE-2026-27903"
+        ],
+        "summary": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-7r86-cg39-jmmj",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.1.2",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-23c5-xmqv-rm74",
+        "aliases": [
+          "CVE-2026-27904"
+        ],
+        "summary": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-23c5-xmqv-rm74",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "5.1.2",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3ppc-4f35-3m26",
+        "aliases": [
+          "CVE-2026-26996"
+        ],
+        "summary": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3ppc-4f35-3m26",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "5.1.2",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-7r86-cg39-jmmj",
+        "aliases": [
+          "CVE-2026-27903"
+        ],
+        "summary": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-7r86-cg39-jmmj",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "5.1.2",
+        "lockfilePath": "node_modules/@rollup/plugin-commonjs/node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3v7f-55p6-f55p",
+        "aliases": [
+          "CVE-2026-33672"
+        ],
+        "summary": "Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-3v7f-55p6-f55p",
+        "package": "picomatch",
+        "installName": "picomatch",
+        "version": "2.3.1",
+        "lockfilePath": "node_modules/picomatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which picomatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2c7-rcm5-vvqj",
+        "aliases": [
+          "CVE-2026-33671"
+        ],
+        "summary": "Picomatch has a ReDoS vulnerability via extglob quantifiers",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2c7-rcm5-vvqj",
+        "package": "picomatch",
+        "installName": "picomatch",
+        "version": "2.3.1",
+        "lockfilePath": "node_modules/picomatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which picomatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-gcx4-mw62-g8wm",
+        "aliases": [
+          "CVE-2024-47068"
+        ],
+        "summary": "DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-gcx4-mw62-g8wm",
+        "package": "rollup",
+        "installName": "rollup",
+        "version": "3.9.0",
+        "lockfilePath": "node_modules/rollup",
+        "direct": true,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which rollup functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mw96-cpmx-2vgc",
+        "aliases": [
+          "CVE-2026-27606"
+        ],
+        "summary": "Rollup 4 has Arbitrary File Write via Path Traversal",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-mw96-cpmx-2vgc",
+        "package": "rollup",
+        "installName": "rollup",
+        "version": "3.9.0",
+        "lockfilePath": "node_modules/rollup",
+        "direct": true,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which rollup functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "5.7.1",
+        "lockfilePath": "node_modules/read-pkg/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/@babel/core/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/@babel/helper-compilation-targets/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/@babel/helper-define-polyfill-provider/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/@babel/preset-env/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/babel-plugin-polyfill-corejs2/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/istanbul-lib-instrument/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "6.3.0",
+        "lockfilePath": "node_modules/make-dir/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "7.3.8",
+        "lockfilePath": "node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5c6j-r48x-rmvq",
+        "aliases": [],
+        "summary": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5c6j-r48x-rmvq",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-76p7-773f-r4q5",
+        "aliases": [
+          "CVE-2024-11831"
+        ],
+        "summary": "Cross-site Scripting (XSS) in serialize-javascript",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-76p7-773f-r4q5",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qj8w-gfj5-8c6v",
+        "aliases": [
+          "CVE-2026-34043"
+        ],
+        "summary": "Serialize JavaScript has CPU Exhaustion Denial of Service via crafted array-like objects",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-qj8w-gfj5-8c6v",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hp3w-g68c-fv3c",
+        "aliases": [
+          "CVE-2026-97058"
+        ],
+        "summary": "sprintf-js vulnerable to denial of service through unbounded precision specifiers",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-hp3w-g68c-fv3c",
+        "package": "sprintf-js",
+        "installName": "sprintf-js",
+        "version": "1.0.3",
+        "lockfilePath": "node_modules/sprintf-js",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which sprintf-js functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-72xf-g2v4-qvf3",
+        "aliases": [
+          "CVE-2023-26136"
+        ],
+        "summary": "tough-cookie Prototype Pollution vulnerability",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-72xf-g2v4-qvf3",
+        "package": "tough-cookie",
+        "installName": "tough-cookie",
+        "version": "4.1.2",
+        "lockfilePath": "node_modules/tough-cookie",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which tough-cookie functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-j8xg-fqg3-53r7",
+        "aliases": [
+          "CVE-2023-26115"
+        ],
+        "summary": "word-wrap vulnerable to Regular Expression Denial of Service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-j8xg-fqg3-53r7",
+        "package": "word-wrap",
+        "installName": "word-wrap",
+        "version": "1.2.3",
+        "lockfilePath": "node_modules/word-wrap",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which word-wrap functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3h5v-q93c-6h6q",
+        "aliases": [
+          "CVE-2024-37890"
+        ],
+        "summary": "ws affected by a DoS when handling a request with many HTTP headers",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3h5v-q93c-6h6q",
+        "package": "ws",
+        "installName": "ws",
+        "version": "8.11.0",
+        "lockfilePath": "node_modules/ws",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ws functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-58qx-3vcg-4xpx",
+        "aliases": [
+          "CVE-2026-45736"
+        ],
+        "summary": "ws: Uninitialized memory disclosure",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-58qx-3vcg-4xpx",
+        "package": "ws",
+        "installName": "ws",
+        "version": "8.11.0",
+        "lockfilePath": "node_modules/ws",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ws functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-96hv-2xvq-fx4p",
+        "aliases": [
+          "CVE-2026-48779"
+        ],
+        "summary": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-96hv-2xvq-fx4p",
+        "package": "ws",
+        "installName": "ws",
+        "version": "8.11.0",
+        "lockfilePath": "node_modules/ws",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ws functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      }
+    ]
+  }
+}

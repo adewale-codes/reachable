@@ -1,0 +1,24 @@
+{
+  "package": "nanoid",
+  "ecosystem": "npm",
+  "version": "3.3.4",
+  "fetchedAt": "2026-10-12T18:01:27.155Z",
+  "vulns": [
+    {
+      "id": "GHSA-28wg-ghj8-5hjv",
+      "modified": "2026-09-10T03:50:51.191256Z"
+    },
+    {
+      "id": "GHSA-2v37-7h3g-55p8",
+      "modified": "2026-09-10T03:50:51.243328Z"
+    },
+    {
+      "id": "GHSA-mwcw-c2x4-8c55",
+      "modified": "2026-09-10T03:50:21.666094Z"
+    },
+    {
+      "id": "GHSA-xwg4-73v4-xw9w",
+      "modified": "2026-09-01T19:30:08.615560Z"
+    }
+  ]
+}

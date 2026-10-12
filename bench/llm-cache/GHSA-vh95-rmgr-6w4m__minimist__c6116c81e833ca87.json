@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-vh95-rmgr-6w4m",
+  "package": "minimist",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:31.413Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":false,\"symbols\":[]}"
+}

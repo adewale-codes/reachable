@@ -31,13 +31,25 @@ function toolShortNames(name) {
   return { family: kind.split('-')[0], names: [short, `plugin:${short}/`] };
 }
 
-export function buildMentionIndex(root, pkgJson) {
+/**
+ * @param externalEntries literal entries of bundler `external` lists found by the
+ *        extractor ({file, line, text}); they are blanked out before matching,
+ *        because "do not bundle X" is not a use of X.
+ */
+export function buildMentionIndex(root, pkgJson, externalEntries = []) {
   const configs = [];
   let entries = [];
   try { entries = fs.readdirSync(root, { withFileTypes: true }); } catch { /* none */ }
   for (const e of entries) {
     if (!e.isFile() || !CONFIG_FILES.some((re) => re.test(e.name))) continue;
-    try { configs.push({ file: e.name, text: fs.readFileSync(path.join(root, e.name), 'utf8') }); } catch { /* unreadable */ }
+    try {
+      const lines = fs.readFileSync(path.join(root, e.name), 'utf8').split(/\n/);
+      for (const x of externalEntries.filter((y) => y.file === e.name)) {
+        const i = x.line - 1;
+        if (lines[i] !== undefined) lines[i] = lines[i].replace(x.text, ' '.repeat(x.text.length));
+      }
+      configs.push({ file: e.name, text: lines.join('\n') });
+    } catch { /* unreadable */ }
   }
   for (const f of PKG_CONFIG_FIELDS) {
     if (pkgJson && pkgJson[f] !== undefined) configs.push({ file: `package.json#${f}`, text: JSON.stringify(pkgJson[f]) });

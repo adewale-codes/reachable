@@ -1,0 +1,272 @@
+[
+  {
+    "repo": "desirekaleba/node-mysql-jwt-auth",
+    "sha": "23bccd6e2f833395acbab5b8f8739f0cdbd5e651",
+    "style": "express-api",
+    "npmCi": {
+      "ok": true,
+      "ms": 30575,
+      "error": null
+    },
+    "scanMs": 26333,
+    "exitCode": 1,
+    "summary": {
+      "alerts": 51,
+      "reachable": 3,
+      "unreachable": 0,
+      "cant_tell": 48
+    }
+  },
+  {
+    "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+    "sha": "6e14be51debc05359dde77462f12cc02b60b9ca4",
+    "style": "express-api",
+    "npmCi": {
+      "ok": true,
+      "ms": 25259,
+      "error": null
+    },
+    "scanMs": 99546,
+    "exitCode": 1,
+    "summary": {
+      "alerts": 90,
+      "reachable": 20,
+      "unreachable": 0,
+      "cant_tell": 70
+    }
+  },
+  {
+    "repo": "IBM-Cloud/get-started-node",
+    "sha": "4e2b775d7a3b9c2fb1e31c62bb538c9f00dde77d",
+    "style": "express-api",
+    "npmCi": {
+      "ok": true,
+      "ms": 18747,
+      "error": null
+    },
+    "scanMs": 10229,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 43,
+      "reachable": 0,
+      "unreachable": 1,
+      "cant_tell": 42
+    }
+  },
+  {
+    "repo": "richienabuk/express-js-api-rbac",
+    "sha": "53cc96e4da5904afcf777c920e74ed8eca9b1e69",
+    "style": "express-api",
+    "npmCi": {
+      "ok": true,
+      "ms": 70776,
+      "error": null
+    },
+    "scanMs": 26325,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 82,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 82
+    }
+  },
+  {
+    "repo": "StiliyanKushev/csgo-tradeup-cli",
+    "sha": "427f0bf230461d8ffc7e414292647f292ecb9c7b",
+    "style": "cli",
+    "npmCi": {
+      "ok": true,
+      "ms": 27735,
+      "error": null
+    },
+    "scanMs": 9726,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 39,
+      "reachable": 0,
+      "unreachable": 3,
+      "cant_tell": 36
+    }
+  },
+  {
+    "repo": "web3-storage/w3up-cli",
+    "sha": "0d0ca91ea34f5ab76a56d492d02ceef6eca489e2",
+    "style": "cli-typescript",
+    "npmCi": {
+      "ok": true,
+      "ms": 98326,
+      "error": null
+    },
+    "scanMs": 17537,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 188,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 188
+    }
+  },
+  {
+    "repo": "SashenJayathilaka/Spotify-Clone",
+    "sha": "02cd0544785a288b3c97630366234a6d54a3ac51",
+    "style": "react-app-nextjs",
+    "npmCi": {
+      "ok": true,
+      "ms": 105020,
+      "error": null
+    },
+    "scanMs": 74638,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 85,
+      "reachable": 0,
+      "unreachable": 3,
+      "cant_tell": 82
+    }
+  },
+  {
+    "repo": "thepranaygupta/react-tailwind-css-starter-pack",
+    "sha": "b40ae8a6567600be39961ef856923a2584ee0c4f",
+    "style": "react-app-cra",
+    "npmCi": {
+      "ok": true,
+      "ms": 191277,
+      "error": null
+    },
+    "scanMs": 18392,
+    "exitCode": 2,
+    "summary": {
+      "alerts": 168,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 168
+    }
+  },
+  {
+    "repo": "odynvolk/omit-deep-lodash",
+    "sha": "3d4c5ef2147425f573479971a46eb787a3d67aca",
+    "style": "library",
+    "npmCi": {
+      "ok": true,
+      "ms": 77400,
+      "error": null
+    },
+    "scanMs": 8409,
+    "exitCode": 1,
+    "summary": {
+      "alerts": 103,
+      "reachable": 2,
+      "unreachable": 24,
+      "cant_tell": 77
+    }
+  },
+  {
+    "repo": "rotemdan/lzutf8.js",
+    "sha": "e691f5244a51ea8785a083216999756a7feb35c1",
+    "style": "library-typescript",
+    "npmCi": {
+      "ok": true,
+      "ms": 34634,
+      "error": null
+    },
+    "scanMs": 6668,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 85,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 85
+    }
+  },
+  {
+    "repo": "arizonatribe/vanillas",
+    "sha": "7bf4eed70d10036b6ec44a456346c7110e8f0b95",
+    "style": "library-typescript",
+    "npmCi": {
+      "ok": true,
+      "ms": 185429,
+      "error": null
+    },
+    "scanMs": 69511,
+    "exitCode": 1,
+    "summary": {
+      "alerts": 80,
+      "reachable": 2,
+      "unreachable": 0,
+      "cant_tell": 78
+    }
+  },
+  {
+    "repo": "wuruoyun/vue-component-lib-starter",
+    "sha": "c80d0e2df5c1a5c7c8500585a659b6fffed72586",
+    "style": "library-typescript",
+    "npmCi": {
+      "ok": true,
+      "ms": 58724,
+      "error": null
+    },
+    "scanMs": 31159,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 72,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 72
+    }
+  },
+  {
+    "repo": "Ruimve/microhook",
+    "sha": "857b62eff8069361adb15c57aaf22c5bbb4738b6",
+    "style": "library-typescript-react",
+    "npmCi": {
+      "ok": true,
+      "ms": 59906,
+      "error": null
+    },
+    "scanMs": 6445,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 75,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 75
+    }
+  },
+  {
+    "repo": "adiun/vite-monorepo",
+    "sha": "15aa5d345428edc21f7e3d51404746f9a617aab2",
+    "style": "monorepo-workspaces",
+    "npmCi": {
+      "ok": true,
+      "ms": 280872,
+      "error": null
+    },
+    "scanMs": 551896,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 384,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 384
+    }
+  },
+  {
+    "repo": "davestewart/spaceman",
+    "sha": "7e1b74bea898628bd7914cde6b13fcd8f56b217e",
+    "style": "monorepo-ish",
+    "npmCi": {
+      "ok": true,
+      "ms": 17113,
+      "error": null
+    },
+    "scanMs": 1512,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 11,
+      "reachable": 0,
+      "unreachable": 0,
+      "cant_tell": 11
+    }
+  }
+]

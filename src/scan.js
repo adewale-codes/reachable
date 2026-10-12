@@ -13,6 +13,7 @@ import { LlmExtractor, toSymbolInfo, DEFAULT_LLM_MODEL } from './llm.js';
 import { readExports, binNames } from './packages.js';
 import { createParser } from './parser.js';
 import { ScanError } from './errors.js';
+import { PackageCache, ANALYZER_VERSION } from './pkgcache.js';
 
 const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 export const VERSION = pkg.version;
@@ -26,6 +27,9 @@ export const VERSION = pkg.version;
  * @param {string[]} [opts.llmCacheDirs]  LLM cache dirs searched in order
  * @param {boolean} [opts.transitive]     analyse loaders in node_modules (default true)
  * @param {boolean} [opts.prodOnly]       hide dev-only alerts (never changes a verdict)
+ * @param {string|false} [opts.pkgCacheDir] per-package analysis cache (default <user cache>/packages; false = off)
+ * @param {number}  [opts.concurrency]    packages analysed at once
+ * @param {function} [opts.onProgress]   (message) => void, for long scans
  * @param {boolean} [opts.phase1Baseline] reproduce Phase 1 verdict rules (benchmark comparison only)
  * @param {object}  [opts.experiment]     MEASUREMENT ONLY, used by bench/extraction-eval.js, never by the CLI:
  *        { curatedOverride(id, pkg) -> symbols[]|undefined, promoteLlm: boolean }. Promoting LLM data to the
@@ -108,7 +112,7 @@ export async function scan(projectDir, opts = {}) {
       a.symbolInfo = { tier: 'curated', symbols: entry.symbols, source: entry.source };
     } else if (llm && projectLoads(a.instance)) {
       const r = await llm.extract({ advisoryId: a.id, pkg: a.instance.name, vuln: a.vuln });
-      a.symbolInfo = toSymbolInfo(r, exportsOf(a.instance));
+      a.symbolInfo = toSymbolInfo(r, exportsOf(a.instance), a.instance.name);
       if (exp && exp.promoteLlm && a.symbolInfo.tier === 'llm') a.symbolInfo = { tier: 'curated', symbols: a.symbolInfo.symbols.map((x) => x.symbol), source: 'experiment', llm: a.symbolInfo.llm };
     } else {
       a.symbolInfo = { tier: null, reasons: [{ code: 'no_symbol_data', llmNote: llm ? 'LLM extraction skipped: the project does not import this package, so an LLM answer could not change the verdict' : null }] };
@@ -122,9 +126,13 @@ export async function scan(projectDir, opts = {}) {
   const nodeModules = fs.existsSync(path.join(root, 'node_modules'));
   const needsEdges = (a) => a.symbolInfo.tier === 'curated' && (!a.instance.direct || a.instance.parentKeys.length > 0 || nodeModules);
   const targets = [...new Map(alerts.filter(needsEdges).map((a) => [a.instance.key, a.instance])).values()];
-  const mentionsOf = buildMentionIndex(root, inventory.packageJson);
+  const mentionsOf = buildMentionIndex(root, inventory.packageJson, usage.externalEntries);
   const scriptsBinUsed = (pj) => binNames(pj).some((b) => mentionsOf(b).scripts.length > 0);
-  const analyzer = transitive && targets.length ? new PackageAnalyzer(root, inventory, targets, { binUsed: scriptsBinUsed }) : null;
+  const pkgCache = opts.pkgCacheDir === false ? null : new PackageCache(opts.pkgCacheDir || path.join(defaultCacheDir(), 'packages'));
+  const analyzer = transitive && targets.length
+    ? new PackageAnalyzer(root, inventory, targets, { binUsed: scriptsBinUsed, cache: pkgCache, concurrency: opts.concurrency, onProgress: opts.onProgress })
+    : null;
+  if (analyzer) await analyzer.prepare(targets);
   const edgeCache = new Map();
 
   const results = [];
@@ -227,7 +235,8 @@ export async function scan(projectDir, opts = {}) {
     source: { filesScanned: usage.filesScanned, parseErrors: usage.parseErrors.length },
     osv: { ...osv.stats, cacheDir: osv.cacheDir, url: osv.baseUrl },
     llm: llm ? { mode: llmMode, model: llm.model, ...llm.stats } : { mode: 'off' },
-    transitiveAnalysis: transitive ? { packagesAnalysed: analyzer ? analyzer.cache.size : 0, nodeModules: analyzer ? analyzer.available : null } : { off: true },
+    transitiveAnalysis: transitive ? { packagesAnalysed: analyzer ? analyzer.packagesAnalysed : 0, nodeModules: analyzer ? analyzer.available : null, cache: pkgCache ? { dir: pkgCache.dir, ...pkgCache.stats } : 'off' } : { off: true },
+    analyzerVersion: ANALYZER_VERSION,
     unresolvedImports: [...unknown.values()].map(({ specifier, file, line }) => ({ specifier, file, line })),
     withdrawn,
     results: shown,

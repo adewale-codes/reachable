@@ -26,6 +26,11 @@ const cacheDir = path.join(here, 'osv-cache');
 const llmCache = path.join(here, 'llm-cache');
 const VERDICTS = ['reachable', 'unreachable', 'cant_tell'];
 const PHASE1_FIXTURE_COUNT = 22; // fixtures 01-22 existed in Phase 1
+// --pkg-cache-dir <dir>: use a per-package cache (default: none). --json-out <file>: dump all verdicts (for cold/warm diffs).
+const argAfter = (flag) => { const i = process.argv.indexOf(flag); return i > 0 ? process.argv[i + 1] : undefined; };
+const pkgCacheDir = argAfter('--pkg-cache-dir') || false;
+const jsonOut = argAfter('--json-out');
+const dump = {};
 
 const fixtures = fs.readdirSync(fixturesDir).filter((d) => fs.existsSync(path.join(fixturesDir, d, 'expected.json'))).sort();
 
@@ -55,8 +60,9 @@ for (const [index, name] of fixtures.entries()) {
   let report;
   let base;
   try {
-    report = await scan(dir, { offline: true, cacheDir, llm: 'cache', llmCacheDirs });
-    base = await scan(dir, { offline: true, cacheDir, phase1Baseline: true });
+    report = await scan(dir, { offline: true, cacheDir, llm: 'cache', llmCacheDirs, pkgCacheDir });
+    dump[name] = report.results;
+    base = await scan(dir, { offline: true, cacheDir, phase1Baseline: true, pkgCacheDir: false });
   } catch (err) {
     failures.push(`${name}: scan failed: ${err.message}`);
     console.log(`FAIL  ${name}  scan failed: ${err.message}`);
@@ -139,6 +145,7 @@ if (failures.length) {
   console.log(`\n${failures.length} failure(s):`);
   for (const f of failures) console.log(`  - ${f}`);
 }
+if (jsonOut) fs.writeFileSync(jsonOut, `${JSON.stringify(dump, null, 2)}\n`);
 const ok = failures.length === 0 && phase2.all.falseUnreachable.length === 0;
 console.log(`\nBENCHMARK ${ok ? 'PASSED' : 'FAILED'}`);
 process.exitCode = ok ? 0 : 1;

@@ -15,9 +15,9 @@
       "package": "underscore",
       "version": "1.12.0",
       "expected": "cant_tell",
-      "reason": "no_symbol_data",
+      "reason": "llm_tier_cannot_prove_unreachable",
       "truth": "unreachable",
-      "why": "not curated (flatten has internal callers); the code only uses template"
+      "why": "not curated (flatten has internal callers); the code only uses template. LLM (recorded): flatten, isEqual; neither referenced, but LLM data cannot prove unreachable"
     }
   ]
 }

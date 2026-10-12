@@ -1,0 +1,1925 @@
+{
+  "meta": {
+    "repo": "IBM-Cloud/get-started-node",
+    "sha": "4e2b775d7a3b9c2fb1e31c62bb538c9f00dde77d",
+    "style": "express-api",
+    "scanMs": 15456,
+    "exitCode": 0,
+    "summary": {
+      "alerts": 43,
+      "reachable": 0,
+      "unreachable": 1,
+      "cant_tell": 42
+    }
+  },
+  "report": {
+    "tool": {
+      "name": "reachable",
+      "version": "0.1.0"
+    },
+    "project": {
+      "path": "C:\\Users\\adewa\\AppData\\Local\\Temp\\reachable-corpus\\IBM-Cloud__get-started-node",
+      "name": "get-started-node"
+    },
+    "scannedAt": "2026-10-12T18:09:41.184Z",
+    "complete": true,
+    "errors": [],
+    "warnings": [],
+    "notices": [],
+    "summary": {
+      "alerts": 43,
+      "reachable": 0,
+      "unreachable": 1,
+      "cant_tell": 42
+    },
+    "scopeCounts": {
+      "prod": 43,
+      "dev": 0
+    },
+    "prodOnly": false,
+    "hiddenDevAlerts": 0,
+    "inventory": {
+      "lockfileVersion": 2,
+      "installed": 147,
+      "direct": 6,
+      "transitive": 141,
+      "nodeModules": true
+    },
+    "source": {
+      "filesScanned": 9,
+      "parseErrors": 0
+    },
+    "osv": {
+      "mode": "offline",
+      "queriesFromNetwork": 0,
+      "queriesFromCache": 139,
+      "vulnsFromNetwork": 0,
+      "vulnsFromCache": 38,
+      "networkError": null,
+      "oldestCacheEntry": "2026-10-12T15:36:40.234Z",
+      "cacheDir": "C:\\Users\\adewa\\AppData\\Local\\reachable\\cache",
+      "url": "https://api.osv.dev"
+    },
+    "llm": {
+      "mode": "live",
+      "model": "claude-sonnet-5-5",
+      "calls": 0,
+      "cacheHits": 5,
+      "failures": 0
+    },
+    "transitiveAnalysis": {
+      "packagesAnalysed": 3,
+      "nodeModules": true,
+      "cache": {
+        "dir": "C:/Users/adewa/AppData/Local/Temp/claude/c--Users-adewa-OneDrive-Documents-reachable/88c1892c-4770-42a4-94d1-257cd9bd22ea/scratchpad/pc-fixes",
+        "hits": 53,
+        "misses": 97,
+        "writes": 97,
+        "uncacheable": 0
+      }
+    },
+    "analyzerVersion": "3.1.0",
+    "unresolvedImports": [],
+    "withdrawn": [],
+    "results": [
+      {
+        "id": "GHSA-2g4f-4pwh-qvx6",
+        "aliases": [
+          "CVE-2025-69873"
+        ],
+        "summary": "ajv has ReDoS when using `$data` option",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-2g4f-4pwh-qvx6",
+        "package": "ajv",
+        "installName": "ajv",
+        "version": "6.12.6",
+        "lockfilePath": "node_modules/ajv",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ajv functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-fwr7-v2mv-hh25",
+        "aliases": [
+          "CVE-2021-43138"
+        ],
+        "summary": "Prototype Pollution in async",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-fwr7-v2mv-hh25",
+        "package": "async",
+        "installName": "async",
+        "version": "2.1.2",
+        "lockfilePath": "node_modules/async",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which async functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qwcr-r2fm-qrc7",
+        "aliases": [
+          "CVE-2024-45590"
+        ],
+        "summary": "body-parser vulnerable to denial of service when url encoding is enabled",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qwcr-r2fm-qrc7",
+        "package": "body-parser",
+        "installName": "body-parser",
+        "version": "1.19.0",
+        "lockfilePath": "node_modules/body-parser",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": {
+          "status": "no_specific_api",
+          "model": "claude-sonnet-5-5"
+        },
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which body-parser functions this advisory affects, so usage cannot be matched against it. LLM: the LLM found no specific function named.",
+            "count": 0,
+            "locations": []
+          },
+          {
+            "code": "llm_no_specific_api",
+            "message": "The LLM read the advisory as not naming a specific function of the package.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-v422-hmwv-36x6",
+        "aliases": [
+          "CVE-2026-12590"
+        ],
+        "summary": "body-parser vulnerable to denial of service when invalid limit value silently disables size enforcement",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-v422-hmwv-36x6",
+        "package": "body-parser",
+        "installName": "body-parser",
+        "version": "1.19.0",
+        "lockfilePath": "node_modules/body-parser",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": {
+          "status": "no_specific_api",
+          "model": "claude-sonnet-5-5"
+        },
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which body-parser functions this advisory affects, so usage cannot be matched against it. LLM: the LLM found no specific function named.",
+            "count": 0,
+            "locations": []
+          },
+          {
+            "code": "llm_no_specific_api",
+            "message": "The LLM read the advisory as not naming a specific function of the package.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-pxg6-pf52-xh8x",
+        "aliases": [
+          "CVE-2024-47764"
+        ],
+        "summary": "cookie accepts cookie name, path, and domain with out of bounds characters",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-pxg6-pf52-xh8x",
+        "package": "cookie",
+        "installName": "cookie",
+        "version": "0.4.0",
+        "lockfilePath": "node_modules/cookie",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which cookie functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qw6h-vgh9-j6wx",
+        "aliases": [
+          "CVE-2024-43796"
+        ],
+        "summary": "express vulnerable to XSS via response.redirect()",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-qw6h-vgh9-j6wx",
+        "package": "express",
+        "installName": "express",
+        "version": "4.17.1",
+        "lockfilePath": "node_modules/express",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "llm",
+        "affectedSymbols": [
+          "redirect"
+        ],
+        "symbolSource": "llm:claude-sonnet-5-5",
+        "llm": {
+          "status": "ok",
+          "model": "claude-sonnet-5-5",
+          "proposed": 1,
+          "kept": [
+            {
+              "symbol": "redirect",
+              "quote": "passing untrusted user input - even after sanitizing it - to `response.redirect()` may execute untrusted code",
+              "exportCheck": "unknown"
+            }
+          ],
+          "dropped": [],
+          "unqualified": [],
+          "promptVersion": 1,
+          "exportsDetermined": false,
+          "synthetic": false
+        },
+        "verdict": "cant_tell",
+        "reason": "gateway_used",
+        "reasons": [
+          {
+            "code": "gateway_used",
+            "message": "In the project, a express call that returns an object exposing the package's other functions is used (for example a chain wrapper), so later calls on it could reach redirect.",
+            "count": 7,
+            "locations": [
+              {
+                "file": "server.js",
+                "line": 2,
+                "text": "var app = express();",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 7,
+                "text": "app.use(bodyParser.urlencoded({ extended: false }))",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 10,
+                "text": "app.use(bodyParser.json())",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 84,
+                "text": "app.post(\"/api/visitors\", function (request, response) {",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 106,
+                "text": "app.get(\"/api/visitors\", function (request, response) {",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 197,
+                "text": "app.use(express.static(__dirname + '/views'));",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 200,
+                "text": "app.listen(port, function() {",
+                "detail": "via calling the module itself"
+              }
+            ]
+          },
+          {
+            "code": "llm_tier_cannot_prove_unreachable",
+            "message": "The affected functions come from LLM extraction, which may have missed one. LLM-sourced data can show a call is reachable but is never allowed to prove unreachable.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rv95-896h-c2vc",
+        "aliases": [
+          "CVE-2024-29041"
+        ],
+        "summary": "Express.js Open Redirect in malformed URLs",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-rv95-896h-c2vc",
+        "package": "express",
+        "installName": "express",
+        "version": "4.17.1",
+        "lockfilePath": "node_modules/express",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "llm",
+        "affectedSymbols": [
+          "location",
+          "redirect"
+        ],
+        "symbolSource": "llm:claude-sonnet-5-5",
+        "llm": {
+          "status": "ok",
+          "model": "claude-sonnet-5-5",
+          "proposed": 2,
+          "kept": [
+            {
+              "symbol": "location",
+              "quote": "The main method impacted is `res.location()` but this is also called from within `res.redirect()`.",
+              "exportCheck": "unknown"
+            },
+            {
+              "symbol": "redirect",
+              "quote": "The main method impacted is `res.location()` but this is also called from within `res.redirect()`.",
+              "exportCheck": "unknown"
+            }
+          ],
+          "dropped": [],
+          "unqualified": [],
+          "promptVersion": 1,
+          "exportsDetermined": false,
+          "synthetic": false
+        },
+        "verdict": "cant_tell",
+        "reason": "gateway_used",
+        "reasons": [
+          {
+            "code": "gateway_used",
+            "message": "In the project, a express call that returns an object exposing the package's other functions is used (for example a chain wrapper), so later calls on it could reach location, redirect.",
+            "count": 7,
+            "locations": [
+              {
+                "file": "server.js",
+                "line": 2,
+                "text": "var app = express();",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 7,
+                "text": "app.use(bodyParser.urlencoded({ extended: false }))",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 10,
+                "text": "app.use(bodyParser.json())",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 84,
+                "text": "app.post(\"/api/visitors\", function (request, response) {",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 106,
+                "text": "app.get(\"/api/visitors\", function (request, response) {",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 197,
+                "text": "app.use(express.static(__dirname + '/views'));",
+                "detail": "via calling the module itself"
+              },
+              {
+                "file": "server.js",
+                "line": 200,
+                "text": "app.listen(port, function() {",
+                "detail": "via calling the module itself"
+              }
+            ]
+          },
+          {
+            "code": "llm_tier_cannot_prove_unreachable",
+            "message": "The affected functions come from LLM extraction, which may have missed one. LLM-sourced data can show a call is reachable but is never allowed to prove unreachable.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-fjxv-7rqg-78g4",
+        "aliases": [
+          "CVE-2025-7783"
+        ],
+        "summary": "form-data uses unsafe random function in form-data for choosing boundary",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-fjxv-7rqg-78g4",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "2.3.3",
+        "lockfilePath": "node_modules/request/node_modules/form-data",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hmw2-7cc7-3qxx",
+        "aliases": [
+          "CVE-2026-12143"
+        ],
+        "summary": "form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-hmw2-7cc7-3qxx",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "2.3.3",
+        "lockfilePath": "node_modules/request/node_modules/form-data",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-fjxv-7rqg-78g4",
+        "aliases": [
+          "CVE-2025-7783"
+        ],
+        "summary": "form-data uses unsafe random function in form-data for choosing boundary",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-fjxv-7rqg-78g4",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "2.5.1",
+        "lockfilePath": "node_modules/form-data",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hmw2-7cc7-3qxx",
+        "aliases": [
+          "CVE-2026-12143"
+        ],
+        "summary": "form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-hmw2-7cc7-3qxx",
+        "package": "form-data",
+        "installName": "form-data",
+        "version": "2.5.1",
+        "lockfilePath": "node_modules/form-data",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which form-data functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2883-xcg3-v3hh",
+        "aliases": [
+          "CVE-2026-84375"
+        ],
+        "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.13.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-52cp-r559-cp3m",
+        "aliases": [
+          "CVE-2026-59869"
+        ],
+        "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.13.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5p4m-2wfm-xmqj",
+        "aliases": [],
+        "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) — CVE-2026-59870 fix not backported",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.13.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-h67p-54hq-rp68",
+        "aliases": [
+          "CVE-2026-53550"
+        ],
+        "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.13.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh29-5h37-fv8m",
+        "aliases": [
+          "CVE-2025-64718"
+        ],
+        "summary": "js-yaml has prototype pollution in merge (<<)",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "3.13.1",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-896r-f27r-55mw",
+        "aliases": [
+          "CVE-2021-3918"
+        ],
+        "summary": "json-schema is vulnerable to Prototype Pollution",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-896r-f27r-55mw",
+        "package": "json-schema",
+        "installName": "json-schema",
+        "version": "0.2.3",
+        "lockfilePath": "node_modules/json-schema",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which json-schema functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "unmapped_subpath",
+        "reasons": [
+          {
+            "code": "unmapped_subpath",
+            "message": "In async@2.1.2, lodash is loaded through a deep import path with no mapping to the package's exports.",
+            "count": 32,
+            "locations": [
+              {
+                "file": "node_modules/async/apply.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 167,
+                "text": "var _arrayEach = require('lodash/_arrayEach');",
+                "detail": "'lodash/_arrayEach'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 171,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 175,
+                "text": "var _baseIndexOf = require('lodash/_baseIndexOf');",
+                "detail": "'lodash/_baseIndexOf'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 191,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 12,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 16,
+                "text": "var _arrayMap = require('lodash/_arrayMap');",
+                "detail": "'lodash/_arrayMap'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 20,
+                "text": "var _copyArray = require('lodash/_copyArray');",
+                "detail": "'lodash/_copyArray'"
+              },
+              {
+                "file": "node_modules/async/compose.js",
+                "line": 11,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/constant.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In async@2.1.2, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/async/dist/async.js",
+                "line": 181,
+                "text": "var root = freeGlobal || freeSelf || Function('return this')();",
+                "detail": "Function(...) builds code from strings"
+              },
+              {
+                "file": "node_modules/async/dist/async.min.js",
+                "line": 1,
+                "text": "!function(n,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?t(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],t...",
+                "detail": "Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "async@2.1.2",
+              "declared": true,
+              "result": "doubt: unmapped_subpath, eval_present"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "@cloudant/cloudant@4.3.0",
+                "async@2.1.2",
+                "lodash@4.17.21"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "unmapped_subpath",
+        "reasons": [
+          {
+            "code": "unmapped_subpath",
+            "message": "In async@2.1.2, lodash is loaded through a deep import path with no mapping to the package's exports.",
+            "count": 32,
+            "locations": [
+              {
+                "file": "node_modules/async/apply.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 167,
+                "text": "var _arrayEach = require('lodash/_arrayEach');",
+                "detail": "'lodash/_arrayEach'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 171,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 175,
+                "text": "var _baseIndexOf = require('lodash/_baseIndexOf');",
+                "detail": "'lodash/_baseIndexOf'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 191,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 12,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 16,
+                "text": "var _arrayMap = require('lodash/_arrayMap');",
+                "detail": "'lodash/_arrayMap'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 20,
+                "text": "var _copyArray = require('lodash/_copyArray');",
+                "detail": "'lodash/_copyArray'"
+              },
+              {
+                "file": "node_modules/async/compose.js",
+                "line": 11,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/constant.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In async@2.1.2, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/async/dist/async.js",
+                "line": 181,
+                "text": "var root = freeGlobal || freeSelf || Function('return this')();",
+                "detail": "Function(...) builds code from strings"
+              },
+              {
+                "file": "node_modules/async/dist/async.min.js",
+                "line": 1,
+                "text": "!function(n,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?t(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],t...",
+                "detail": "Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "async@2.1.2",
+              "declared": true,
+              "result": "doubt: unmapped_subpath, eval_present"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "@cloudant/cloudant@4.3.0",
+                "async@2.1.2",
+                "lodash@4.17.21"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "unmapped_subpath",
+        "reasons": [
+          {
+            "code": "unmapped_subpath",
+            "message": "In async@2.1.2, lodash is loaded through a deep import path with no mapping to the package's exports.",
+            "count": 32,
+            "locations": [
+              {
+                "file": "node_modules/async/apply.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 167,
+                "text": "var _arrayEach = require('lodash/_arrayEach');",
+                "detail": "'lodash/_arrayEach'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 171,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 175,
+                "text": "var _baseIndexOf = require('lodash/_baseIndexOf');",
+                "detail": "'lodash/_baseIndexOf'"
+              },
+              {
+                "file": "node_modules/async/auto.js",
+                "line": 191,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 12,
+                "text": "var _baseForOwn = require('lodash/_baseForOwn');",
+                "detail": "'lodash/_baseForOwn'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 16,
+                "text": "var _arrayMap = require('lodash/_arrayMap');",
+                "detail": "'lodash/_arrayMap'"
+              },
+              {
+                "file": "node_modules/async/autoInject.js",
+                "line": 20,
+                "text": "var _copyArray = require('lodash/_copyArray');",
+                "detail": "'lodash/_copyArray'"
+              },
+              {
+                "file": "node_modules/async/compose.js",
+                "line": 11,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              },
+              {
+                "file": "node_modules/async/constant.js",
+                "line": 7,
+                "text": "var _baseRest = require('lodash/_baseRest');",
+                "detail": "'lodash/_baseRest'"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In async@2.1.2, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/async/dist/async.js",
+                "line": 181,
+                "text": "var root = freeGlobal || freeSelf || Function('return this')();",
+                "detail": "Function(...) builds code from strings"
+              },
+              {
+                "file": "node_modules/async/dist/async.min.js",
+                "line": 1,
+                "text": "!function(n,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?t(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],t...",
+                "detail": "Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "async@2.1.2",
+              "declared": true,
+              "result": "doubt: unmapped_subpath, eval_present"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "@cloudant/cloudant@4.3.0",
+                "async@2.1.2",
+                "lodash@4.17.21"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-vxvm-qww3-2fh7",
+        "package": "mongodb",
+        "installName": "mongodb",
+        "version": "3.6.4",
+        "lockfilePath": "node_modules/mongodb",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": {
+          "status": "no_specific_api",
+          "model": "claude-sonnet-5-5"
+        },
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which mongodb functions this advisory affects, so usage cannot be matched against it. LLM: the LLM found no specific function named.",
+            "count": 0,
+            "locations": []
+          },
+          {
+            "code": "llm_no_specific_api",
+            "message": "The LLM read the advisory as not naming a specific function of the package.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-37ch-88jc-xwx2",
+        "aliases": [
+          "CVE-2024-45296",
+          "CVE-2026-4867",
+          "GHSA-9wv6-86v2-598j"
+        ],
+        "summary": "path-to-regexp vulnerable to Regular Expression Denial of Service via multiple route parameters",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-37ch-88jc-xwx2",
+        "package": "path-to-regexp",
+        "installName": "path-to-regexp",
+        "version": "0.1.7",
+        "lockfilePath": "node_modules/path-to-regexp",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which path-to-regexp functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-9wv6-86v2-598j",
+        "aliases": [
+          "CVE-2024-45296",
+          "CVE-2026-4867",
+          "GHSA-37ch-88jc-xwx2"
+        ],
+        "summary": "path-to-regexp outputs backtracking regular expressions",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-9wv6-86v2-598j",
+        "package": "path-to-regexp",
+        "installName": "path-to-regexp",
+        "version": "0.1.7",
+        "lockfilePath": "node_modules/path-to-regexp",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which path-to-regexp functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rhx6-c78j-4q9w",
+        "aliases": [
+          "CVE-2024-52798"
+        ],
+        "summary": "path-to-regexp contains a ReDoS",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rhx6-c78j-4q9w",
+        "package": "path-to-regexp",
+        "installName": "path-to-regexp",
+        "version": "0.1.7",
+        "lockfilePath": "node_modules/path-to-regexp",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which path-to-regexp functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-jqcg-44mw-7w3h",
+        "aliases": [
+          "CVE-2026-90711"
+        ],
+        "summary": "proxy-addr vulnerable to IP spoofing via IPv4-mapped IPv6 trust subnet",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-jqcg-44mw-7w3h",
+        "package": "proxy-addr",
+        "installName": "proxy-addr",
+        "version": "2.0.6",
+        "lockfilePath": "node_modules/proxy-addr",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which proxy-addr functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-4mjr-xmp4-gh2g",
+        "aliases": [
+          "CVE-2026-82417"
+        ],
+        "summary": "qs: Denial of Service via Attacker Controlled isBuffer",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-4mjr-xmp4-gh2g",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.5.2",
+        "lockfilePath": "node_modules/request/node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6rw7-vpxm-498p",
+        "aliases": [
+          "CVE-2025-15284"
+        ],
+        "summary": "qs's arrayLimit bypass in its bracket notation allows DoS via memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-6rw7-vpxm-498p",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.5.2",
+        "lockfilePath": "node_modules/request/node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hrpp-h998-j3pp",
+        "aliases": [
+          "CVE-2022-24999"
+        ],
+        "summary": "qs vulnerable to Prototype Pollution",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.5.2",
+        "lockfilePath": "node_modules/request/node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-4mjr-xmp4-gh2g",
+        "aliases": [
+          "CVE-2026-82417"
+        ],
+        "summary": "qs: Denial of Service via Attacker Controlled isBuffer",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-4mjr-xmp4-gh2g",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.7.0",
+        "lockfilePath": "node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6rw7-vpxm-498p",
+        "aliases": [
+          "CVE-2025-15284"
+        ],
+        "summary": "qs's arrayLimit bypass in its bracket notation allows DoS via memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-6rw7-vpxm-498p",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.7.0",
+        "lockfilePath": "node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hrpp-h998-j3pp",
+        "aliases": [
+          "CVE-2022-24999"
+        ],
+        "summary": "qs vulnerable to Prototype Pollution",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-hrpp-h998-j3pp",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.7.0",
+        "lockfilePath": "node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-w7fw-mjwx-w883",
+        "aliases": [
+          "CVE-2026-2391"
+        ],
+        "summary": "qs's arrayLimit bypass in comma parsing allows denial of service",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-w7fw-mjwx-w883",
+        "package": "qs",
+        "installName": "qs",
+        "version": "6.7.0",
+        "lockfilePath": "node_modules/qs",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which qs functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-p8p7-x288-28g6",
+        "aliases": [
+          "CVE-2023-28155"
+        ],
+        "summary": "Server-Side Request Forgery in Request",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-p8p7-x288-28g6",
+        "package": "request",
+        "installName": "request",
+        "version": "2.88.2",
+        "lockfilePath": "node_modules/request",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which request functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "5.7.1",
+        "lockfilePath": "node_modules/semver",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-m6fv-jmcg-4jfg",
+        "aliases": [
+          "CVE-2024-43799"
+        ],
+        "summary": "send vulnerable to template injection that can lead to XSS",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-m6fv-jmcg-4jfg",
+        "package": "send",
+        "installName": "send",
+        "version": "0.17.1",
+        "lockfilePath": "node_modules/send",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which send functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-cm22-4g7w-348p",
+        "aliases": [
+          "CVE-2024-43800"
+        ],
+        "summary": "serve-static vulnerable to template injection that can lead to XSS",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-cm22-4g7w-348p",
+        "package": "serve-static",
+        "installName": "serve-static",
+        "version": "1.14.1",
+        "lockfilePath": "node_modules/serve-static",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serve-static functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-hp3w-g68c-fv3c",
+        "aliases": [
+          "CVE-2026-97058"
+        ],
+        "summary": "sprintf-js vulnerable to denial of service through unbounded precision specifiers",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-hp3w-g68c-fv3c",
+        "package": "sprintf-js",
+        "installName": "sprintf-js",
+        "version": "1.0.3",
+        "lockfilePath": "node_modules/sprintf-js",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which sprintf-js functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-52f5-9888-hmc6",
+        "aliases": [
+          "CVE-2025-54798"
+        ],
+        "summary": "tmp allows arbitrary temporary file / directory write via symbolic link `dir` parameter",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-52f5-9888-hmc6",
+        "package": "tmp",
+        "installName": "tmp",
+        "version": "0.0.33",
+        "lockfilePath": "node_modules/tmp",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which tmp functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-ph9p-34f9-6g65",
+        "aliases": [
+          "CVE-2026-44705"
+        ],
+        "summary": "tmp has Path Traversal via unsanitized prefix/postfix that enables directory escape",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-ph9p-34f9-6g65",
+        "package": "tmp",
+        "installName": "tmp",
+        "version": "0.0.33",
+        "lockfilePath": "node_modules/tmp",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which tmp functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-72xf-g2v4-qvf3",
+        "aliases": [
+          "CVE-2023-26136"
+        ],
+        "summary": "tough-cookie Prototype Pollution vulnerability",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-72xf-g2v4-qvf3",
+        "package": "tough-cookie",
+        "installName": "tough-cookie",
+        "version": "2.5.0",
+        "lockfilePath": "node_modules/tough-cookie",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which tough-cookie functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qpx9-hpmf-5gmw",
+        "aliases": [
+          "CVE-2026-27601"
+        ],
+        "summary": "Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qpx9-hpmf-5gmw",
+        "package": "underscore",
+        "installName": "underscore",
+        "version": "1.9.2",
+        "lockfilePath": "node_modules/underscore",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which underscore functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: underscore recursion DoS names flatten and isEqual, but _.pick, _.omit and _.bindAll call flatten deeply on caller-supplied arrays. The full set of entry points was not established.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-w5hq-g745-h8pq",
+        "aliases": [
+          "CVE-2026-41907",
+          "CVE-2026-41988"
+        ],
+        "summary": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq",
+        "package": "uuid",
+        "installName": "uuid",
+        "version": "3.4.0",
+        "lockfilePath": "node_modules/uuid",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which uuid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-cf4h-3jhx-xvhq",
+        "aliases": [
+          "CVE-2021-23358"
+        ],
+        "summary": "Arbitrary Code Execution in underscore",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-cf4h-3jhx-xvhq",
+        "package": "underscore",
+        "installName": "underscore",
+        "version": "1.9.2",
+        "lockfilePath": "node_modules/underscore",
+        "direct": false,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-cf4h-3jhx-xvhq",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "cfenv@1.2.3",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports underscore at node_modules/cfenv/lib/cfenv.js:11; 12 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "cfenv@1.2.3",
+                "underscore@1.9.2"
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

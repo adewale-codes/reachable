@@ -1,0 +1,41 @@
+{
+  "description": "Main nanoid import; GHSA-28wg affects only nanoid/non-secure (the Phase 3 corpus false positive).",
+  "results": [
+    {
+      "id": "GHSA-28wg-ghj8-5hjv",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "cant_tell",
+      "reason": "other_entry_point",
+      "truth": "unreachable",
+      "why": "the advisory names nanoid/non-secure only; the code imports the main (secure) nanoid. LLM (v2): customAlphabet and nanoid @ nanoid/non-secure; the main import is another entry point"
+    },
+    {
+      "id": "GHSA-2v37-7h3g-55p8",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "cant_tell",
+      "reason": "llm_tier_cannot_prove_unreachable",
+      "truth": "unreachable",
+      "why": "only customAlphabet/customRandom are affected; the code calls nanoid(). LLM: customAlphabet, customRandom; not referenced"
+    },
+    {
+      "id": "GHSA-mwcw-c2x4-8c55",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "main nanoid() with a caller-supplied (possibly fractional) size; the advisory covers node main. LLM: nanoid (unqualified)"
+    },
+    {
+      "id": "GHSA-xwg4-73v4-xw9w",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "main nanoid(size) with a caller-supplied size; the overflow is in index.js. LLM: nanoid (unqualified)"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-p6mc-m468-83gw",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:19.328Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"pick\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"},{\"symbol\":\"set\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"},{\"symbol\":\"setWith\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"},{\"symbol\":\"update\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"},{\"symbol\":\"updateWith\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"},{\"symbol\":\"zipObjectDeep\",\"quote\":\"The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep`\"}]}"
+}

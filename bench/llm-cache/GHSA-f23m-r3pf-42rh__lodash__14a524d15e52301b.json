@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-f23m-r3pf-42rh",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:27.594Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"unset\",\"quote\":\"`_.unset`\"},{\"symbol\":\"omit\",\"quote\":\"`_.omit`\"}]}"
+}

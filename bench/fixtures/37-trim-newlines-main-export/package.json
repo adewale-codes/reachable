@@ -1,0 +1,8 @@
+{
+  "name": "fx-trim-newlines-main-export",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "trim-newlines": "3.0.0"
+  }
+}

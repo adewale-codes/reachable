@@ -1,0 +1,14 @@
+{
+  "description": "trim-newlines main export is called. The advisory text names only .end(), but in 3.0.0 the main export runs the same trailing-newline regex (curated data includes (module)). Added in Phase 2 to measure what an LLM miss would do if LLM data were promoted.",
+  "results": [
+    {
+      "id": "GHSA-7p7h-4mm5-852v",
+      "package": "trim-newlines",
+      "version": "3.0.0",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "trimNewlines(text) runs the same trailing-newline regex the advisory reports for .end() on caller-supplied text"
+    }
+  ]
+}

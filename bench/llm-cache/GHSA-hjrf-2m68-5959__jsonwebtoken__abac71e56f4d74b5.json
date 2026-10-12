@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-hjrf-2m68-5959",
+  "package": "jsonwebtoken",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:36.222Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"verify\",\"quote\":\"You will be affected if your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function.\"}]}"
+}

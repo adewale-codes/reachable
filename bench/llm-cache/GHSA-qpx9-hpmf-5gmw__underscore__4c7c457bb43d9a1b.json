@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-qpx9-hpmf-5gmw",
+  "package": "underscore",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T14:58:47.372Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"flatten\",\"quote\":\"Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack\"},{\"symbol\":\"isEqual\",\"quote\":\"Underscore has unlimited recursion in _.flatten and _.isEqual, potential for DoS attack\"}]}"
+}

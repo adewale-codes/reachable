@@ -1,0 +1,50 @@
+{
+  "description": "Babel output: _interopRequireDefault(require(\"lodash\")) with the genuine helper; only startCase/get used.",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "llm_tier_cannot_prove_unreachable",
+      "truth": "unreachable",
+      "why": "toNumber/trim/trimEnd are not called (LLM data cannot prove it). LLM (recorded): toNumber, trim, trimEnd; none referenced"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only startCase and get are used"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only startCase and get are used"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only startCase and get are used"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only startCase and get are used"
+    }
+  ]
+}

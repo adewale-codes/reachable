@@ -5,10 +5,10 @@
       "id": "GHSA-8cf7-32gw-wr33",
       "package": "jsonwebtoken",
       "version": "8.5.1",
-      "expected": "TODO_LLM",
+      "expected": "reachable",
       "reason": null,
       "truth": "reachable",
-      "why": "jwt.verify is called with a caller-supplied public key; the advisory is about verification with unrestricted key types"
+      "why": "jwt.verify is called with a caller-supplied public key; the advisory is about verification with unrestricted key types. LLM (recorded): sign, verify; verify is called"
     },
     {
       "id": "GHSA-hjrf-2m68-5959",

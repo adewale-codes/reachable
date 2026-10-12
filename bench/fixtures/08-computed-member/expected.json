@@ -6,9 +6,9 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_symbol_data",
+      "reason": "llm_tier_cannot_prove_unreachable",
       "truth": "reachable",
-      "why": "request.op can be \"trim\" or \"toNumber\""
+      "why": "request.op can be \"trim\" or \"toNumber\". LLM (recorded): toNumber, trim, trimEnd; also dynamic_member_access"
     },
     {
       "id": "GHSA-35jh-r3h4-6jhm",

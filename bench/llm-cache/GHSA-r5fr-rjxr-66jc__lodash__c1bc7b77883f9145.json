@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-r5fr-rjxr-66jc",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:23.548Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"template\",\"quote\":\"lodash vulnerable to Code Injection via `_.template` imports key names\"}]}"
+}

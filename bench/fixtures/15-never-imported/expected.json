@@ -8,7 +8,7 @@
       "expected": "cant_tell",
       "reason": "no_symbol_data",
       "truth": "unreachable",
-      "why": "lodash is never imported"
+      "why": "lodash is never imported; not sent to the LLM because the project does not import lodash"
     },
     {
       "id": "GHSA-35jh-r3h4-6jhm",

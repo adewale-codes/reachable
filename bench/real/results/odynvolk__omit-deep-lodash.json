@@ -1,0 +1,4950 @@
+{
+  "meta": {
+    "repo": "odynvolk/omit-deep-lodash",
+    "sha": "3d4c5ef2147425f573479971a46eb787a3d67aca",
+    "style": "library",
+    "scanMs": 57996,
+    "exitCode": 1,
+    "summary": {
+      "alerts": 103,
+      "reachable": 2,
+      "unreachable": 24,
+      "cant_tell": 77
+    }
+  },
+  "report": {
+    "tool": {
+      "name": "reachable",
+      "version": "0.1.0"
+    },
+    "project": {
+      "path": "C:\\Users\\adewa\\AppData\\Local\\Temp\\reachable-corpus\\odynvolk__omit-deep-lodash",
+      "name": "omit-deep-lodash"
+    },
+    "scannedAt": "2026-10-12T18:18:09.069Z",
+    "complete": true,
+    "errors": [],
+    "warnings": [],
+    "notices": [],
+    "summary": {
+      "alerts": 103,
+      "reachable": 2,
+      "unreachable": 24,
+      "cant_tell": 77
+    },
+    "scopeCounts": {
+      "prod": 3,
+      "dev": 100
+    },
+    "prodOnly": false,
+    "hiddenDevAlerts": 0,
+    "inventory": {
+      "lockfileVersion": 2,
+      "installed": 793,
+      "direct": 13,
+      "transitive": 780,
+      "nodeModules": true
+    },
+    "source": {
+      "filesScanned": 4,
+      "parseErrors": 0
+    },
+    "osv": {
+      "mode": "offline",
+      "queriesFromNetwork": 0,
+      "queriesFromCache": 631,
+      "vulnsFromNetwork": 0,
+      "vulnsFromCache": 49,
+      "networkError": null,
+      "oldestCacheEntry": "2026-10-12T15:48:55.410Z",
+      "cacheDir": "C:\\Users\\adewa\\AppData\\Local\\reachable\\cache",
+      "url": "https://api.osv.dev"
+    },
+    "llm": {
+      "mode": "live",
+      "model": "claude-sonnet-5-5",
+      "calls": 0,
+      "cacheHits": 0,
+      "failures": 0
+    },
+    "transitiveAnalysis": {
+      "packagesAnalysed": 14,
+      "nodeModules": true,
+      "cache": {
+        "dir": "C:/Users/adewa/AppData/Local/Temp/claude/c--Users-adewa-OneDrive-Documents-reachable/88c1892c-4770-42a4-94d1-257cd9bd22ea/scratchpad/pc-fixes",
+        "hits": 331,
+        "misses": 471,
+        "writes": 471,
+        "uncacheable": 0
+      }
+    },
+    "analyzerVersion": "3.1.0",
+    "unresolvedImports": [],
+    "withdrawn": [],
+    "results": [
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "reachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "references": [
+            {
+              "symbol": "omit",
+              "via": null,
+              "chain": [
+                {
+                  "file": "src/index.js",
+                  "line": 1,
+                  "text": "const omit = require(\"lodash/omit\");"
+                },
+                {
+                  "file": "src/index.js",
+                  "line": 22,
+                  "text": "return omit(o, props);"
+                }
+              ],
+              "source": "curated",
+              "quote": null
+            }
+          ],
+          "referenceCount": 1
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "reachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "references": [
+            {
+              "symbol": "omit",
+              "via": null,
+              "chain": [
+                {
+                  "file": "src/index.js",
+                  "line": 1,
+                  "text": "const omit = require(\"lodash/omit\");"
+                },
+                {
+                  "file": "src/index.js",
+                  "line": 22,
+                  "text": "return omit(o, props);"
+                }
+              ],
+              "source": "curated",
+              "quote": null
+            }
+          ],
+          "referenceCount": 1
+        }
+      },
+      {
+        "id": "GHSA-67hx-6x53-jw92",
+        "aliases": [
+          "CVE-2023-45133"
+        ],
+        "summary": "Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92",
+        "package": "@babel/traverse",
+        "installName": "@babel/traverse",
+        "version": "7.16.7",
+        "lockfilePath": "node_modules/@babel/traverse",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which @babel/traverse functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2g4f-4pwh-qvx6",
+        "aliases": [
+          "CVE-2025-69873"
+        ],
+        "summary": "ajv has ReDoS when using `$data` option",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-2g4f-4pwh-qvx6",
+        "package": "ajv",
+        "installName": "ajv",
+        "version": "6.12.6",
+        "lockfilePath": "node_modules/ajv",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which ajv functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-67hx-6x53-jw92",
+        "aliases": [
+          "CVE-2023-45133"
+        ],
+        "summary": "Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code",
+        "severity": "CRITICAL",
+        "url": "https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92",
+        "package": "babel-traverse",
+        "installName": "babel-traverse",
+        "version": "6.26.0",
+        "lockfilePath": "node_modules/babel-traverse",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which babel-traverse functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3jxr-9vmj-r5cp",
+        "aliases": [
+          "CVE-2026-13149"
+        ],
+        "summary": "brace-expansion: DoS via exponential-time expansion of consecutive non-expanding {} groups",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3jxr-9vmj-r5cp",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-6j4f-fj2g-mc7p",
+        "aliases": [
+          "CVE-2026-102276"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-6j4f-fj2g-mc7p",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f886-m6hf-6m8v",
+        "aliases": [
+          "CVE-2026-33750"
+        ],
+        "summary": "brace-expansion: Zero-step sequence causes process hang and memory exhaustion",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f886-m6hf-6m8v",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh99-v99m-4gvg",
+        "aliases": [
+          "CVE-2026-14257"
+        ],
+        "summary": "brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-mh99-v99m-4gvg",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-q2hr-2g5m-vwhr",
+        "aliases": [
+          "CVE-2026-102277"
+        ],
+        "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-q2hr-2g5m-vwhr",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qhr7-859c-m2p7",
+        "aliases": [
+          "CVE-2026-102278"
+        ],
+        "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-qhr7-859c-m2p7",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rgw5-rvv9-x895",
+        "aliases": [
+          "CVE-2026-69152"
+        ],
+        "summary": "brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rgw5-rvv9-x895",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-v6h2-p8h4-qcjw",
+        "aliases": [
+          "CVE-2025-5889"
+        ],
+        "summary": "brace-expansion Regular Expression Denial of Service vulnerability",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-v6h2-p8h4-qcjw",
+        "package": "brace-expansion",
+        "installName": "brace-expansion",
+        "version": "1.1.8",
+        "lockfilePath": "node_modules/brace-expansion",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which brace-expansion functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "1.8.5",
+        "lockfilePath": "node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "1.8.5",
+        "lockfilePath": "node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/findup-sync/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/glob-watcher/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/matchdep/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/findup-sync/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/glob-watcher/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "2.3.2",
+        "lockfilePath": "node_modules/matchdep/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/fast-glob/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-grv7-fg5c-xmjg",
+        "aliases": [
+          "CVE-2024-4068"
+        ],
+        "summary": "Uncontrolled resource consumption in braces",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-grv7-fg5c-xmjg",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/mocha/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/fast-glob/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vfj7-8cjw-p6xm",
+        "aliases": [
+          "CVE-2026-93687"
+        ],
+        "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-vfj7-8cjw-p6xm",
+        "package": "braces",
+        "installName": "braces",
+        "version": "3.0.2",
+        "lockfilePath": "node_modules/mocha/node_modules/braces",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which braces functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3xgq-45jj-v275",
+        "aliases": [
+          "CVE-2024-21538"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in cross-spawn",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275",
+        "package": "cross-spawn",
+        "installName": "cross-spawn",
+        "version": "7.0.3",
+        "lockfilePath": "node_modules/cross-spawn",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which cross-spawn functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-gxpj-cx7g-858c",
+        "aliases": [
+          "CVE-2017-16137"
+        ],
+        "summary": "Regular Expression Denial of Service in debug",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-gxpj-cx7g-858c",
+        "package": "debug",
+        "installName": "debug",
+        "version": "4.2.0",
+        "lockfilePath": "node_modules/@babel/traverse/node_modules/debug",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which debug functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-vcc3-ghjq-m6fr",
+        "aliases": [
+          "CVE-2026-45822"
+        ],
+        "summary": "decode-uri-component: Denial of service via exponential decoding of malformed percent-encoded input",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-vcc3-ghjq-m6fr",
+        "package": "decode-uri-component",
+        "installName": "decode-uri-component",
+        "version": "0.2.0",
+        "lockfilePath": "node_modules/decode-uri-component",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which decode-uri-component functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-w573-4hg7-7wgq",
+        "aliases": [
+          "CVE-2022-38900"
+        ],
+        "summary": "decode-uri-component vulnerable to Denial of Service (DoS)",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-w573-4hg7-7wgq",
+        "package": "decode-uri-component",
+        "installName": "decode-uri-component",
+        "version": "0.2.0",
+        "lockfilePath": "node_modules/decode-uri-component",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which decode-uri-component functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-73rr-hh4g-fpgx",
+        "aliases": [
+          "CVE-2026-24001"
+        ],
+        "summary": "jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-73rr-hh4g-fpgx",
+        "package": "diff",
+        "installName": "diff",
+        "version": "5.0.0",
+        "lockfilePath": "node_modules/diff",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which diff functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-4gmj-3p3h-gm8h",
+        "aliases": [
+          "CVE-2024-27088"
+        ],
+        "summary": "es5-ext vulnerable to Regular Expression Denial of Service in `function#copy` and `function#toStringTokens`",
+        "severity": "LOW",
+        "url": "https://osv.dev/vulnerability/GHSA-4gmj-3p3h-gm8h",
+        "package": "es5-ext",
+        "installName": "es5-ext",
+        "version": "0.10.53",
+        "lockfilePath": "node_modules/es5-ext",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which es5-ext functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-25h7-pfq9-p65f",
+        "aliases": [
+          "CVE-2026-32141"
+        ],
+        "summary": "flatted vulnerable to unbounded recursion DoS in parse() revive phase",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-25h7-pfq9-p65f",
+        "package": "flatted",
+        "installName": "flatted",
+        "version": "3.2.4",
+        "lockfilePath": "node_modules/flatted",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which flatted functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-rf6f-7fwh-wjgh",
+        "aliases": [
+          "CVE-2026-33228"
+        ],
+        "summary": "Prototype Pollution via parse() in NodeJS flatted",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-rf6f-7fwh-wjgh",
+        "package": "flatted",
+        "installName": "flatted",
+        "version": "3.2.4",
+        "lockfilePath": "node_modules/flatted",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which flatted functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-4q6p-r6v2-jvc5",
+        "aliases": [
+          "CVE-2023-43646"
+        ],
+        "summary": "Chaijs/get-func-name vulnerable to ReDoS",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-4q6p-r6v2-jvc5",
+        "package": "get-func-name",
+        "installName": "get-func-name",
+        "version": "2.0.0",
+        "lockfilePath": "node_modules/get-func-name",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which get-func-name functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2883-xcg3-v3hh",
+        "aliases": [
+          "CVE-2026-84375"
+        ],
+        "summary": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-2883-xcg3-v3hh",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-52cp-r559-cp3m",
+        "aliases": [
+          "CVE-2026-59869"
+        ],
+        "summary": "js-yaml: YAML merge-key chains can force quadratic CPU consumption",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-52cp-r559-cp3m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5p4m-2wfm-xmqj",
+        "aliases": [],
+        "summary": "JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) — CVE-2026-59870 fix not backported",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5p4m-2wfm-xmqj",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-h67p-54hq-rp68",
+        "aliases": [
+          "CVE-2026-53550"
+        ],
+        "summary": "JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-h67p-54hq-rp68",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mh29-5h37-fv8m",
+        "aliases": [
+          "CVE-2025-64718"
+        ],
+        "summary": "js-yaml has prototype pollution in merge (<<)",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-mh29-5h37-fv8m",
+        "package": "js-yaml",
+        "installName": "js-yaml",
+        "version": "4.1.0",
+        "lockfilePath": "node_modules/js-yaml",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which js-yaml functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-9c47-m6qq-7p4h",
+        "aliases": [
+          "CVE-2022-46175"
+        ],
+        "summary": "Prototype Pollution in JSON5 via Parse Method",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-9c47-m6qq-7p4h",
+        "package": "json5",
+        "installName": "json5",
+        "version": "0.5.1",
+        "lockfilePath": "node_modules/json5",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "parse"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-9c47-m6qq-7p4h",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "module_escapes",
+        "reasons": [
+          {
+            "code": "module_escapes",
+            "message": "In babel-core@6.26.0, the json5 module object is handed to code this analysis does not follow (passed, returned, exported or stored), so the receiving code could call parse.",
+            "count": 3,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js",
+                "line": 138,
+                "text": "var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _json2.default;",
+                "detail": "chosen by a conditional expression"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/options/build-config-chain.js",
+                "line": 138,
+                "text": "var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _json2.default;",
+                "detail": "chosen by a conditional expression"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js",
+                "line": 138,
+                "text": "var json = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _json2.default;",
+                "detail": "chosen by a conditional expression"
+              }
+            ]
+          },
+          {
+            "code": "name_as_string",
+            "message": "In interpret@1.4.0, the name 'json5' appears as a string outside an import, so it may be loaded indirectly (bundler alias, plugin loader, mock, config).",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/interpret/index.js",
+                "line": 64,
+                "text": "'.json5': 'json5/lib/require',",
+                "detail": "the string 'json5/lib/require' appears outside an import"
+              }
+            ]
+          },
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load json5.",
+            "count": 12,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 468,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 667,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 3,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              },
+              {
+                "file": "node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: module_escapes, eval_present, dynamic_require"
+            },
+            {
+              "loader": "babel-core@6.26.3",
+              "declared": true,
+              "result": "doubt: module_escapes, eval_present, dynamic_require"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: module_escapes, eval_present, dynamic_require"
+            },
+            {
+              "loader": "interpret@1.4.0",
+              "declared": false,
+              "result": "doubt: name_as_string"
+            }
+          ],
+          "paths": {
+            "total": 7,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "json5@0.5.1"
+              ],
+              [
+                "babel-core@6.26.3",
+                "json5@0.5.1"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "json5@0.5.1"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-cli/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-define-map/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-regex/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-register/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-template/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-traverse/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-29mw-wpgm-hmr9",
+        "aliases": [
+          "CVE-2020-28500"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-types/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which lodash functions this advisory affects, so usage cannot be matched against it. (Left out on purpose: lodash ReDoS names toNumber, trim and trimEnd, but toNumber is called internally by toFinite/toInteger, which dozens of other lodash functions use. Recording only the three names could produce a false 'unreachable'.) LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-cli/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/lib/_babel-node.js",
+                "line": 29,
+                "text": "var _vm = require(\"vm\");",
+                "detail": "loads the vm module, which can run code built from strings"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-cli@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-register/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-register@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-register/lib/node.js:31, node_modules/babel-register/lib/node.js:43; 8 uses checked, none affected"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 8,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-cli/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/lib/_babel-node.js",
+                "line": 29,
+                "text": "var _vm = require(\"vm\");",
+                "detail": "loads the vm module, which can run code built from strings"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-cli@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-register/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-register@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-register/lib/node.js:31, node_modules/babel-register/lib/node.js:43; 8 uses checked, none affected"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 8,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-cli/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/lib/_babel-node.js",
+                "line": 29,
+                "text": "var _vm = require(\"vm\");",
+                "detail": "loads the vm module, which can run code built from strings"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-cli@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-register/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-register@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-register/lib/node.js:31, node_modules/babel-register/lib/node.js:43; 8 uses checked, none affected"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 8,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-cli/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 2,
+            "locations": [
+              {
+                "file": "node_modules/babel-cli/lib/_babel-node.js",
+                "line": 29,
+                "text": "var _vm = require(\"vm\");",
+                "detail": "loads the vm module, which can run code built from strings"
+              },
+              {
+                "file": "node_modules/babel-cli/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-cli@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-register/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.0, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 500,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 699,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.0, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/babel-register/node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-register@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-register/lib/node.js:31, node_modules/babel-register/lib/node.js:43; 8 uses checked, none affected"
+            },
+            {
+              "loader": "babel-core@6.26.0",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            }
+          ],
+          "paths": {
+            "total": 8,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-register@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.21",
+        "lockfilePath": "node_modules/lodash",
+        "direct": true,
+        "scope": "prod",
+        "dev": false,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "dynamic_require",
+        "reasons": [
+          {
+            "code": "dynamic_require",
+            "message": "In babel-core@6.26.3, require() is called with a non-literal argument, so it could load lodash.",
+            "count": 4,
+            "locations": [
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 468,
+                "text": "parseCode = require(parser).parse;",
+                "detail": "require() is called with a non-literal argument (parser)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/index.js",
+                "line": 667,
+                "text": "gen = require(generator).print;",
+                "detail": "require() is called with a non-literal argument (generator)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 178,
+                "text": "plugin = require(pluginLoc);",
+                "detail": "require() is called with a non-literal argument (pluginLoc)"
+              },
+              {
+                "file": "node_modules/babel-core/lib/transformation/file/options/option-manager.js",
+                "line": 296,
+                "text": "val = require(presetLoc);",
+                "detail": "require() is called with a non-literal argument (presetLoc)"
+              }
+            ]
+          },
+          {
+            "code": "eval_present",
+            "message": "In babel-core@6.26.3, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.",
+            "count": 1,
+            "locations": [
+              {
+                "file": "node_modules/babel-core/lib/api/browser.js",
+                "line": 115,
+                "text": "return new Function((0, _node.transform)(code, opts).code)();",
+                "detail": "new Function(...) builds code from strings"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "tier": "curated",
+          "loaders": [
+            {
+              "loader": "babel-core@6.26.3",
+              "declared": true,
+              "result": "doubt: eval_present, dynamic_require"
+            },
+            {
+              "loader": "babel-generator@6.26.1",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-generator/lib/node/whitespace.js:3, node_modules/babel-generator/lib/printer.js:25, node_modules/babel-generator/lib/printer.js:29; 16 uses checked, none affected"
+            }
+          ],
+          "paths": null
+        }
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "2.3.11",
+        "lockfilePath": "node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "3.1.10",
+        "lockfilePath": "node_modules/findup-sync/node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "3.1.10",
+        "lockfilePath": "node_modules/glob-watcher/node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "3.1.10",
+        "lockfilePath": "node_modules/matchdep/node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-952p-6rrq-rcjv",
+        "aliases": [
+          "CVE-2024-4067"
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in micromatch",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv",
+        "package": "micromatch",
+        "installName": "micromatch",
+        "version": "4.0.4",
+        "lockfilePath": "node_modules/fast-glob/node_modules/micromatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which micromatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-23c5-xmqv-rm74",
+        "aliases": [
+          "CVE-2026-27904"
+        ],
+        "summary": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-23c5-xmqv-rm74",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.0.4",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3ppc-4f35-3m26",
+        "aliases": [
+          "CVE-2026-26996"
+        ],
+        "summary": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-3ppc-4f35-3m26",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.0.4",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-7r86-cg39-jmmj",
+        "aliases": [
+          "CVE-2026-27903"
+        ],
+        "summary": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-7r86-cg39-jmmj",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.0.4",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-f8q6-p94x-37v3",
+        "aliases": [
+          "CVE-2022-3517"
+        ],
+        "summary": "minimatch ReDoS vulnerability",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-f8q6-p94x-37v3",
+        "package": "minimatch",
+        "installName": "minimatch",
+        "version": "3.0.4",
+        "lockfilePath": "node_modules/minimatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which minimatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-28wg-ghj8-5hjv",
+        "aliases": [
+          "CVE-2026-67214"
+        ],
+        "summary": "nanoid: non-secure generators can loop indefinitely with negative size",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-28wg-ghj8-5hjv",
+        "package": "nanoid",
+        "installName": "nanoid",
+        "version": "3.1.25",
+        "lockfilePath": "node_modules/nanoid",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which nanoid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-2v37-7h3g-55p8",
+        "aliases": [
+          "CVE-2026-67213"
+        ],
+        "summary": "nanoid: custom generators can loop indefinitely when size is zero",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-2v37-7h3g-55p8",
+        "package": "nanoid",
+        "installName": "nanoid",
+        "version": "3.1.25",
+        "lockfilePath": "node_modules/nanoid",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which nanoid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-mwcw-c2x4-8c55",
+        "aliases": [
+          "CVE-2024-55565"
+        ],
+        "summary": "Predictable results in nanoid generation when given non-integer values",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-mwcw-c2x4-8c55",
+        "package": "nanoid",
+        "installName": "nanoid",
+        "version": "3.1.25",
+        "lockfilePath": "node_modules/nanoid",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which nanoid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qrpm-p2h7-hrv2",
+        "aliases": [
+          "CVE-2021-23566"
+        ],
+        "summary": "Exposure of Sensitive Information to an Unauthorized Actor in nanoid",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-qrpm-p2h7-hrv2",
+        "package": "nanoid",
+        "installName": "nanoid",
+        "version": "3.1.25",
+        "lockfilePath": "node_modules/nanoid",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which nanoid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-xwg4-73v4-xw9w",
+        "aliases": [
+          "CVE-2026-73086"
+        ],
+        "summary": "nanoid: Integer Overflow or Wraparound",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-xwg4-73v4-xw9w",
+        "package": "nanoid",
+        "installName": "nanoid",
+        "version": "3.1.25",
+        "lockfilePath": "node_modules/nanoid",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which nanoid functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-3v7f-55p6-f55p",
+        "aliases": [
+          "CVE-2026-33672"
+        ],
+        "summary": "Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-3v7f-55p6-f55p",
+        "package": "picomatch",
+        "installName": "picomatch",
+        "version": "2.3.1",
+        "lockfilePath": "node_modules/picomatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which picomatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2c7-rcm5-vvqj",
+        "aliases": [
+          "CVE-2026-33671"
+        ],
+        "summary": "Picomatch has a ReDoS vulnerability via extglob quantifiers",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2c7-rcm5-vvqj",
+        "package": "picomatch",
+        "installName": "picomatch",
+        "version": "2.3.1",
+        "lockfilePath": "node_modules/picomatch",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which picomatch functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "5.7.1",
+        "lockfilePath": "node_modules/normalize-package-data/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-c2qf-rxjj-qqgw",
+        "aliases": [
+          "CVE-2022-25883"
+        ],
+        "summary": "semver vulnerable to Regular Expression Denial of Service",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw",
+        "package": "semver",
+        "installName": "semver",
+        "version": "7.3.2",
+        "lockfilePath": "node_modules/eslint/node_modules/semver",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which semver functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-5c6j-r48x-rmvq",
+        "aliases": [],
+        "summary": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-5c6j-r48x-rmvq",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-76p7-773f-r4q5",
+        "aliases": [
+          "CVE-2024-11831"
+        ],
+        "summary": "Cross-site Scripting (XSS) in serialize-javascript",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-76p7-773f-r4q5",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-qj8w-gfj5-8c6v",
+        "aliases": [
+          "CVE-2026-34043"
+        ],
+        "summary": "Serialize JavaScript has CPU Exhaustion Denial of Service via crafted array-like objects",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-qj8w-gfj5-8c6v",
+        "package": "serialize-javascript",
+        "installName": "serialize-javascript",
+        "version": "6.0.0",
+        "lockfilePath": "node_modules/serialize-javascript",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which serialize-javascript functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-j8xg-fqg3-53r7",
+        "aliases": [
+          "CVE-2023-26115"
+        ],
+        "summary": "word-wrap vulnerable to Regular Expression Denial of Service",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-j8xg-fqg3-53r7",
+        "package": "word-wrap",
+        "installName": "word-wrap",
+        "version": "1.2.3",
+        "lockfilePath": "node_modules/word-wrap",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": null,
+        "affectedSymbols": null,
+        "symbolSource": null,
+        "llm": null,
+        "verdict": "cant_tell",
+        "reason": "no_symbol_data",
+        "reasons": [
+          {
+            "code": "no_symbol_data",
+            "message": "There is no curated record of which word-wrap functions this advisory affects, so usage cannot be matched against it. LLM: skipped: the project does not import this package, so an LLM answer could not change the verdict.",
+            "count": 0,
+            "locations": []
+          }
+        ],
+        "evidence": null
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-define-map/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-define-map@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-define-map/lib/index.js:19; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-classes@6.24.1",
+                "babel-helper-define-map@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-regex/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-regex@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-regex/lib/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-sticky-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-unicode-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-plugin-transform-es2015-block-scoping@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87, node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:91; 10 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-block-scoping@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-template/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-template@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-template/lib/index.js:57, node_modules/babel-template/lib/index.js:61, node_modules/babel-template/lib/index.js:65; 23 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 38,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-traverse/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-traverse@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-traverse/lib/index.js:50, node_modules/babel-traverse/lib/path/index.js:29, node_modules/babel-traverse/lib/path/introspection.js:28; 34 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 62,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-35jh-r3h4-6jhm",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-r5fr-rjxr-66jc"
+        ],
+        "summary": "Command Injection in lodash",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-35jh-r3h4-6jhm",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-types/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-types@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-types/lib/converters.js:27, node_modules/babel-types/lib/converters.js:31, node_modules/babel-types/lib/index.js:321; 14 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 159,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-define-map/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-define-map@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-define-map/lib/index.js:19; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-classes@6.24.1",
+                "babel-helper-define-map@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-regex/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-regex@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-regex/lib/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-sticky-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-unicode-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-plugin-transform-es2015-block-scoping@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87, node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:91; 10 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-block-scoping@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-template/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-template@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-template/lib/index.js:57, node_modules/babel-template/lib/index.js:61, node_modules/babel-template/lib/index.js:65; 23 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 38,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-traverse/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-traverse@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-traverse/lib/index.js:50, node_modules/babel-traverse/lib/path/index.js:29, node_modules/babel-traverse/lib/path/introspection.js:28; 34 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 62,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-f23m-r3pf-42rh",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-xxjr-mmjv-4gpg"
+        ],
+        "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-types/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-types@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-types/lib/converters.js:27, node_modules/babel-types/lib/converters.js:31, node_modules/babel-types/lib/index.js:321; 14 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 159,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-define-map/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-define-map@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-define-map/lib/index.js:19; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-classes@6.24.1",
+                "babel-helper-define-map@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-regex/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-regex@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-regex/lib/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-sticky-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-unicode-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-plugin-transform-es2015-block-scoping@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87, node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:91; 10 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-block-scoping@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-template/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-template@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-template/lib/index.js:57, node_modules/babel-template/lib/index.js:61, node_modules/babel-template/lib/index.js:65; 23 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 38,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-traverse/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-traverse@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-traverse/lib/index.js:50, node_modules/babel-traverse/lib/path/index.js:29, node_modules/babel-traverse/lib/path/introspection.js:28; 34 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 62,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-r5fr-rjxr-66jc",
+        "aliases": [
+          "CVE-2021-23337",
+          "CVE-2026-4800",
+          "GHSA-35jh-r3h4-6jhm"
+        ],
+        "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "severity": "HIGH",
+        "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-types/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "template"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "template"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-types@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-types/lib/converters.js:27, node_modules/babel-types/lib/converters.js:31, node_modules/babel-types/lib/index.js:321; 14 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 159,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-define-map/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-define-map@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-define-map/lib/index.js:19; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-classes@6.24.1",
+                "babel-helper-define-map@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-helper-regex/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-helper-regex@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-helper-regex/lib/index.js:7; 3 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 2,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-sticky-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-unicode-regex@6.24.1",
+                "babel-helper-regex@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-plugin-transform-es2015-block-scoping@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87, node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:91; 10 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 1,
+            "complete": true,
+            "sample": [
+              [
+                "babel-preset-es2015@6.24.1",
+                "babel-plugin-transform-es2015-block-scoping@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-template/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-template@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-template/lib/index.js:57, node_modules/babel-template/lib/index.js:61, node_modules/babel-template/lib/index.js:65; 23 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 38,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-template@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-traverse/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-traverse@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-traverse/lib/index.js:50, node_modules/babel-traverse/lib/path/index.js:29, node_modules/babel-traverse/lib/path/introspection.js:28; 34 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 62,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-traverse@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "GHSA-xxjr-mmjv-4gpg",
+        "aliases": [
+          "CVE-2025-13465",
+          "CVE-2026-2950",
+          "GHSA-f23m-r3pf-42rh"
+        ],
+        "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "severity": "MODERATE",
+        "url": "https://osv.dev/vulnerability/GHSA-xxjr-mmjv-4gpg",
+        "package": "lodash",
+        "installName": "lodash",
+        "version": "4.17.20",
+        "lockfilePath": "node_modules/babel-types/node_modules/lodash",
+        "direct": false,
+        "scope": "dev",
+        "dev": true,
+        "symbolTier": "curated",
+        "affectedSymbols": [
+          "unset",
+          "omit"
+        ],
+        "symbolSource": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+        "llm": null,
+        "verdict": "unreachable",
+        "reason": null,
+        "reasons": [],
+        "evidence": {
+          "tier": "curated",
+          "symbols": [
+            "unset",
+            "omit"
+          ],
+          "importSites": [],
+          "importCount": 0,
+          "usesChecked": 0,
+          "loaders": [
+            {
+              "loader": "babel-types@6.26.0",
+              "declared": true,
+              "mode": "all files (no exports map, deep imports possible)",
+              "result": "imports lodash at node_modules/babel-types/lib/converters.js:27, node_modules/babel-types/lib/converters.js:31, node_modules/babel-types/lib/index.js:321; 14 uses checked, none affected"
+            }
+          ],
+          "paths": {
+            "total": 159,
+            "complete": true,
+            "sample": [
+              [
+                "babel-cli@6.26.0",
+                "babel-core@6.26.0",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ],
+              [
+                "gulp-babel@7.0.1",
+                "babel-core@6.26.3",
+                "babel-types@6.26.0",
+                "lodash@4.17.20"
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

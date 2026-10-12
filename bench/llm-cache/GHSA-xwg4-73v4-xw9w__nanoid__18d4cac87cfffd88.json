@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-xwg4-73v4-xw9w",
+  "package": "nanoid",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T18:06:26.404Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"nanoid\",\"quote\":\"An integer overflow in `nanoid(size)` permanently corrupts the process-wide CSPRNG pool\"}]}"
+}

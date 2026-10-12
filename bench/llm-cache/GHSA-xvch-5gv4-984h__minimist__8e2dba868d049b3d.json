@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-xvch-5gv4-984h",
+  "package": "minimist",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:29.772Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":false,\"symbols\":[]}"
+}

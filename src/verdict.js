@@ -35,7 +35,7 @@ const where = (c) => c.where || 'the project';
 export const REASONS = {
   transitive_not_analysed: (c) => `${c.pkg} is only a transitive dependency${c.requiredBy ? ` (required by ${c.requiredBy})` : ''}. Transitive analysis is turned off for this scan.`,
   transitive_parent_uses_symbol: (c) => `A package that loads ${c.pkg} references ${c.symbols}. Whether your code reaches that part of the package is not analysed yet, so this is not reported as reachable.`,
-  no_symbol_data: (c) => `There is no curated record of which ${c.pkg} functions this advisory affects${c.excluded ? ` (left out on purpose: ${c.excluded})` : ''}${c.llmNote ? `; ${c.llmNote}` : ''}, so usage cannot be matched against it.`,
+  no_symbol_data: (c) => `There is no curated record of which ${c.pkg} functions this advisory affects, so usage cannot be matched against it.${c.excluded ? ` (Left out on purpose: ${c.excluded})` : ''}${c.llmNote ? ` LLM: ${c.llmNote.replace(/^LLM extraction /, '')}.` : ''}`,
   llm_unavailable: (c) => `LLM symbol extraction did not run for this advisory (${c.detail || 'no response'}).`,
   llm_invalid_output: (c) => `The LLM's answer for this advisory did not match the required schema and was rejected (${c.detail || 'invalid'}).`,
   llm_no_specific_api: () => 'The LLM read the advisory as not naming a specific function of the package.',
@@ -52,6 +52,7 @@ export const REASONS = {
   dynamic_member_access: (c) => `In ${where(c)}, ${c.pkg} is indexed with a computed key (like lib[name]); the key could name ${c.symbols}.`,
   gateway_used: (c) => `In ${where(c)}, a ${c.pkg} call that returns an object exposing the package's other functions is used (for example a chain wrapper), so later calls on it could reach ${c.symbols}.`,
   indirect_reference: (c) => `In ${where(c)}, a property named like an affected function (${c.symbols}) is read from a value obtained through ${c.pkg}.`,
+  other_entry_point: (c) => `According to the advisory data the affected function${c.modules ? ` lives in ${c.modules}` : ''}, but ${c.pkg} is loaded through a different entry point here. A same-named function elsewhere is not proof of use, and other entry points may share the vulnerable code, so this is neither reachable nor proven unreachable.`,
   unmapped_subpath: (c) => `In ${where(c)}, ${c.pkg} is loaded through a deep import path with no mapping to the package's exports.`,
   dynamic_subpath: (c) => `In ${where(c)}, a computed deep path inside ${c.pkg} is loaded at run time.`,
   dynamic_import_promise: (c) => `In ${where(c)}, import('${c.pkg}') is not directly awaited; the module flows through a promise this analysis does not follow.`,
@@ -69,6 +70,33 @@ const MAX_LOCATIONS = 10;
 
 function stripExt(s) {
   return s.replace(/\.(c|m)?js$/, '');
+}
+
+/** 'non-secure/index.js' -> 'non-secure'; '' -> null. */
+export function normalizeSubpath(sub) {
+  if (!sub) return null;
+  const s = String(sub).replace(/^\.\//, '').replace(/\/+$/, '').replace(/\.(c|m)?js$/, '').replace(/\/index$/, '');
+  return s || null;
+}
+
+/**
+ * Affected symbols, split by entry point. A symbol is either a bare name (it
+ * applies to every entry point of the package, the conservative default) or
+ * { symbol, module } where module names a deep entry point such as
+ * 'nanoid/non-secure'. A module equal to the bare package name counts as unqualified.
+ */
+export function symbolSpec(symbols, pkg) {
+  const any = new Set();
+  const byModule = new Map();
+  for (const s of symbols) {
+    const name = typeof s === 'string' ? s : s.symbol;
+    const mod = typeof s === 'string' ? null : s.module;
+    const sub = mod && mod.startsWith(`${pkg}/`) ? normalizeSubpath(mod.slice(pkg.length + 1)) : null;
+    if (!sub) { any.add(name); continue; }
+    if (!byModule.has(sub)) byModule.set(sub, new Set());
+    byModule.get(sub).add(name);
+  }
+  return { any, byModule };
 }
 
 /** Map a deep import ('lodash/fp/merge') onto export steps, if the package's data allows it. */
@@ -147,21 +175,40 @@ export function indexUsage(usage) {
  * @returns {{ kind: 'reachable', references } | { kind: 'clean', importSites, importCount, usesChecked }
  *          | { kind: 'not_imported', typeOnly } | { kind: 'doubt', doubts: [{code, location}] }}
  */
-export function analyzeUse({ installName, S, rules, usageIndex, usage }) {
+export function analyzeUse({ installName, S, spec: specIn = null, rules, usageIndex, usage }) {
+  // S (a Set of bare names) is the pre-subpath form; spec splits symbols by entry point.
+  const spec = specIn || { any: S, byModule: new Map() };
   const G = new Set((rules && rules.gateways) || []);
+  const qualifiedNames = new Set([...spec.byModule.values()].flatMap((x) => [...x]));
+  const modulesText = [...spec.byModule.keys()].map((m) => `'${installName}/${m}'`).join(', ');
   const facts = usageIndex.byPkg.get(installName) || usageIndex.empty;
   const doubts = [];
   const doubt = (code, l) => doubts.push({ code, location: l ? { file: l.file, line: l.line, text: l.text, detail: l.detail } : null });
 
   const affected = [];
   for (const imp of facts.imports) {
-    if (!resolveSubpath(imp.subpath, rules).ok) doubt('unmapped_subpath', { ...imp, detail: `'${installName}/${imp.subpath}'` });
+    const key = normalizeSubpath(imp.subpath);
+    const qualified = key !== null && spec.byModule.has(key);
+    // Subpath-qualified data never proves anything about OTHER entry points.
+    if (spec.byModule.size && !qualified) doubt('other_entry_point', { ...imp, detail: `loaded as '${installName}${imp.subpath ? `/${imp.subpath}` : ''}'; advisory names ${modulesText}` });
+    if (!resolveSubpath(imp.subpath, rules).ok && !(qualified && spec.any.size === 0)) doubt('unmapped_subpath', { ...imp, detail: `'${installName}/${imp.subpath}'` });
   }
   for (const use of facts.uses) {
-    const r = resolveSubpath(use.subpath, rules);
-    if (!r.ok) continue; // already reported as unmapped_subpath
-    const c = classify([...r.prefix, ...use.steps], S, G, use.end);
     const at = { file: use.file, line: use.line, text: use.text };
+    const key = normalizeSubpath(use.subpath);
+    if (key !== null && spec.byModule.has(key)) {
+      // The use comes through exactly the entry point the advisory names.
+      const q = classify(use.steps, spec.byModule.get(key), new Set(), use.end);
+      if (q.kind === 'affected') { affected.push({ symbol: q.symbol, use, via: q.via, module: `${installName}/${key}` }); continue; }
+    }
+    const r = resolveSubpath(use.subpath, rules);
+    if (!r.ok) continue; // already reported as unmapped_subpath (or handled above)
+    const steps = [...r.prefix, ...use.steps];
+    if (qualifiedNames.size && !(key !== null && spec.byModule.has(key))) {
+      const o = classify(steps, qualifiedNames, G, use.end);
+      if (o.kind === 'affected') doubt('other_entry_point', { ...at, detail: `${o.symbol} here comes from '${installName}${use.subpath ? `/${use.subpath}` : ''}', not ${modulesText}` });
+    }
+    const c = spec.any.size ? classify(steps, spec.any, G, use.end) : classify(steps, new Set(), G, use.end);
     switch (c.kind) {
       case 'affected': affected.push({ symbol: c.symbol, use, via: c.via }); break;
       case 'escape': doubt('module_escapes', { ...at, detail: use.endDesc }); break;
@@ -183,7 +230,7 @@ export function analyzeUse({ installName, S, rules, usageIndex, usage }) {
       const k = `${a.symbol}@${locKey(chain[chain.length - 1])}`;
       if (seen.has(k)) continue;
       seen.add(k);
-      evidence.push({ symbol: a.symbol, via: a.via || null, chain });
+      evidence.push({ symbol: a.symbol, via: a.via || null, ...(a.module ? { module: a.module } : {}), chain });
     }
     // Drop chains that are a prefix of a longer chain for the same symbol.
     const sig = (e) => e.chain.map(locKey).join('>');
@@ -259,10 +306,12 @@ export function decideAlert({ advisoryId, instance, data, symbolInfo, project, p
     return finish('cant_tell');
   }
   const tier = symbolInfo.tier;
-  const symbols = tier === 'curated' ? symbolInfo.symbols : symbolInfo.symbols.map((s) => s.symbol);
-  const S = new Set(symbols);
+  const symbolEntries = symbolInfo.symbols; // curated: strings or {symbol, module}; llm: {symbol, quote, module?}
+  const symbols = symbolEntries.map((s) => (typeof s === 'string' ? s : s.module && s.module !== pkg ? `${s.symbol} (${s.module})` : s.symbol));
+  const spec = symbolSpec(symbolEntries, pkg);
+  const S = spec.any;
   const rules = data.packages[pkg] || {};
-  const ctx = { symbols: symbolList(symbols) };
+  const ctx = { symbols: symbolList(symbols), modules: [...spec.byModule.keys()].map((m) => `'${pkg}/${m}'`).join(', ') || null };
   const quoteFor = (sym) => (tier === 'llm' ? (symbolInfo.symbols.find((s) => s.symbol === sym) || {}).quote : null);
 
   // ---- project edge: the developer's own code
@@ -271,7 +320,7 @@ export function decideAlert({ advisoryId, instance, data, symbolInfo, project, p
   const projectLoads = instance.direct || (topLevel && projectFacts && projectFacts.imports.length > 0);
   let projectEvidence = null;
   if (projectLoads) {
-    const r = analyzeUse({ installName: instance.installName, S, rules, usageIndex: project.usageIndex, usage: project.usage });
+    const r = analyzeUse({ installName: instance.installName, S, spec, rules, usageIndex: project.usageIndex, usage: project.usage });
     if (r.kind === 'reachable') {
       return finish('reachable', {
         tier,
@@ -311,7 +360,7 @@ export function decideAlert({ advisoryId, instance, data, symbolInfo, project, p
         const lctx = { ...ctx, where: L.label };
         if (L.status === 'missing') { add('parent_not_installed', { file: L.key, line: null, text: '', detail: L.label }, lctx); continue; }
         if (L.status === 'out_of_sync') { add('node_modules_out_of_sync', { file: `${L.key}/package.json`, line: null, text: '', detail: L.detail }, lctx); continue; }
-        const r = analyzeUse({ installName: instance.installName, S, rules, usageIndex: L.usageIndex, usage: L.usage });
+        const r = analyzeUse({ installName: instance.installName, S, spec, rules, usageIndex: L.usageIndex, usage: L.usage });
         // Report unparseable code even when the parsed part already shows a use.
         for (const e of L.usage.parseErrors) add('parent_unparseable', { file: e.file, line: e.line, text: e.text, detail: e.message }, lctx);
         if (r.kind === 'reachable') {

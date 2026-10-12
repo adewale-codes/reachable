@@ -1,0 +1,10 @@
+{
+  "advisoryId": "GHSA-mwcw-c2x4-8c55",
+  "package": "nanoid",
+  "model": "synthetic",
+  "synthetic": true,
+  "note": "Hand-written test answer (not from a model): it claims module nanoid/non-secure, but the advisory text never writes that path (it says \"in browser and non-secure\" and also describes node main), so the guard must drop the module and keep nanoid unqualified.",
+  "createdAt": "2026-10-12T00:00:00.000Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"nanoid\",\"quote\":\"When nanoid is called with a fractional value\",\"module\":\"nanoid/non-secure\"}]}"
+}

@@ -1,8 +1,27 @@
 {
-  "name": "reachable",
+  "name": "@codesham/reachable",
   "version": "0.1.0",
   "private": true,
   "description": "Tells you which dependency vulnerability alerts your JavaScript code can actually trigger: reachable, unreachable, or cant_tell, with evidence for each.",
+  "keywords": [
+    "security",
+    "vulnerability",
+    "reachability",
+    "npm",
+    "osv",
+    "sca",
+    "static-analysis",
+    "dependencies"
+  ],
+  "homepage": "https://github.com/adewale-codes/reachable#readme",
+  "bugs": {
+    "url": "https://github.com/adewale-codes/reachable/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adewale-codes/reachable.git"
+  },
+  "license": "MIT",
   "type": "module",
   "bin": {
     "reachable": "bin/reachable.js"
@@ -12,21 +31,26 @@
     ".": "./src/index.js"
   },
   "files": [
-    "bin",
-    "src",
-    "data"
+    "bin/",
+    "src/",
+    "data/",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=18.17"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "test": "node --test test/analysis.test.js test/cli.test.js test/phase2.test.js",
+    "test": "node --test test/analysis.test.js test/cli.test.js test/phase2.test.js test/phase3.test.js test/prepublish.test.js",
     "bench": "node bench/run.js",
     "bench:record": "node bench/record.js",
     "bench:setup": "npm install --ignore-scripts --no-audit --no-fund --prefix bench/eval-packages",
-    "bench:eval": "node bench/extraction-eval.js"
+    "bench:eval": "node bench/extraction-eval.js",
+    "prepublishOnly": "npm test && node bench/run.js"
   },
-  "license": "MIT",
   "dependencies": {
     "tree-sitter-javascript": "0.25.0",
     "tree-sitter-typescript": "0.23.2",

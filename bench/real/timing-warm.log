@@ -1,0 +1,15 @@
+desirekaleba__node-mysql-jwt-auth                    {"alerts":51,"reachable":3,"unreachable":0,"cant_tell":48} exit=1 scan=2.1s npm-ci=skipped llm=cache/0 calls
+bluuweb__api-rest-twitch-2022-mongo-express-node-jwt {"alerts":90,"reachable":20,"unreachable":0,"cant_tell":70} exit=1 scan=1.6s npm-ci=skipped llm=cache/0 calls
+IBM-Cloud__get-started-node                          {"alerts":43,"reachable":0,"unreachable":1,"cant_tell":42} exit=0 scan=1.1s npm-ci=skipped llm=cache/0 calls
+richienabuk__express-js-api-rbac                     {"alerts":82,"reachable":0,"unreachable":0,"cant_tell":82} exit=0 scan=2.9s npm-ci=skipped llm=cache/0 calls
+StiliyanKushev__csgo-tradeup-cli                     {"alerts":39,"reachable":0,"unreachable":3,"cant_tell":36} exit=0 scan=1.3s npm-ci=skipped llm=cache/0 calls
+web3-storage__w3up-cli                               {"alerts":188,"reachable":0,"unreachable":0,"cant_tell":188} exit=0 scan=6.1s npm-ci=skipped llm=cache/0 calls
+SashenJayathilaka__Spotify-Clone                     {"alerts":85,"reachable":0,"unreachable":3,"cant_tell":82} exit=0 scan=2.1s npm-ci=skipped llm=cache/0 calls
+thepranaygupta__react-tailwind-css-starter-pack      {"alerts":168,"reachable":0,"unreachable":0,"cant_tell":168} exit=0 scan=3.8s npm-ci=skipped llm=cache/0 calls
+odynvolk__omit-deep-lodash                           {"alerts":103,"reachable":2,"unreachable":24,"cant_tell":77} exit=1 scan=2.5s npm-ci=skipped llm=cache/0 calls
+rotemdan__lzutf8.js                                  {"alerts":85,"reachable":0,"unreachable":0,"cant_tell":85} exit=0 scan=1.5s npm-ci=skipped llm=cache/0 calls
+arizonatribe__vanillas                               {"alerts":80,"reachable":2,"unreachable":0,"cant_tell":78} exit=1 scan=9.2s npm-ci=skipped llm=cache/0 calls
+wuruoyun__vue-component-lib-starter                  {"alerts":72,"reachable":0,"unreachable":0,"cant_tell":72} exit=0 scan=0.5s npm-ci=skipped llm=cache/0 calls
+Ruimve__microhook                                    {"alerts":75,"reachable":0,"unreachable":0,"cant_tell":75} exit=0 scan=2.1s npm-ci=skipped llm=cache/0 calls
+adiun__vite-monorepo                                 {"alerts":384,"reachable":0,"unreachable":0,"cant_tell":384} exit=0 scan=7.3s npm-ci=skipped llm=cache/0 calls
+davestewart__spaceman                                {"alerts":11,"reachable":0,"unreachable":0,"cant_tell":11} exit=0 scan=0.1s npm-ci=skipped llm=cache/0 calls

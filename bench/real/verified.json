@@ -1,0 +1,1142 @@
+{
+  "description": "Hand verification of every reachable and unreachable verdict in the Phase 3 real-repo corpus (bench/real/results), plus a >=20% spot check of cant_tell reason codes per repo. judgement: correct | wrong | correct-but-not-exploitable. This is what was checked by reading the code; it is not an accuracy rate.",
+  "verifiedOn": "2026-10-12",
+  "summary": {
+    "verifiedVerdicts": 56,
+    "reachable": {
+      "total": 25,
+      "correct": 2,
+      "correctButNotExploitable": 23,
+      "wrong": 0
+    },
+    "unreachable": {
+      "total": 31,
+      "correct": 31,
+      "wrong": 0
+    },
+    "byTier": {
+      "curated": 39,
+      "llm": 17,
+      "llmWrong": 0
+    },
+    "cantTellSpotChecks": {
+      "checked": 314,
+      "of": 1500,
+      "untruthful": 0
+    },
+    "alerts": 1556,
+    "cantTell": 1500,
+    "cantTellRate": 0.964
+  },
+  "changesFromPrepublishFixes": [
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-28wg-ghj8-5hjv",
+      "package": "nanoid@3.3.4",
+      "old": "reachable",
+      "new": "cant_tell",
+      "newReasons": [
+        "other_entry_point",
+        "llm_tier_cannot_prove_unreachable"
+      ],
+      "cause": "Fix 1 (subpath-aware symbols)",
+      "read": [
+        "controllers/link.controller.js:1",
+        "controllers/link.controller.js:59",
+        "advisory text: \"...customAlphabet and nanoid functions of its non-secure module (nanoid/non-secure)\""
+      ],
+      "judgement": "correct",
+      "why": "The re-asked LLM answer ties customAlphabet and nanoid to nanoid/non-secure (written verbatim in the advisory); the app imports the main nanoid, so the wrong reachable is gone. It is cant_tell, not unreachable, by design: subpath data never proves unreachable."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-pf86-5x62-jrwf",
+      "package": "axios@0.27.2",
+      "old": "reachable",
+      "new": "cant_tell",
+      "newReasons": [
+        "no_symbol_data",
+        "llm_no_specific_api"
+      ],
+      "cause": "LLM re-ask (the advisory text contains an axios/... path, so the v1 answer could not be reused)",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "recorded v1 answer (get, from a PoC line) and v2 answer (names_specific_api: false)"
+      ],
+      "judgement": "truthful but a loss",
+      "why": "Not caused by the subpath logic: asked again, the model said the advisory names no specific API (it describes prototype-pollution gadgets read during any request). cant_tell is truthful; the earlier reachable (axios.get reaches the shared request path, not exploitable as written) is lost. Safe direction."
+    }
+  ],
+  "repos": [
+    {
+      "repo": "desirekaleba/node-mysql-jwt-auth",
+      "sha": "23bccd6e2f833395acbab5b8f8739f0cdbd5e651",
+      "style": "express-api",
+      "summary": {
+        "alerts": 51,
+        "reachable": 3,
+        "unreachable": 0,
+        "cant_tell": 48
+      },
+      "cantTellRate": 0.941,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "desirekaleba/node-mysql-jwt-auth",
+        "checked": 10,
+        "of": 48,
+        "untruthful": 0,
+        "note": "transitive no_symbol_data (minimatch, qs, path-to-regexp, semver, brace-expansion, send, braces) correct: not curated and not sent to the LLM because the project does not import them; joi llm_tier_cannot_prove_unreachable correct: LLM symbols (messages, link, validate...) not referenced in src."
+      }
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "sha": "6e14be51debc05359dde77462f12cc02b60b9ca4",
+      "style": "express-api",
+      "summary": {
+        "alerts": 90,
+        "reachable": 18,
+        "unreachable": 0,
+        "cant_tell": 72
+      },
+      "cantTellRate": 0.8,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+        "checked": 16,
+        "of": 72,
+        "untruthful": 0,
+        "note": "axios/mongoose llm_no_specific_api match the recorded answers; express gateway_used is truthful (express() called, LLM symbol redirect is a response method); transitive no_symbol_data entries are truthful. After the pre-publish fixes, also checked the 2 new cant_tell (nanoid 28wg other_entry_point, axios pf86 llm_no_specific_api; see changes)."
+      }
+    },
+    {
+      "repo": "IBM-Cloud/get-started-node",
+      "sha": "4e2b775d7a3b9c2fb1e31c62bb538c9f00dde77d",
+      "style": "express-api",
+      "summary": {
+        "alerts": 43,
+        "reachable": 0,
+        "unreachable": 1,
+        "cant_tell": 42
+      },
+      "cantTellRate": 0.977,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "IBM-Cloud/get-started-node",
+        "checked": 9,
+        "of": 42,
+        "untruthful": 0,
+        "note": "lodash unmapped_subpath + eval_present truthful (async requires lodash/_baseRest, an internal helper); transitive no_symbol_data entries truthful."
+      }
+    },
+    {
+      "repo": "richienabuk/express-js-api-rbac",
+      "sha": "53cc96e4da5904afcf777c920e74ed8eca9b1e69",
+      "style": "express-api",
+      "summary": {
+        "alerts": 82,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 82
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "richienabuk/express-js-api-rbac",
+        "checked": 17,
+        "of": 82,
+        "untruthful": 0,
+        "note": "sequelize llm_no_valid_symbols truthful (LLM proposed findAll, a Model method, not a module export; the guard dropped it); transitive no_symbol_data entries truthful."
+      }
+    },
+    {
+      "repo": "StiliyanKushev/csgo-tradeup-cli",
+      "sha": "427f0bf230461d8ffc7e414292647f292ecb9c7b",
+      "style": "cli",
+      "summary": {
+        "alerts": 39,
+        "reachable": 0,
+        "unreachable": 3,
+        "cant_tell": 36
+      },
+      "cantTellRate": 0.923,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "StiliyanKushev/csgo-tradeup-cli",
+        "checked": 8,
+        "of": 36,
+        "untruthful": 0,
+        "note": "mongoose dynamic_import truthful (prediction/worker.js:10 import(path.join(...))); transitive no_symbol_data truthful."
+      }
+    },
+    {
+      "repo": "web3-storage/w3up-cli",
+      "sha": "0d0ca91ea34f5ab76a56d492d02ceef6eca489e2",
+      "style": "cli-typescript",
+      "summary": {
+        "alerts": 188,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 188
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "web3-storage/w3up-cli",
+        "checked": 38,
+        "of": 188,
+        "untruthful": 0,
+        "note": "all 38 sampled are transitive no_symbol_data (vite, undici, protobufjs, npm-bundled tar/minimatch...): truthful, none curated and none imported by the project."
+      }
+    },
+    {
+      "repo": "SashenJayathilaka/Spotify-Clone",
+      "sha": "02cd0544785a288b3c97630366234a6d54a3ac51",
+      "style": "react-app-nextjs",
+      "summary": {
+        "alerts": 85,
+        "reachable": 0,
+        "unreachable": 3,
+        "cant_tell": 82
+      },
+      "cantTellRate": 0.965,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "SashenJayathilaka/Spotify-Clone",
+        "checked": 17,
+        "of": 82,
+        "untruthful": 0,
+        "note": "json5 transitive_parent_uses_symbol truthful (tsconfig-paths lib/tsconfig-loader.js:85 calls JSON5.parse); next llm_no_specific_api match the recorded answers; transitive no_symbol_data truthful."
+      }
+    },
+    {
+      "repo": "thepranaygupta/react-tailwind-css-starter-pack",
+      "sha": "b40ae8a6567600be39961ef856923a2584ee0c4f",
+      "style": "react-app-cra",
+      "summary": {
+        "alerts": 168,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 168
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "thepranaygupta/react-tailwind-css-starter-pack",
+        "checked": 37,
+        "of": 168,
+        "untruthful": 0,
+        "note": "The first (live) scan exited 2: tree-sitter rejected a bare \"&\" in JSX text at src/App.jsx:6-7 (\"React & Tailwind CSS\"), valid JSX. Fixed in ANALYZER_VERSION 3.0.2 (tolerated only when the error is plain JSX text); the final offline replay completes with the same 168 cant_tell verdicts. 34 sampled transitive no_symbol_data truthful; additionally checked all 3 non-trivial ones: lodash template transitive_parent_uses_symbol truthful (html-webpack-plugin lib/loader.js:32 and workbox-build call template); lodash unset/omit module_escapes truthful by the rules (eslint-plugin-flowtype passes require(\"lodash\") into Babel's _interopRequireDefault helper), a precision cost: compiled Babel output is common in node_modules."
+      }
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "sha": "3d4c5ef2147425f573479971a46eb787a3d67aca",
+      "style": "library",
+      "summary": {
+        "alerts": 103,
+        "reachable": 2,
+        "unreachable": 24,
+        "cant_tell": 77
+      },
+      "cantTellRate": 0.748,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "odynvolk/omit-deep-lodash",
+        "checked": 16,
+        "of": 77,
+        "untruthful": 0,
+        "note": "babel-cli / babel-register nested lodash dynamic_require + eval_present truthful: their loaders include a nested babel-core with require(parser) (lib/transformation/file/index.js:500), require(generator) (:699) and new Function (lib/api/browser.js:115), and babel-cli requires \"vm\" (lib/_babel-node.js:29); transitive no_symbol_data truthful."
+      }
+    },
+    {
+      "repo": "rotemdan/lzutf8.js",
+      "sha": "e691f5244a51ea8785a083216999756a7feb35c1",
+      "style": "library-typescript",
+      "summary": {
+        "alerts": 85,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 85
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "rotemdan/lzutf8.js",
+        "checked": 17,
+        "of": 85,
+        "untruthful": 0,
+        "note": "lodash gateway_used truthful (node_modules/grunt-legacy-util/index.js:26 require(\"lodash\").runInContext() returns a full lodash); transitive no_symbol_data truthful."
+      }
+    },
+    {
+      "repo": "arizonatribe/vanillas",
+      "sha": "7bf4eed70d10036b6ec44a456346c7110e8f0b95",
+      "style": "library-typescript",
+      "summary": {
+        "alerts": 80,
+        "reachable": 2,
+        "unreachable": 0,
+        "cant_tell": 78
+      },
+      "cantTellRate": 0.975,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "arizonatribe/vanillas",
+        "checked": 16,
+        "of": 78,
+        "untruthful": 0,
+        "note": "all 16 sampled are no_symbol_data: 15 transitive and rollup (direct, but not imported by the project, so not sent to the LLM). Truthful."
+      }
+    },
+    {
+      "repo": "wuruoyun/vue-component-lib-starter",
+      "sha": "c80d0e2df5c1a5c7c8500585a659b6fffed72586",
+      "style": "library-typescript",
+      "summary": {
+        "alerts": 72,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 72
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "wuruoyun/vue-component-lib-starter",
+        "checked": 15,
+        "of": 72,
+        "untruthful": 0,
+        "note": "3 vite (direct) llm_no_specific_api match the recorded answers (dev-server advisories that name no function); 12 transitive no_symbol_data truthful."
+      }
+    },
+    {
+      "repo": "Ruimve/microhook",
+      "sha": "857b62eff8069361adb15c57aaf22c5bbb4738b6",
+      "style": "library-typescript-react",
+      "summary": {
+        "alerts": 75,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 75
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "Ruimve/microhook",
+        "checked": 18,
+        "of": 75,
+        "untruthful": 0,
+        "note": "15 sampled (14 transitive no_symbol_data, rollup direct but not imported) truthful; additionally checked the 3 direct lodash alerts: template transitive_parent_uses_symbol truthful (node_modules/git-raw-commits/index.js:27 calls template); unset/omit were name_as_string (rollup.config.js:14,32 lists \"lodash\" in rollup's external array); after the pre-publish Fix 3 the external entries are exempt and the reason is declared_unused, which is truthful: lodash is declared in package.json but no scanned file imports it (grep of the repo outside node_modules). Verdicts unchanged (cant_tell)."
+      }
+    },
+    {
+      "repo": "adiun/vite-monorepo",
+      "sha": "15aa5d345428edc21f7e3d51404746f9a617aab2",
+      "style": "monorepo-workspaces",
+      "summary": {
+        "alerts": 384,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 384
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "adiun/vite-monorepo",
+        "checked": 77,
+        "of": 384,
+        "untruthful": 0,
+        "note": "all 77 sampled are cant_tell with truthful reasons: vite is \"transitive\" because it is declared by workspace members, not the root package.json (documented limitation), but the LLM still ran because project files import it; vite dev-server advisories llm_no_specific_api match the recorded answers; GHSA-c27g (LLM symbol launchEditor, not referenced) correctly stays cant_tell by the tier rule; the rest are transitive no_symbol_data."
+      }
+    },
+    {
+      "repo": "davestewart/spaceman",
+      "sha": "7e1b74bea898628bd7914cde6b13fcd8f56b217e",
+      "style": "monorepo-ish",
+      "summary": {
+        "alerts": 11,
+        "reachable": 0,
+        "unreachable": 0,
+        "cant_tell": 11
+      },
+      "cantTellRate": 1,
+      "npmCi": null,
+      "cantTellSpotCheck": {
+        "repo": "davestewart/spaceman",
+        "checked": 3,
+        "of": 11,
+        "untruthful": 0,
+        "note": "all 3 sampled are transitive no_symbol_data: truthful."
+      }
+    }
+  ],
+  "entries": [
+    {
+      "repo": "desirekaleba/node-mysql-jwt-auth",
+      "advisory": "GHSA-8cf7-32gw-wr33",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "src/utils/token.js:5",
+        "src/utils/token.js:9",
+        "src/controllers/auth.controller.js:18",
+        "src/controllers/auth.controller.js:49"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "jwt.sign runs on signup/signin via generate(); the advisory concerns asymmetric key types, but the app signs with an HMAC string secret."
+    },
+    {
+      "repo": "desirekaleba/node-mysql-jwt-auth",
+      "advisory": "GHSA-hjrf-2m68-5959",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "src/utils/token.js:9"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "jwt.verify is referenced inside decode(), which nothing in the repo calls (dead code), and the key is a string, not a key-retrieval function."
+    },
+    {
+      "repo": "desirekaleba/node-mysql-jwt-auth",
+      "advisory": "GHSA-qwph-4952-7xr6",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "src/utils/token.js:9"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "jwt.verify is referenced inside decode(), which is never called; it would only matter with a falsy JWT_SECRET_KEY."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-3g43-6gmg-66jw",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; prototype-pollution gadget in config merge; needs Object.prototype polluted by another bug."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-43fc-jf86-j433",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; mergeConfig crash on an own __proto__ key; the app passes no attacker-built config object."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-7q8q-rj6j-mhjq",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; nested option objects read polluted prototype values; needs prior prototype pollution and auth/paramsSerializer placeholders, neither present."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-898c-q2cr-xwhg",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; read-side prototype-pollution gadgets; needs prior prototype pollution."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-fvcv-3m26-pcqx",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; header injection chain needs prototype pollution elsewhere first."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-j5f8-grm9-p9fc",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; Proxy-Authorization leak on redirect; needs an authenticated proxy, none configured."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-jr5f-v2jv-69x6",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; absolute URL overrides baseURL; no baseURL is set (the route fetches a user URL by design)."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-m7pr-hjqh-92cm",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; no_proxy bypass via IP alias; needs proxy + NO_PROXY env configuration."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-mmx7-hfxf-jppx",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; axios.get reads inherited data; needs prior prototype pollution."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-p92q-9vqr-4j8v",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; Proxy-Authorization leak across HTTP-to-HTTPS redirect; needs an authenticated proxy."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-pmwg-cvhr-8vh7",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; NO_PROXY loopback-subnet bypass; needs proxy configuration."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-w9j2-pvgh-6h63",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; validateStatus pollution gadget; needs prior pollution."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-xx6v-rp6x-q39c",
+      "package": "axios@0.27.2",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "middlewares/validatorManager.js:31",
+        "routes/link.route.js:24"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "axios.get(value) runs in bodyLinkValidator on POST /links with a user-supplied URL, so axios's shared request path is reached; withXSRFToken pollution gadget (browser XSRF); server-side use, needs prior pollution."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-8cf7-32gw-wr33",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "utils/tokenManager.js:6",
+        "utils/tokenManager.js:16",
+        "middlewares/requireToken.js:11",
+        "middlewares/requireRefreshToken.js:9"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "sign and verify both run on auth routes; the advisory concerns asymmetric key types and the app uses HMAC secrets from env."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-hjrf-2m68-5959",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "middlewares/requireToken.js:11",
+        "middlewares/requireRefreshToken.js:9"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "verify runs on every protected route; the key is an env string, not a key-retrieval function mixing key types."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-qwph-4952-7xr6",
+      "package": "jsonwebtoken@8.5.1",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "middlewares/requireToken.js:11",
+        "middlewares/requireRefreshToken.js:9"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "verify runs with no algorithms option; exploitable only if JWT_SECRET / JWT_REFRESH are unset (falsy secret), which is a deployment question."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-mwcw-c2x4-8c55",
+      "package": "nanoid@3.3.4",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "controllers/link.controller.js:59"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "main nanoid() is affected for fractional sizes in Node; it is called with the constant 6."
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "advisory": "GHSA-xwg4-73v4-xw9w",
+      "package": "nanoid@3.3.4",
+      "verdict": "reachable",
+      "tier": "llm",
+      "read": [
+        "controllers/link.controller.js:59"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "integer overflow needs a user-influenced size; it is called with the constant 6."
+    },
+    {
+      "repo": "IBM-Cloud/get-started-node",
+      "advisory": "GHSA-cf4h-3jhx-xvhq",
+      "package": "underscore@1.9.2",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/cfenv/lib/cfenv.js:11",
+        "node_modules/cfenv/lib/cfenv.js (all _ uses)",
+        "node_modules/lodash/lodash.js:17193",
+        "node_modules/lodash/core.js:3861"
+      ],
+      "judgement": "correct",
+      "why": "cfenv is the only loader of underscore and uses only _.clone, _.isEmpty and _.isRegExp; the two other files naming \"underscore\" (lodash.js, core.js) mention it in comments only; the project never imports it."
+    },
+    {
+      "repo": "StiliyanKushev/csgo-tradeup-cli",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:2",
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:111",
+        "package-lock.json (dependents of node_modules/lodash)"
+      ],
+      "judgement": "correct",
+      "why": "the only package that loads this lodash is whatwg-url, which requires lodash/sortBy and calls it once; sortBy does not reach unset/omit; no other file in node_modules or the project names lodash."
+    },
+    {
+      "repo": "StiliyanKushev/csgo-tradeup-cli",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:2",
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:111",
+        "package-lock.json (dependents of node_modules/lodash)"
+      ],
+      "judgement": "correct",
+      "why": "the only package that loads this lodash is whatwg-url, which requires lodash/sortBy and calls it once; sortBy does not reach template; no other file in node_modules or the project names lodash."
+    },
+    {
+      "repo": "StiliyanKushev/csgo-tradeup-cli",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:2",
+        "node_modules/whatwg-url/dist/URLSearchParams-impl.js:111",
+        "package-lock.json (dependents of node_modules/lodash)"
+      ],
+      "judgement": "correct",
+      "why": "the only package that loads this lodash is whatwg-url, which requires lodash/sortBy and calls it once; sortBy does not reach unset/omit; no other file in node_modules or the project names lodash."
+    },
+    {
+      "repo": "SashenJayathilaka/Spotify-Clone",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "components/Center.js:3",
+        "components/Center.js:30",
+        "components/Player.js:4",
+        "components/Player.js:73",
+        "node_modules/lodash.merge/index.js:3,255 (comments only)"
+      ],
+      "judgement": "correct",
+      "why": "the project uses only shuffle and debounce from lodash; neither reaches unset/omit; the only other file naming lodash (lodash.merge) does so in comments, and no installed package declares lodash."
+    },
+    {
+      "repo": "SashenJayathilaka/Spotify-Clone",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "components/Center.js:3",
+        "components/Center.js:30",
+        "components/Player.js:4",
+        "components/Player.js:73",
+        "node_modules/lodash.merge/index.js:3,255 (comments only)"
+      ],
+      "judgement": "correct",
+      "why": "the project uses only shuffle and debounce from lodash; neither reaches template; the only other file naming lodash (lodash.merge) does so in comments, and no installed package declares lodash."
+    },
+    {
+      "repo": "SashenJayathilaka/Spotify-Clone",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.21",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "components/Center.js:3",
+        "components/Center.js:30",
+        "components/Player.js:4",
+        "components/Player.js:73",
+        "node_modules/lodash.merge/index.js:3,255 (comments only)"
+      ],
+      "judgement": "correct",
+      "why": "the project uses only shuffle and debounce from lodash; neither reaches unset/omit; the only other file naming lodash (lodash.merge) does so in comments, and no installed package declares lodash."
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.21",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "src/index.js:1",
+        "src/index.js:22"
+      ],
+      "judgement": "correct",
+      "why": "require(\"lodash/omit\") then omit(o, props) with caller-supplied keys: the library's whole purpose; the advisories concern crafted omit paths."
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.21",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "src/index.js:1",
+        "src/index.js:22"
+      ],
+      "judgement": "correct",
+      "why": "require(\"lodash/omit\") then omit(o, props) with caller-supplied keys: the library's whole purpose; the advisories concern crafted omit paths."
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-define-map/lib/index.js:19",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-define-map"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-define-map, which uses per-method imports of has; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-define-map/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-define-map/lib/index.js:19",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-define-map"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-define-map, which uses per-method imports of has; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-define-map/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-define-map/lib/index.js:19",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-define-map"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-define-map, which uses per-method imports of has; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-define-map/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-define-map/lib/index.js:19",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-define-map"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-define-map, which uses per-method imports of has; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-define-map/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-regex/lib/index.js:7",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-regex"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-regex, which uses per-method imports of pull; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-regex/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-regex/lib/index.js:7",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-regex"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-regex, which uses per-method imports of pull; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-regex/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-regex/lib/index.js:7",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-regex"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-regex, which uses per-method imports of pull; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-regex/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-helper-regex/lib/index.js:7",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-helper-regex"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-helper-regex, which uses per-method imports of pull; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-helper-regex/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87,91",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-plugin-transform-es2015-block-scoping"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-plugin-transform-es2015-block-scoping, which uses per-method imports of values, extend; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87,91",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-plugin-transform-es2015-block-scoping"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-plugin-transform-es2015-block-scoping, which uses per-method imports of values, extend; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87,91",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-plugin-transform-es2015-block-scoping"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-plugin-transform-es2015-block-scoping, which uses per-method imports of values, extend; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-plugin-transform-es2015-block-scoping/lib/index.js:87,91",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-plugin-transform-es2015-block-scoping"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-plugin-transform-es2015-block-scoping, which uses per-method imports of values, extend; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-template/lib/index.js:57,61,65",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-template"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-template, which uses per-method imports of cloneDeep, assign, has; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-template/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-template/lib/index.js:57,61,65",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-template"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-template, which uses per-method imports of cloneDeep, assign, has; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-template/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-template/lib/index.js:57,61,65",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-template"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-template, which uses per-method imports of cloneDeep, assign, has; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-template/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-template/lib/index.js:57,61,65",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-template"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-template, which uses per-method imports of cloneDeep, assign, has; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-template/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-traverse/lib/index.js:50, lib/path/index.js:29, lib/scope/index.js:25-41, lib/visitors.js:33",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-traverse"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-traverse, which uses per-method imports of includes, assign, repeat, defaults, clone; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-traverse/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-traverse/lib/index.js:50, lib/path/index.js:29, lib/scope/index.js:25-41, lib/visitors.js:33",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-traverse"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-traverse, which uses per-method imports of includes, assign, repeat, defaults, clone; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-traverse/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-traverse/lib/index.js:50, lib/path/index.js:29, lib/scope/index.js:25-41, lib/visitors.js:33",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-traverse"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-traverse, which uses per-method imports of includes, assign, repeat, defaults, clone; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-traverse/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-traverse/lib/index.js:50, lib/path/index.js:29, lib/scope/index.js:25-41, lib/visitors.js:33",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-traverse"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-traverse, which uses per-method imports of includes, assign, repeat, defaults, clone; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-traverse/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-types/lib/converters.js:27,31, lib/index.js:321,325",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-types"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-types, which uses per-method imports of isPlainObject, isRegExp, clone, uniq; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-types/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-types/lib/converters.js:27,31, lib/index.js:321,325",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-types"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-types, which uses per-method imports of isPlainObject, isRegExp, clone, uniq; none reaches template; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-types/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-types/lib/converters.js:27,31, lib/index.js:321,325",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-types"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-types, which uses per-method imports of isPlainObject, isRegExp, clone, uniq; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-types/node_modules/lodash"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.20",
+      "verdict": "unreachable",
+      "tier": "curated",
+      "read": [
+        "node_modules/babel-types/lib/converters.js:27,31, lib/index.js:321,325",
+        "grep of every require of lodash and every _x2 binding use in node_modules/babel-types"
+      ],
+      "judgement": "correct",
+      "why": "this nested copy is loaded only by babel-types, which uses per-method imports of isPlainObject, isRegExp, clone, uniq; none reaches unset/omit; no dynamic require/eval in the package (the only \"Function(\" hits are visitor methods named Function).",
+      "instance": "node_modules/babel-types/node_modules/lodash"
+    },
+    {
+      "repo": "arizonatribe/vanillas",
+      "advisory": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash@4.17.21",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "test/benchmarks/omit.js:2",
+        "test/benchmarks/omit.js:14",
+        "package.json (lodash in devDependencies; \"benchmark\" script)"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "_.omit is really called, in a dev-only benchmark (scope: dev) with the constant key list [\"Jupiter\",\"Saturn\",\"Neptune\"]; no attacker-controlled path reaches it."
+    },
+    {
+      "repo": "arizonatribe/vanillas",
+      "advisory": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash@4.17.21",
+      "verdict": "reachable",
+      "tier": "curated",
+      "read": [
+        "test/benchmarks/omit.js:2",
+        "test/benchmarks/omit.js:14",
+        "package.json (lodash in devDependencies; \"benchmark\" script)"
+      ],
+      "judgement": "correct-but-not-exploitable",
+      "why": "_.omit is really called, in a dev-only benchmark (scope: dev) with the constant key list [\"Jupiter\",\"Saturn\",\"Neptune\"]; no attacker-controlled path reaches it."
+    }
+  ]
+}

@@ -44,7 +44,7 @@ for (const [id, entry] of Object.entries(data.advisories)) {
   const vuln = JSON.parse(fs.readFileSync(vulnFile, 'utf8')).vuln;
   const res = await llm.extract({ advisoryId: id, pkg: entry.package, vuln });
   const exp = exportsFor(entry.package);
-  const info = toSymbolInfo(res, exp);
+  const info = toSymbolInfo(res, exp, entry.package);
   const truth = new Set(entry.symbols);
   const kept = info.tier === 'llm' ? info.symbols.map((s) => s.symbol) : [];
   const dropped = (info.llm && info.llm.dropped) || [];

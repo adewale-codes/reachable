@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-fvqr-27wr-82fm",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:16.127Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"defaultsDeep\",\"quote\":\"The vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith'\"},{\"symbol\":\"merge\",\"quote\":\"The vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith'\"},{\"symbol\":\"mergeWith\",\"quote\":\"The vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith'\"}]}"
+}

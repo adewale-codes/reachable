@@ -6,9 +6,9 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_symbol_data",
+      "reason": "llm_tier_cannot_prove_unreachable",
       "truth": "unreachable",
-      "why": "not curated (toNumber/trim/trimEnd have many internal callers); the code calls none of them"
+      "why": "not curated (toNumber/trim/trimEnd have many internal callers); the code calls none of them. LLM (recorded): toNumber, trim, trimEnd; also eval_present"
     },
     {
       "id": "GHSA-35jh-r3h4-6jhm",

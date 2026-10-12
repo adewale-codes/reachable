@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-9c47-m6qq-7p4h",
+  "package": "json5",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:38.079Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"parse\",\"quote\":\"The `parse` method of the JSON5 library before and including version `2.2.1` does not restrict parsing of keys named `__proto__`\"}]}"
+}

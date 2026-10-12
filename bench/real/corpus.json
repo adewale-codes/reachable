@@ -1,0 +1,95 @@
+{
+  "description": "Phase 3 real-repo corpus. Each repo is pinned to a commit SHA so the corpus is reproducible. Selected 2026-10-12 from GitHub search: public npm projects with a lockfileVersion 2/3 package-lock.json, small to medium, mixed styles.",
+  "repos": [
+    {
+      "repo": "desirekaleba/node-mysql-jwt-auth",
+      "style": "express-api",
+      "sha": "23bccd6e2f833395acbab5b8f8739f0cdbd5e651",
+      "url": "https://github.com/desirekaleba/node-mysql-jwt-auth.git"
+    },
+    {
+      "repo": "bluuweb/api-rest-twitch-2022-mongo-express-node-jwt",
+      "style": "express-api",
+      "sha": "6e14be51debc05359dde77462f12cc02b60b9ca4",
+      "url": "https://github.com/bluuweb/api-rest-twitch-2022-mongo-express-node-jwt.git"
+    },
+    {
+      "repo": "IBM-Cloud/get-started-node",
+      "style": "express-api",
+      "sha": "4e2b775d7a3b9c2fb1e31c62bb538c9f00dde77d",
+      "url": "https://github.com/IBM-Cloud/get-started-node.git"
+    },
+    {
+      "repo": "richienabuk/express-js-api-rbac",
+      "style": "express-api",
+      "sha": "53cc96e4da5904afcf777c920e74ed8eca9b1e69",
+      "url": "https://github.com/richienabuk/express-js-api-rbac.git"
+    },
+    {
+      "repo": "StiliyanKushev/csgo-tradeup-cli",
+      "style": "cli",
+      "sha": "427f0bf230461d8ffc7e414292647f292ecb9c7b",
+      "url": "https://github.com/StiliyanKushev/csgo-tradeup-cli.git"
+    },
+    {
+      "repo": "web3-storage/w3up-cli",
+      "style": "cli-typescript",
+      "sha": "0d0ca91ea34f5ab76a56d492d02ceef6eca489e2",
+      "url": "https://github.com/web3-storage/w3up-cli.git"
+    },
+    {
+      "repo": "SashenJayathilaka/Spotify-Clone",
+      "style": "react-app-nextjs",
+      "sha": "02cd0544785a288b3c97630366234a6d54a3ac51",
+      "url": "https://github.com/SashenJayathilaka/Spotify-Clone.git"
+    },
+    {
+      "repo": "thepranaygupta/react-tailwind-css-starter-pack",
+      "style": "react-app-cra",
+      "sha": "b40ae8a6567600be39961ef856923a2584ee0c4f",
+      "url": "https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git"
+    },
+    {
+      "repo": "odynvolk/omit-deep-lodash",
+      "style": "library",
+      "sha": "3d4c5ef2147425f573479971a46eb787a3d67aca",
+      "url": "https://github.com/odynvolk/omit-deep-lodash.git"
+    },
+    {
+      "repo": "rotemdan/lzutf8.js",
+      "style": "library-typescript",
+      "sha": "e691f5244a51ea8785a083216999756a7feb35c1",
+      "url": "https://github.com/rotemdan/lzutf8.js.git"
+    },
+    {
+      "repo": "arizonatribe/vanillas",
+      "style": "library-typescript",
+      "sha": "7bf4eed70d10036b6ec44a456346c7110e8f0b95",
+      "url": "https://github.com/arizonatribe/vanillas.git"
+    },
+    {
+      "repo": "wuruoyun/vue-component-lib-starter",
+      "style": "library-typescript",
+      "sha": "c80d0e2df5c1a5c7c8500585a659b6fffed72586",
+      "url": "https://github.com/wuruoyun/vue-component-lib-starter.git"
+    },
+    {
+      "repo": "Ruimve/microhook",
+      "style": "library-typescript-react",
+      "sha": "857b62eff8069361adb15c57aaf22c5bbb4738b6",
+      "url": "https://github.com/Ruimve/microhook.git"
+    },
+    {
+      "repo": "adiun/vite-monorepo",
+      "style": "monorepo-workspaces",
+      "sha": "15aa5d345428edc21f7e3d51404746f9a617aab2",
+      "url": "https://github.com/adiun/vite-monorepo.git"
+    },
+    {
+      "repo": "davestewart/spaceman",
+      "style": "monorepo-ish",
+      "sha": "7e1b74bea898628bd7914cde6b13fcd8f56b217e",
+      "url": "https://github.com/davestewart/spaceman.git"
+    }
+  ]
+}

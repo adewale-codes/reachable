@@ -14,11 +14,13 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
-export const DEFAULT_LLM_MODEL = 'claude-opus-5';
+export const DEFAULT_LLM_MODEL = 'claude-sonnet-5-5';
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const FALLBACK_MODELS = new Set(['claude-opus-5', 'claude-opus-5-5', 'claude-fable-5-1']);
 
-export const SYSTEM_PROMPT = `You read npm security advisories and identify which exported functions of the affected package a program must call (or reference) to be exposed to the vulnerability.
+// v1 prompt and schema are kept verbatim: their cache keys are still computed so
+// v1 answers can be reused where the v2 change cannot matter (see extract()).
+export const SYSTEM_PROMPT_V1 = `You read npm security advisories and identify which exported functions of the affected package a program must call (or reference) to be exposed to the vulnerability.
 
 Rules:
 - Use only the advisory text you are given. Do not use outside knowledge of the package.
@@ -29,7 +31,7 @@ Rules:
 - If the advisory does not name any specific function, method or entry point, set "names_specific_api" to false and return an empty "symbols" list.
 - Answer with JSON only, matching the schema.`;
 
-const SCHEMA = {
+const SCHEMA_V1 = {
   type: 'object',
   properties: {
     names_specific_api: { type: 'boolean' },
@@ -47,6 +49,37 @@ const SCHEMA = {
   additionalProperties: false,
 };
 
+// v2 (pre-publish fix): the model may say which module path a symbol lives in.
+export const SYSTEM_PROMPT = SYSTEM_PROMPT_V1.replace(
+  '- If the advisory does not name any specific function',
+  '- If the advisory says the affected function lives only in a specific module path of the package (for example "some-lib/legacy" or "some-lib/dist/parser.js"), set "module" to that exact path, written as it appears in the advisory text. If the advisory does not name a module path, or the function is exported from the main package, omit "module".\n- If the advisory does not name any specific function',
+);
+const SCHEMA = {
+  ...SCHEMA_V1,
+  properties: {
+    ...SCHEMA_V1.properties,
+    symbols: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: { symbol: { type: 'string' }, quote: { type: 'string' }, module: { type: 'string' } },
+        required: ['symbol', 'quote'],
+        additionalProperties: false,
+      },
+    },
+  },
+};
+
+/**
+ * Does the advisory text name a deep module path of the package, written as a
+ * specifier ('nanoid/non-secure', `axios/lib/x.js`)? URLs (github.com/axios/axios),
+ * '_next/...' and '@scope/pkg' do not count: the path must start a token.
+ */
+export function namesDeepPath(text, pkg) {
+  const esc = pkg.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
+  return new RegExp('(^|[\\s\'"`(\\[])' + esc + '/[\\w.-]').test(text);
+}
+
 /** The advisory text given to the LLM and used by the verbatim-quote guard. */
 export function advisoryText(vuln) {
   return [vuln.summary || '', vuln.details || ''].filter(Boolean).join('\n\n');
@@ -56,9 +89,10 @@ export function userPrompt({ advisoryId, pkg, text }) {
   return `Advisory ${advisoryId} for the npm package "${pkg}".\n\nAdvisory text:\n<<<\n${text}\n>>>\n\nWhich exported symbols of "${pkg}" are affected?`;
 }
 
-export function cacheKey({ advisoryId, pkg, text }) {
-  const h = crypto.createHash('sha256').update(text).update('\u0000').update(SYSTEM_PROMPT).update('\u0000')
-    .update(userPrompt({ advisoryId, pkg, text })).update('\u0000').update(JSON.stringify(SCHEMA)).digest('hex').slice(0, 16);
+export function cacheKey({ advisoryId, pkg, text, version = 2 }) {
+  const [prompt, schema] = version === 1 ? [SYSTEM_PROMPT_V1, SCHEMA_V1] : [SYSTEM_PROMPT, SCHEMA];
+  const h = crypto.createHash('sha256').update(text).update('\u0000').update(prompt).update('\u0000')
+    .update(userPrompt({ advisoryId, pkg, text })).update('\u0000').update(JSON.stringify(schema)).digest('hex').slice(0, 16);
   return `${advisoryId}__${pkg.replace(/[^\w.-]/g, '_')}__${h}.json`;
 }
 
@@ -76,8 +110,9 @@ export function parseAnswer(text) {
     if (!x || typeof x !== 'object' || typeof x.symbol !== 'string' || typeof x.quote !== 'string' || !x.symbol.trim() || !x.quote.trim()) {
       return { ok: false, why: `symbols[${i}] is not {symbol: string, quote: string}` };
     }
+    if (x.module !== undefined && typeof x.module !== 'string') return { ok: false, why: `symbols[${i}].module is not a string` };
   }
-  return { ok: true, value: { names_specific_api: v.names_specific_api, symbols: v.symbols.map((x) => ({ symbol: x.symbol.trim(), quote: x.quote })) } };
+  return { ok: true, value: { names_specific_api: v.names_specific_api, symbols: v.symbols.map((x) => ({ symbol: x.symbol.trim(), quote: x.quote, ...(x.module && x.module.trim() ? { module: x.module.trim() } : {}) })) } };
 }
 
 const squash = (s) => s.replace(/\s+/g, ' ').trim();
@@ -87,29 +122,41 @@ const squash = (s) => s.replace(/\s+/g, ' ').trim();
  * text (whitespace runs are compared as single spaces). Exports are checked
  * when they could be determined; otherwise a symbol is kept with
  * exportCheck "unknown" (LLM symbols can only ever lead to reachable).
+ * A module path (e.g. 'nanoid/non-secure') is kept only if it names a deep path
+ * of this package and appears verbatim in the advisory text; otherwise the
+ * symbol is kept UNqualified (it then applies to every entry point, the
+ * conservative reading) and the dropped qualification is reported.
  * @param exportsInfo { determined: true, names: Set, callable } | { determined: false, why }
+ * @param pkg the package name (needed to validate module paths)
  */
-export function applyGuard(answer, text, exportsInfo) {
+export function applyGuard(answer, text, exportsInfo, pkg = null) {
   const hay = squash(text);
   const kept = [];
   const dropped = [];
+  const unqualified = [];
   const seen = new Set();
-  for (const { symbol, quote } of answer.symbols) {
+  for (const { symbol, quote, module: moduleIn } of answer.symbols) {
     const drop = (why) => dropped.push({ symbol, quote, why });
-    if (seen.has(symbol)) continue;
     if (symbol !== '(module)' && !/^[A-Za-z_$][\w$]*$/.test(symbol)) { drop('not_an_identifier'); continue; }
     if (!hay.includes(squash(quote))) { drop('quote_not_in_advisory'); continue; }
     if (symbol !== '(module)' && !quote.includes(symbol)) { drop('quote_lacks_symbol'); continue; }
+    let module = null;
+    if (moduleIn && moduleIn !== pkg) {
+      if (pkg && moduleIn.startsWith(`${pkg}/`) && hay.includes(moduleIn)) module = moduleIn;
+      else unqualified.push({ symbol, module: moduleIn, why: !pkg || !moduleIn.startsWith(`${pkg}/`) ? 'module_not_a_deep_path_of_package' : 'module_not_in_advisory' });
+    }
+    if (seen.has(`${symbol}|${module || ''}`)) continue;
     let exportCheck = 'unknown';
-    if (exportsInfo && exportsInfo.determined) {
+    // The main entry's exports say nothing about a deep module: not checked there.
+    if (!module && exportsInfo && exportsInfo.determined) {
       const ok = symbol === '(module)' ? exportsInfo.callable : exportsInfo.names.has(symbol);
       if (!ok) { drop('not_an_export'); continue; }
       exportCheck = 'confirmed';
     }
-    seen.add(symbol);
-    kept.push({ symbol, quote, exportCheck });
+    seen.add(`${symbol}|${module || ''}`);
+    kept.push({ symbol, quote, exportCheck, ...(module ? { module } : {}) });
   }
-  return { kept, dropped };
+  return { kept, dropped, unqualified };
 }
 
 function readJson(file) {
@@ -137,13 +184,19 @@ export class LlmExtractor {
   async extract({ advisoryId, pkg, vuln }) {
     const text = advisoryText(vuln);
     const key = cacheKey({ advisoryId, pkg, text });
-    for (const d of this.readDirs) {
-      const rec = readJson(path.join(d, key));
-      if (rec && typeof rec.responseText === 'string') {
-        this.stats.cacheHits++;
-        const parsed = parseAnswer(rec.responseText);
-        if (!parsed.ok) return { status: 'invalid', detail: parsed.why, model: rec.model, record: rec };
-        return { status: 'ok', answer: parsed.value, model: rec.model, record: rec, text };
+    // A v1 answer (asked before the prompt could report module paths) is reused
+    // only when the advisory text names no deep path of the package at all: then
+    // the v2 rule has nothing to apply to and the answer would be the same.
+    const keys = [key, ...(namesDeepPath(text, pkg) ? [] : [cacheKey({ advisoryId, pkg, text, version: 1 })])];
+    for (const k of keys) {
+      for (const d of this.readDirs) {
+        const rec = readJson(path.join(d, k));
+        if (rec && typeof rec.responseText === 'string') {
+          this.stats.cacheHits++;
+          const parsed = parseAnswer(rec.responseText);
+          if (!parsed.ok) return { status: 'invalid', detail: parsed.why, model: rec.model, record: rec };
+          return { status: 'ok', answer: parsed.value, model: rec.model, record: rec, text, promptVersion: k === key ? 2 : 1 };
+        }
       }
     }
     if (this.mode !== 'live') return { status: 'unavailable', detail: 'no recorded LLM response and live calls are off' };
@@ -216,7 +269,7 @@ export class LlmExtractor {
 /**
  * Turn an extraction result + guard into the symbolInfo verdict.js expects.
  */
-export function toSymbolInfo(result, exportsInfo) {
+export function toSymbolInfo(result, exportsInfo, pkg = null) {
   if (result.status === 'unavailable') {
     return { tier: null, reasons: [{ code: 'no_symbol_data', llmNote: `LLM extraction did not run: ${result.detail}` }, { code: 'llm_unavailable', detail: result.detail }], llm: { status: 'unavailable', detail: result.detail } };
   }
@@ -227,8 +280,8 @@ export function toSymbolInfo(result, exportsInfo) {
   if (!answer.names_specific_api || !answer.symbols.length) {
     return { tier: null, reasons: [{ code: 'no_symbol_data', llmNote: 'the LLM found no specific function named' }, { code: 'llm_no_specific_api' }], llm: { status: 'no_specific_api', model: result.model } };
   }
-  const g = applyGuard(answer, result.text, exportsInfo);
-  const llm = { status: 'ok', model: result.model, proposed: answer.symbols.length, kept: g.kept, dropped: g.dropped, exportsDetermined: Boolean(exportsInfo && exportsInfo.determined), synthetic: Boolean(result.record && result.record.synthetic) };
+  const g = applyGuard(answer, result.text, exportsInfo, pkg);
+  const llm = { status: 'ok', model: result.model, proposed: answer.symbols.length, kept: g.kept, dropped: g.dropped, unqualified: g.unqualified, promptVersion: result.promptVersion || 2, exportsDetermined: Boolean(exportsInfo && exportsInfo.determined), synthetic: Boolean(result.record && result.record.synthetic) };
   if (!g.kept.length) {
     const detail = g.dropped.map((d) => `${d.symbol}: ${d.why}`).join('; ');
     return { tier: null, reasons: [{ code: 'no_symbol_data', llmNote: 'every LLM-proposed symbol was rejected by the guard' }, { code: 'llm_no_valid_symbols', detail }], llm };

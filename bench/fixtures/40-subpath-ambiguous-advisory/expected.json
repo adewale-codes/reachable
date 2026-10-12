@@ -1,0 +1,41 @@
+{
+  "description": "Ambiguous advisory (GHSA-mwcw names \"non-secure\" but no module path): a hand-written LLM answer claims module \"nanoid/non-secure\"; the guard must drop the qualification, so the main import stays reachable.",
+  "results": [
+    {
+      "id": "GHSA-28wg-ghj8-5hjv",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "cant_tell",
+      "reason": "other_entry_point",
+      "truth": "unreachable",
+      "why": "as fixture 38. as fixture 38"
+    },
+    {
+      "id": "GHSA-2v37-7h3g-55p8",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "cant_tell",
+      "reason": "llm_tier_cannot_prove_unreachable",
+      "truth": "unreachable",
+      "why": "as fixture 38. as fixture 38"
+    },
+    {
+      "id": "GHSA-mwcw-c2x4-8c55",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "main nanoid() with a caller-supplied size; the synthetic answer's module is not written in the advisory, so it is ignored"
+    },
+    {
+      "id": "GHSA-xwg4-73v4-xw9w",
+      "package": "nanoid",
+      "version": "3.3.4",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "as fixture 38. as fixture 38"
+    }
+  ]
+}

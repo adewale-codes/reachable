@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-2v37-7h3g-55p8",
+  "package": "nanoid",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T18:06:22.261Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"customAlphabet\",\"quote\":\"infinite loop in the customAlphabet and customRandom functions\"},{\"symbol\":\"customRandom\",\"quote\":\"infinite loop in the customAlphabet and customRandom functions\"}]}"
+}

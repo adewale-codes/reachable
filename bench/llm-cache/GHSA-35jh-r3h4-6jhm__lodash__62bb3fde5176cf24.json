@@ -1,0 +1,9 @@
+{
+  "advisoryId": "GHSA-35jh-r3h4-6jhm",
+  "package": "lodash",
+  "model": "claude-sonnet-5-5",
+  "requestedModel": "claude-sonnet-5-5",
+  "createdAt": "2026-10-12T15:00:21.322Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"template\",\"quote\":\"vulnerable to Command Injection via the template function\"}]}"
+}

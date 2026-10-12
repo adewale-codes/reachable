@@ -1,0 +1,50 @@
+{
+  "description": "lodash listed in a vite build external list; the code only uses get. The normal rules decide.",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "llm_tier_cannot_prove_unreachable",
+      "truth": "unreachable",
+      "why": "toNumber/trim/trimEnd are not called (LLM data cannot prove it). LLM (recorded): toNumber, trim, trimEnd; none referenced"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only get is used"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only get is used"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only get is used"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "only get is used"
+    }
+  ]
+}
