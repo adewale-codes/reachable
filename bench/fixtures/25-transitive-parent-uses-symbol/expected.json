@@ -1,0 +1,23 @@
+{
+  "description": "A parent package (fx-argv-helper) calls minimist(argv); the project calls the parent.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "src/cli.js -> fx-argv-helper -> minimist(argv)"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "src/cli.js -> fx-argv-helper -> minimist(argv)"
+    }
+  ]
+}

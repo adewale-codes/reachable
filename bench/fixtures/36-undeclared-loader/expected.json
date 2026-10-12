@@ -1,0 +1,23 @@
+{
+  "description": "fx-flags declares minimist but never loads it; fx-sloppy-cli requires minimist WITHOUT declaring it (works through hoisting) and calls it.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "fx-sloppy-cli calls minimist(process.argv) and the project calls it"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "fx-sloppy-cli calls minimist(process.argv) and the project calls it"
+    }
+  ]
+}

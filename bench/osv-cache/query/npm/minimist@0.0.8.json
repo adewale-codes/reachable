@@ -2,7 +2,7 @@
   "package": "minimist",
   "ecosystem": "npm",
   "version": "0.0.8",
-  "fetchedAt": "2026-10-11T20:26:11.714Z",
+  "fetchedAt": "2026-10-11T21:00:05.756Z",
   "vulns": [
     {
       "id": "GHSA-vh95-rmgr-6w4m",

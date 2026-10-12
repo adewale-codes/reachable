@@ -1,0 +1,11 @@
+{
+  "name": "fx-transitive-bin-in-script",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "mkdirp build/output"
+  },
+  "dependencies": {
+    "mkdirp": "0.5.1"
+  }
+}

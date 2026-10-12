@@ -1,0 +1,23 @@
+{
+  "description": "The parent package ships Flow-annotated .js that tree-sitter cannot parse; it calls minimist.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "parent_unparseable",
+      "truth": "reachable",
+      "why": "fx-flow-args parse() calls minimist(argv), and src/cli.js calls parse"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "cant_tell",
+      "reason": "parent_unparseable",
+      "truth": "reachable",
+      "why": "fx-flow-args parse() calls minimist(argv), and src/cli.js calls parse"
+    }
+  ]
+}

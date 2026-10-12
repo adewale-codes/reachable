@@ -1,0 +1,23 @@
+{
+  "description": "Recorded (synthetic, hand-written) LLM answer naming parse, which is not an export of ms@0.7.0: the guard must drop it.",
+  "results": [
+    {
+      "id": "GHSA-w9mr-4mfr-499f",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "cant_tell",
+      "reason": "llm_no_valid_symbols",
+      "truth": "reachable",
+      "why": "ms(header) is called, but the LLM symbol parse is not an export (module.exports is the function)"
+    },
+    {
+      "id": "GHSA-3fx5-fwvr-xrjg",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "TODO_LLM",
+      "reason": null,
+      "truth": "reachable",
+      "why": "ms(header) parses a caller-supplied string"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "package": "jsonwebtoken",
   "ecosystem": "npm",
   "version": "8.5.1",
-  "fetchedAt": "2026-10-11T20:26:13.819Z",
+  "fetchedAt": "2026-10-11T21:00:06.419Z",
   "vulns": [
     {
       "id": "GHSA-8cf7-32gw-wr33",

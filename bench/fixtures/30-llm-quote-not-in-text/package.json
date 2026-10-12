@@ -1,0 +1,8 @@
+{
+  "name": "fx-llm-quote-not-in-text",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "ms": "0.7.0"
+  }
+}

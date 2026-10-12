@@ -32,6 +32,7 @@ export function formatText(report, { color = false, verbose = false } = {}) {
 
   p(`${c.bold(`reachable ${report.tool.version}`)}  ${report.project.name}  ${c.dim(report.project.path)}`);
   p(c.dim(`  ${report.source.filesScanned} source files · ${report.inventory.direct} direct / ${report.inventory.transitive} transitive packages · advisories from ${osvSource(report.osv)}`));
+  for (const n of report.notices || []) p(c.dim(`  note: ${n}`));
   p();
 
   const incompleteBanner = () => {
@@ -48,6 +49,7 @@ export function formatText(report, { color = false, verbose = false } = {}) {
   } else {
     p(`${c.bold(`${s.alerts} advisory alerts`)}: ${c.red(`${s.reachable} reachable`)} · ${c.green(`${s.unreachable} unreachable`)} · ${c.yellow(`${s.cant_tell} can't tell`)}`);
   }
+  if (report.prodOnly && report.hiddenDevAlerts) p(c.dim(`  --prod-only: ${report.hiddenDevAlerts} dev-only alert(s) hidden (they still exist; verdicts are unchanged)`));
 
   for (const [verdict, title] of GROUPS) {
     const items = report.results.filter((r) => r.verdict === verdict);
@@ -56,11 +58,12 @@ export function formatText(report, { color = false, verbose = false } = {}) {
     p();
     p(tint(c.bold(`${title} (${items.length})`)));
     for (const r of items) {
-      const kind = r.direct ? (r.dev ? 'direct, dev' : 'direct') : 'transitive';
+      const kind = `${r.direct ? 'direct' : 'transitive'}, ${r.scope}`;
       p(`  ${c.bold(r.id)}  ${r.package}@${r.version}  ${c.dim(`(${kind})`)}  ${r.summary}`);
       if (verdict === 'reachable') {
-        p(`    affected: ${r.affectedSymbols.join(', ')}`);
+        p(`    affected: ${r.affectedSymbols.join(', ')}${r.symbolTier === 'llm' ? c.yellow(`  [source: llm, ${r.llm.model}]`) : ''}`);
         for (const ev of r.evidence.references.slice(0, verbose ? 20 : 3)) {
+          if (ev.source === 'llm') p(c.dim(`    ${ev.symbol} — advisory says: "${ev.quote.replace(/s+/g, ' ').slice(0, 160)}"`));
           const [first, ...rest] = ev.chain;
           p(`    ${c.dim(pad(where(first), 28))}${first.text}`);
           for (const step of rest) p(`      → ${c.dim(pad(where(step), 26))}${step.text}`);
@@ -70,7 +73,10 @@ export function formatText(report, { color = false, verbose = false } = {}) {
       } else if (verdict === 'unreachable') {
         const e = r.evidence;
         p(`    affected: ${e.symbols.join(', ')}; none referenced. ${e.usesChecked} use${e.usesChecked === 1 ? '' : 's'} of ${r.installName} checked from ${e.importCount} import site${e.importCount === 1 ? '' : 's'}:`);
-        p(c.dim(`    ${e.importSites.slice(0, 5).map(where).join(', ')}${e.importCount > 5 ? ', ...' : ''}`));
+        if (e.importCount) p(c.dim(`    ${e.importSites.slice(0, 5).map(where).join(', ')}${e.importCount > 5 ? ', ...' : ''}`));
+        for (const L of (e.loaders || []).slice(0, verbose ? 50 : 4)) p(c.dim(`    loader ${L.loader}${L.declared === false ? ' (undeclared)' : ''}: ${L.result}`));
+        if ((e.loaders || []).length > (verbose ? 50 : 4)) p(c.dim(`    (+${e.loaders.length - (verbose ? 50 : 4)} more loaders)`));
+        if (e.paths) p(c.dim(`    ${e.paths.total}${e.paths.complete ? '' : '+'} dependency path(s), e.g. ${e.paths.sample[0] ? e.paths.sample[0].join(' > ') : '-'}`));
       } else {
         const [primary, ...others] = r.reasons;
         p(`    ${c.yellow(primary.code)}: ${primary.message}`);

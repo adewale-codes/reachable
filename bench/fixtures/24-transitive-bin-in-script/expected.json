@@ -1,0 +1,23 @@
+{
+  "description": "Same packages, but an npm script runs the mkdirp CLI, whose bin/cmd.js calls minimist.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "the prepare script runs mkdirp/bin/cmd.js, which calls minimist(process.argv...)"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "the prepare script runs mkdirp/bin/cmd.js, which calls minimist(process.argv...)"
+    }
+  ]
+}

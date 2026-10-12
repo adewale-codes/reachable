@@ -1,0 +1,23 @@
+{
+  "description": "Recorded (synthetic, hand-written) LLM answer whose quote is not in the advisory text: the guard must drop it.",
+  "results": [
+    {
+      "id": "GHSA-w9mr-4mfr-499f",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "cant_tell",
+      "reason": "llm_no_valid_symbols",
+      "truth": "reachable",
+      "why": "ms(header) is called, but the only LLM symbol is dropped by the guard (quote_not_in_advisory)"
+    },
+    {
+      "id": "GHSA-3fx5-fwvr-xrjg",
+      "package": "ms",
+      "version": "0.7.0",
+      "expected": "TODO_LLM",
+      "reason": null,
+      "truth": "reachable",
+      "why": "ms(header) parses a caller-supplied string"
+    }
+  ]
+}

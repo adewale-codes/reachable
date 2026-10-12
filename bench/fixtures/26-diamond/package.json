@@ -1,0 +1,9 @@
+{
+  "name": "fx-diamond",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "fx-config-reader": "1.0.0",
+    "fx-email-renderer": "1.0.0"
+  }
+}

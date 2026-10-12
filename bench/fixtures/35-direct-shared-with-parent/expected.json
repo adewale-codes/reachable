@@ -1,0 +1,50 @@
+{
+  "description": "lodash is a direct dependency used only via _.get, but the installed package fx-greeting also loads it and calls lodash/template. Phase 1 would have said unreachable.",
+  "results": [
+    {
+      "id": "GHSA-29mw-wpgm-hmr9",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "TODO_LLM",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "get and template do not call toNumber/trim/trimEnd"
+    },
+    {
+      "id": "GHSA-35jh-r3h4-6jhm",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "fx-greeting calls lodash/template at load time, and the project requires fx-greeting"
+    },
+    {
+      "id": "GHSA-r5fr-rjxr-66jc",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "cant_tell",
+      "reason": "transitive_parent_uses_symbol",
+      "truth": "reachable",
+      "why": "fx-greeting calls lodash/template at load time, and the project requires fx-greeting"
+    },
+    {
+      "id": "GHSA-xxjr-mmjv-4gpg",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "the project uses get, fx-greeting uses template; nothing uses unset/omit"
+    },
+    {
+      "id": "GHSA-f23m-r3pf-42rh",
+      "package": "lodash",
+      "version": "4.17.20",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "the project uses get, fx-greeting uses template; nothing uses unset/omit"
+    }
+  ]
+}

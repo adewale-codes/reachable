@@ -2,7 +2,7 @@
   "package": "json5",
   "ecosystem": "npm",
   "version": "2.2.1",
-  "fetchedAt": "2026-10-11T20:26:14.293Z",
+  "fetchedAt": "2026-10-11T21:00:07.804Z",
   "vulns": [
     {
       "id": "GHSA-9c47-m6qq-7p4h",

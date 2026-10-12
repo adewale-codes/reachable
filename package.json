@@ -20,9 +20,11 @@
     "node": ">=18.17"
   },
   "scripts": {
-    "test": "node --test test/analysis.test.js test/cli.test.js",
+    "test": "node --test test/analysis.test.js test/cli.test.js test/phase2.test.js",
     "bench": "node bench/run.js",
-    "bench:record": "node bench/record.js"
+    "bench:record": "node bench/record.js",
+    "bench:setup": "npm install --ignore-scripts --no-audit --no-fund --prefix bench/eval-packages",
+    "bench:eval": "node bench/extraction-eval.js"
   },
   "license": "MIT",
   "dependencies": {

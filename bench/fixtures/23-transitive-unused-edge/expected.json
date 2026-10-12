@@ -1,0 +1,23 @@
+{
+  "description": "Transitive minimist@0.0.8 via real mkdirp@0.5.1; only mkdirp's CLI (bin/cmd.js) uses minimist and no script runs it.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "mkdirp index.js never loads minimist; bin/cmd.js is not run by any npm script"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "unreachable",
+      "reason": null,
+      "truth": "unreachable",
+      "why": "mkdirp index.js never loads minimist; bin/cmd.js is not run by any npm script"
+    }
+  ]
+}

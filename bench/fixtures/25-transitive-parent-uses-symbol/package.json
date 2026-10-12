@@ -1,0 +1,8 @@
+{
+  "name": "fx-transitive-parent-uses-symbol",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "fx-argv-helper": "1.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "advisoryId": "GHSA-w9mr-4mfr-499f",
+  "package": "ms",
+  "model": "synthetic",
+  "synthetic": true,
+  "note": "Hand-written test answer (not from a model): its quote does not appear in the advisory text, so the guard must drop it.",
+  "createdAt": "2026-10-11T00:00:00.000Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"(module)\",\"quote\":\"Calling ms() with an attacker-controlled string blocks the event loop.\"}]}"
+}

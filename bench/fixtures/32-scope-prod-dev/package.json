@@ -1,0 +1,11 @@
+{
+  "name": "fx-scope-prod-dev",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "json5": "2.2.1"
+  },
+  "devDependencies": {
+    "minimist": "1.2.0"
+  }
+}

@@ -2,7 +2,7 @@
   "package": "trim-newlines",
   "ecosystem": "npm",
   "version": "3.0.0",
-  "fetchedAt": "2026-10-11T20:26:16.002Z",
+  "fetchedAt": "2026-10-11T21:00:04.118Z",
   "vulns": [
     {
       "id": "GHSA-7p7h-4mm5-852v",

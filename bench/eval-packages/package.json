@@ -1,0 +1,14 @@
+{
+  "name": "reachable-eval-packages",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The packages of the 15 curated advisories, at affected versions. Installed only so the extraction eval can check LLM symbols against real exports (npm run bench:setup).",
+  "dependencies": {
+    "json5": "2.2.1",
+    "jsonwebtoken": "8.5.1",
+    "lodash": "4.17.20",
+    "minimist": "1.2.0",
+    "trim-newlines": "3.0.0",
+    "underscore": "1.12.0"
+  }
+}

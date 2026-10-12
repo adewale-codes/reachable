@@ -1,12 +1,23 @@
-// Verdict engine. Combines advisories, curated symbol data and usage facts
-// into one verdict per (advisory, installed package instance):
+// Verdict engine. One verdict per (advisory, installed package instance):
 //
-//   reachable    a reference to an affected symbol exists in scanned source
-//   unreachable  ONLY when every condition for proof holds (see decide())
+//   reachable    the project's own code references an affected symbol
+//   unreachable  ONLY when every condition for proof holds (see decideAlert)
 //   cant_tell    everything else, always with machine-readable reason codes
 //
 // `unreachable` is never a default: it is returned only when the list of
 // reasons to doubt it is empty.
+//
+// Model (Phase 2): an installed instance can be loaded by the project's code
+// and by other installed packages (its "loaders": declared dependents plus
+// packages found requiring it without declaring it). Every loader is an edge.
+// The project edge can prove `reachable`. A package edge can only pass or
+// raise doubt: a dependency that uses the affected function is reported as
+// cant_tell / transitive_parent_uses_symbol, never reachable, because we do
+// not yet know whether the project reaches that code (Phase 3).
+//
+// Trust tiers: curated symbol data may produce any verdict. LLM-extracted
+// data may produce reachable or cant_tell, NEVER unreachable (enforced at the
+// end of decideAlert, after every other rule).
 
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -18,30 +29,42 @@ export function loadAdvisoryData(file = DEFAULT_DATA_PATH) {
   return { packages: data.packages || {}, advisories: data.advisories || {}, excluded: data.excluded || {} };
 }
 
+const where = (c) => c.where || 'the project';
+
 // Order = priority when picking the primary reason.
 export const REASONS = {
-  transitive_not_analysed: (c) => `${c.pkg} is only a transitive dependency${c.requiredBy ? ` (required by ${c.requiredBy})` : ''}. Phase 1 analyses direct dependencies only, so the code paths that reach it were not checked.`,
-  no_symbol_data: (c) => `There is no curated record of which ${c.pkg} functions this advisory affects${c.excluded ? ` (left out on purpose: ${c.excluded})` : ''}, so usage cannot be matched against it.`,
-  parse_error: () => 'Some source files could not be parsed completely. Code in them may use the affected function.',
+  transitive_not_analysed: (c) => `${c.pkg} is only a transitive dependency${c.requiredBy ? ` (required by ${c.requiredBy})` : ''}. Transitive analysis is turned off for this scan.`,
+  transitive_parent_uses_symbol: (c) => `A package that loads ${c.pkg} references ${c.symbols}. Whether your code reaches that part of the package is not analysed yet, so this is not reported as reachable.`,
+  no_symbol_data: (c) => `There is no curated record of which ${c.pkg} functions this advisory affects${c.excluded ? ` (left out on purpose: ${c.excluded})` : ''}${c.llmNote ? `; ${c.llmNote}` : ''}, so usage cannot be matched against it.`,
+  llm_unavailable: (c) => `LLM symbol extraction did not run for this advisory (${c.detail || 'no response'}).`,
+  llm_invalid_output: (c) => `The LLM's answer for this advisory did not match the required schema and was rejected (${c.detail || 'invalid'}).`,
+  llm_no_specific_api: () => 'The LLM read the advisory as not naming a specific function of the package.',
+  llm_no_valid_symbols: (c) => `Every symbol the LLM proposed was rejected by the guard (${c.detail || 'see dropped'}).`,
+  node_modules_missing: (c) => `node_modules is not installed, so the packages that load ${c.pkg} could not be inspected. Run npm ci and scan again.`,
+  parent_not_installed: (c) => `A package that loads ${c.pkg} is in the lockfile but not in node_modules.`,
+  node_modules_out_of_sync: () => 'The version installed in node_modules differs from package-lock.json, so the installed code is not the locked code. Run npm ci.',
+  parent_unparseable: (c) => `Code in a package that loads ${c.pkg} could not be parsed (minified, bundled, very large or unsupported syntax), so its use of ${c.pkg} is unknown.`,
+  parse_error: () => 'Some source files of the project could not be parsed completely. Code in them may use the affected function.',
   file_unreadable: () => 'Some source files could not be read. Code in them may use the affected function.',
-  no_import_found: (c) => `${c.pkg} is a direct dependency but no scanned source file imports it. It may still be used by its CLI binary, an npm script, a config file or another file that was not scanned.`,
-  module_escapes: (c) => `The ${c.pkg} module object is handed to code this analysis does not follow (passed, returned, exported or stored), so the receiving code could call ${c.symbols}.`,
-  dynamic_member_access: (c) => `${c.pkg} is indexed with a computed key (like lib[name]); the key could name ${c.symbols}.`,
-  gateway_used: (c) => `A ${c.pkg} call that returns an object exposing the package's other functions is used (for example a chain wrapper), so later calls on it could reach ${c.symbols}.`,
-  indirect_reference: (c) => `A property named like an affected function (${c.symbols}) is read from a value obtained through ${c.pkg}; the analysis cannot tell whether it is the affected function.`,
-  unmapped_subpath: (c) => `${c.pkg} is loaded through a deep import path (like '${c.pkg}/something'), and there is no mapping from that path to the package's exports.`,
-  dynamic_subpath: (c) => `A computed deep path inside ${c.pkg} is loaded at run time.`,
-  dynamic_import_promise: (c) => `import('${c.pkg}') is not directly awaited; the module flows through a promise that this analysis does not follow.`,
-  reexport_all: (c) => `export * from '${c.pkg}' re-exports every function in the package, including ${c.symbols}, to other modules.`,
-  alias_config: (c) => `A path-alias configuration maps an alias onto ${c.pkg}; imports through that alias are not tracked.`,
-  name_as_string: (c) => `The name '${c.pkg}' appears as a string outside an import. The package may be loaded indirectly (bundler alias, plugin loader, test mock or config).`,
-  dynamic_require: () => 'require() is called with a non-literal argument somewhere in the project, so it could load this package.',
-  dynamic_import: () => 'import() is called with a non-literal argument somewhere in the project, so it could load this package.',
-  require_escapes: () => 'The require function itself is aliased or passed around somewhere in the project, so some module loads may be hidden.',
-  eval_present: () => 'eval, new Function, a string timer or the vm module is used somewhere in the project. Code built at run time could call the affected function.',
+  used_by_script: (c) => `${c.pkg} is referenced by an npm script, a bin entry or a config file at the project root, so tooling may load and run it outside the scanned source.`,
+  declared_unused: (c) => `${c.pkg} is a direct dependency but nothing in the scanned source, npm scripts or root config files refers to it${c.typeOnly ? ' (only type-only imports were found)' : ''}. That is not proof: it may be loaded by a file type or tool that was not checked.`,
+  module_escapes: (c) => `In ${where(c)}, the ${c.pkg} module object is handed to code this analysis does not follow (passed, returned, exported or stored), so the receiving code could call ${c.symbols}.`,
+  dynamic_member_access: (c) => `In ${where(c)}, ${c.pkg} is indexed with a computed key (like lib[name]); the key could name ${c.symbols}.`,
+  gateway_used: (c) => `In ${where(c)}, a ${c.pkg} call that returns an object exposing the package's other functions is used (for example a chain wrapper), so later calls on it could reach ${c.symbols}.`,
+  indirect_reference: (c) => `In ${where(c)}, a property named like an affected function (${c.symbols}) is read from a value obtained through ${c.pkg}.`,
+  unmapped_subpath: (c) => `In ${where(c)}, ${c.pkg} is loaded through a deep import path with no mapping to the package's exports.`,
+  dynamic_subpath: (c) => `In ${where(c)}, a computed deep path inside ${c.pkg} is loaded at run time.`,
+  dynamic_import_promise: (c) => `In ${where(c)}, import('${c.pkg}') is not directly awaited; the module flows through a promise this analysis does not follow.`,
+  reexport_all: (c) => `In ${where(c)}, export * from '${c.pkg}' re-exports every function in the package, including ${c.symbols}.`,
+  alias_config: (c) => `In ${where(c)}, a path-alias configuration maps an alias onto ${c.pkg}; imports through that alias are not tracked.`,
+  name_as_string: (c) => `In ${where(c)}, the name '${c.pkg}' appears as a string outside an import, so it may be loaded indirectly (bundler alias, plugin loader, mock, config).`,
+  dynamic_require: (c) => `In ${where(c)}, require() is called with a non-literal argument, so it could load ${c.pkg}.`,
+  dynamic_import: (c) => `In ${where(c)}, import() is called with a non-literal argument, so it could load ${c.pkg}.`,
+  require_escapes: (c) => `In ${where(c)}, the require function itself is aliased or passed around, so some module loads may be hidden.`,
+  eval_present: (c) => `In ${where(c)}, eval, new Function, a string timer or the vm module is used; code built at run time could call the affected function.`,
+  llm_tier_cannot_prove_unreachable: () => 'The affected functions come from LLM extraction, which may have missed one. LLM-sourced data can show a call is reachable but is never allowed to prove unreachable.',
 };
 const REASON_ORDER = Object.keys(REASONS);
-
 const MAX_LOCATIONS = 10;
 
 function stripExt(s) {
@@ -61,7 +84,7 @@ export function resolveSubpath(subpath, rules) {
 }
 
 /**
- * Classify one use of a package value against an advisory.
+ * Classify one use of a package value against a set of affected symbols.
  * @param steps  [{t:'prop',name}|{t:'call'}] starting from the package's main export
  * @param S      Set of affected symbols ('(module)' = calling the main export)
  * @param G      Set of gateway exports for the package
@@ -100,7 +123,7 @@ function locKey(l) {
   return `${l.file}:${l.line}`;
 }
 
-function symbolList(symbols) {
+export function symbolList(symbols) {
   return symbols.map((s) => (s === '(module)' ? 'the main export (called directly)' : s)).join(', ');
 }
 
@@ -108,25 +131,111 @@ function symbolList(symbols) {
 export function indexUsage(usage) {
   const byPkg = new Map();
   const get = (pkg) => {
-    if (!byPkg.has(pkg)) byPkg.set(pkg, { imports: [], uses: [], unresolved: [] });
+    if (!byPkg.has(pkg)) byPkg.set(pkg, { imports: [], uses: [], unresolved: [], typeImports: [] });
     return byPkg.get(pkg);
   };
   for (const x of usage.imports) get(x.pkg).imports.push(x);
   for (const x of usage.uses) get(x.pkg).uses.push(x);
   for (const x of usage.unresolved) get(x.pkg).unresolved.push(x);
-  return { byPkg, empty: { imports: [], uses: [], unresolved: [] } };
+  for (const x of usage.typeImports || []) get(x.pkg).typeImports.push(x);
+  return { byPkg, empty: { imports: [], uses: [], unresolved: [], typeImports: [] } };
 }
 
 /**
- * Decide the verdict for one advisory on one installed instance.
- * @returns {{ verdict, reasons: {code,message,locations,count}[], evidence }}
+ * Phase 1 analysis of how one body of code (the project, or one installed
+ * package) uses one package, for one set of affected symbols.
+ * @returns {{ kind: 'reachable', references } | { kind: 'clean', importSites, importCount, usesChecked }
+ *          | { kind: 'not_imported', typeOnly } | { kind: 'doubt', doubts: [{code, location}] }}
  */
-export function decide({ advisoryId, instance, data, usageIndex, usage }) {
+export function analyzeUse({ installName, S, rules, usageIndex, usage }) {
+  const G = new Set((rules && rules.gateways) || []);
+  const facts = usageIndex.byPkg.get(installName) || usageIndex.empty;
+  const doubts = [];
+  const doubt = (code, l) => doubts.push({ code, location: l ? { file: l.file, line: l.line, text: l.text, detail: l.detail } : null });
+
+  const affected = [];
+  for (const imp of facts.imports) {
+    if (!resolveSubpath(imp.subpath, rules).ok) doubt('unmapped_subpath', { ...imp, detail: `'${installName}/${imp.subpath}'` });
+  }
+  for (const use of facts.uses) {
+    const r = resolveSubpath(use.subpath, rules);
+    if (!r.ok) continue; // already reported as unmapped_subpath
+    const c = classify([...r.prefix, ...use.steps], S, G, use.end);
+    const at = { file: use.file, line: use.line, text: use.text };
+    switch (c.kind) {
+      case 'affected': affected.push({ symbol: c.symbol, use, via: c.via }); break;
+      case 'escape': doubt('module_escapes', { ...at, detail: use.endDesc }); break;
+      case 'dynamic': doubt('dynamic_member_access', { ...at, detail: use.endDesc }); break;
+      case 'gateway': doubt('gateway_used', { ...at, detail: `via ${c.via}` }); break;
+      case 'indirect': doubt('indirect_reference', { ...at, detail: `.${c.symbol} read on the result of ${c.via}` }); break;
+      default: break;
+    }
+  }
+
+  if (affected.length) {
+    const seen = new Set();
+    const evidence = [];
+    for (const a of affected) {
+      const chain = [];
+      for (const s of [...a.use.trail, { file: a.use.file, line: a.use.line, text: a.use.text }]) {
+        if (!chain.length || locKey(chain[chain.length - 1]) !== locKey(s)) chain.push({ file: s.file, line: s.line, text: s.text });
+      }
+      const k = `${a.symbol}@${locKey(chain[chain.length - 1])}`;
+      if (seen.has(k)) continue;
+      seen.add(k);
+      evidence.push({ symbol: a.symbol, via: a.via || null, chain });
+    }
+    // Drop chains that are a prefix of a longer chain for the same symbol.
+    const sig = (e) => e.chain.map(locKey).join('>');
+    const maximal = evidence.filter((e) => !evidence.some((o) => o !== e && o.symbol === e.symbol &&
+      o.chain.length > e.chain.length && sig(o).startsWith(sig(e) + '>')));
+    maximal.sort((x, y) => y.chain.length - x.chain.length);
+    return { kind: 'reachable', references: maximal };
+  }
+
+  for (const u of facts.unresolved) doubt(u.code, u);
+  for (const g of usage.global) doubt(g.code, g);
+  for (const e of usage.parseErrors) doubt('parse_error', { ...e, detail: e.message });
+  for (const e of usage.fileErrors || []) doubt('file_unreadable', { file: e.file, line: null, text: '', detail: e.message });
+
+  if (facts.imports.length === 0) {
+    // Not loaded statically. Any doubt (dynamic require, eval, name as string,
+    // unparseable file) still means it might be loaded.
+    if (doubts.length) return { kind: 'doubt', doubts };
+    return { kind: 'not_imported', typeOnly: facts.typeImports.length > 0 };
+  }
+  if (doubts.length) return { kind: 'doubt', doubts };
+
+  const importSites = [];
+  const seenImports = new Set();
+  for (const imp of facts.imports) {
+    if (seenImports.has(locKey(imp))) continue;
+    seenImports.add(locKey(imp));
+    importSites.push({ file: imp.file, line: imp.line, text: imp.text });
+  }
+  return { kind: 'clean', importSites: importSites.slice(0, 20), importCount: importSites.length, usesChecked: facts.uses.length };
+}
+
+/**
+ * Decide one alert.
+ *
+ * @param p.instance      inventory instance (key, name, installName, direct, parentKeys, requiredBy)
+ * @param p.symbolInfo    { tier: 'curated', symbols, source }
+ *                      | { tier: 'llm', symbols: [{symbol, quote}], model, dropped }
+ *                      | { tier: null, reasons: [{code, detail}] }
+ * @param p.project       { usageIndex, usage, mentions: {scripts:[], configs:[]} }  (Phase 1 facts)
+ * @param p.packageEdges  null (transitive analysis off)
+ *                      | { available: false }  (no node_modules)
+ *                      | { available: true, loaders: [{ key, label, declared, status, usage, usageIndex, mode }] }
+ * @param p.paths         { paths: [[label...]], total, complete } for evidence
+ */
+export function decideAlert({ advisoryId, instance, data, symbolInfo, project, packageEdges, paths = null }) {
   const pkg = instance.name;
-  const reasons = new Map(); // code -> { locations: [], ctx }
-  const add = (code, location, ctx = {}) => {
+  const reasons = new Map();
+  const add = (code, location = null, ctx = {}) => {
     if (!reasons.has(code)) reasons.set(code, { locations: [], seen: new Set(), count: 0, ctx });
     const r = reasons.get(code);
+    Object.assign(r.ctx, ctx);
     if (location) {
       const k = `${locKey(location)}:${location.detail || ''}`;
       if (!r.seen.has(k)) { r.seen.add(k); r.count++; r.locations.push(location); }
@@ -144,143 +253,109 @@ export function decide({ advisoryId, instance, data, usageIndex, usage }) {
     return { verdict, reasons: list, evidence };
   };
 
-  if (!instance.direct) {
-    add('transitive_not_analysed', null, { requiredBy: instance.requiredBy.join(', ') || null });
-    // A hoisted transitive package can still be imported by the project's own
-    // code without being declared (a "phantom" dependency). Show where.
-    if (instance.key === `node_modules/${instance.installName}`) {
-      const facts = usageIndex.byPkg.get(instance.installName);
-      for (const imp of (facts && facts.imports) || []) {
-        add('transitive_not_analysed', { file: imp.file, line: imp.line, text: imp.text, detail: 'imported by your code, but not declared in package.json' });
-      }
-    }
+  // ---- symbol data
+  if (!symbolInfo.tier) {
+    for (const r of symbolInfo.reasons) add(r.code, null, { excluded: data.excluded[advisoryId] || null, detail: r.detail, llmNote: r.llmNote });
     return finish('cant_tell');
   }
-
-  const entry = data.advisories[advisoryId];
-  if (!entry || entry.package !== pkg) {
-    add('no_symbol_data', null, { excluded: data.excluded[advisoryId] || null });
-    return finish('cant_tell');
-  }
-
-  const S = new Set(entry.symbols);
+  const tier = symbolInfo.tier;
+  const symbols = tier === 'curated' ? symbolInfo.symbols : symbolInfo.symbols.map((s) => s.symbol);
+  const S = new Set(symbols);
   const rules = data.packages[pkg] || {};
-  const G = new Set(rules.gateways || []);
-  const ctx = { symbols: symbolList(entry.symbols) };
-  const facts = usageIndex.byPkg.get(instance.installName) || usageIndex.empty;
+  const ctx = { symbols: symbolList(symbols) };
+  const quoteFor = (sym) => (tier === 'llm' ? (symbolInfo.symbols.find((s) => s.symbol === sym) || {}).quote : null);
 
-  const affected = [];
-  for (const imp of facts.imports) {
-    if (!resolveSubpath(imp.subpath, rules).ok) {
-      add('unmapped_subpath', { ...imp, detail: `'${instance.installName}/${imp.subpath}'` }, ctx);
+  // ---- project edge: the developer's own code
+  const topLevel = instance.key === `node_modules/${instance.installName}`;
+  const projectFacts = project.usageIndex.byPkg.get(instance.installName);
+  const projectLoads = instance.direct || (topLevel && projectFacts && projectFacts.imports.length > 0);
+  let projectEvidence = null;
+  if (projectLoads) {
+    const r = analyzeUse({ installName: instance.installName, S, rules, usageIndex: project.usageIndex, usage: project.usage });
+    if (r.kind === 'reachable') {
+      return finish('reachable', {
+        tier,
+        references: r.references.slice(0, 20).map((ref) => ({ ...ref, source: tier, quote: quoteFor(ref.symbol) })),
+        referenceCount: r.references.length,
+        ...(tier === 'llm' ? { model: symbolInfo.model } : {}),
+      });
     }
+    if (r.kind === 'doubt') r.doubts.forEach((d) => add(d.code, d.location, ctx));
+    const mentioned = project.mentions.scripts.length || project.mentions.configs.length;
+    if (r.kind === 'not_imported' && !mentioned) add('declared_unused', null, { ...ctx, typeOnly: r.typeOnly });
+    if (r.kind === 'clean') projectEvidence = r;
   }
-  for (const use of facts.uses) {
-    const r = resolveSubpath(use.subpath, rules);
-    if (!r.ok) continue; // already reported as unmapped_subpath
-    const c = classify([...r.prefix, ...use.steps], S, G, use.end);
-    const where = { file: use.file, line: use.line, text: use.text };
-    switch (c.kind) {
-      case 'affected': affected.push({ symbol: c.symbol, use, via: c.via }); break;
-      case 'escape': add('module_escapes', { ...where, detail: use.endDesc }, ctx); break;
-      case 'dynamic': add('dynamic_member_access', { ...where, detail: use.endDesc }, ctx); break;
-      case 'gateway': add('gateway_used', { ...where, detail: `via ${c.via}` }, ctx); break;
-      case 'indirect': add('indirect_reference', { ...where, detail: `.${c.symbol} read on the result of ${c.via}` }, ctx); break;
-      default: break;
-    }
+  // A package run by an npm script, named in the project's bin, or named in a
+  // root config file is loaded by tooling, whether or not the code imports it.
+  for (const l of [...project.mentions.scripts, ...project.mentions.configs]) add('used_by_script', l, ctx);
+
+  // ---- LLM tier: can only ever be reachable (above) or cant_tell.
+  if (tier === 'llm') {
+    add('llm_tier_cannot_prove_unreachable');
+    return finish('cant_tell');
   }
 
-  if (affected.length) {
-    // Reachable: evidence is the chain from import to use for each reference.
-    const seen = new Set();
-    const evidence = [];
-    for (const a of affected) {
-      const chain = [];
-      for (const s of [...a.use.trail, { file: a.use.file, line: a.use.line, text: a.use.text }]) {
-        if (!chain.length || locKey(chain[chain.length - 1]) !== locKey(s)) chain.push({ file: s.file, line: s.line, text: s.text });
+  // ---- package edges: every other installed package that loads this instance
+  const edgeSummaries = [];
+  // Declared dependents always require loader analysis. When loaders were
+  // analysed anyway (node_modules present), every one of them counts, including
+  // packages that load a direct dependency without declaring it.
+  const needEdges = !instance.direct || instance.parentKeys.length > 0;
+  if (needEdges || (packageEdges && packageEdges.available)) {
+    if (packageEdges === null) {
+      add('transitive_not_analysed', null, { requiredBy: instance.requiredBy.join(', ') || null });
+    } else if (!packageEdges.available) {
+      add('node_modules_missing', null);
+    } else {
+      for (const L of packageEdges.loaders) {
+        const lctx = { ...ctx, where: L.label };
+        if (L.status === 'missing') { add('parent_not_installed', { file: L.key, line: null, text: '', detail: L.label }, lctx); continue; }
+        if (L.status === 'out_of_sync') { add('node_modules_out_of_sync', { file: `${L.key}/package.json`, line: null, text: '', detail: L.detail }, lctx); continue; }
+        const r = analyzeUse({ installName: instance.installName, S, rules, usageIndex: L.usageIndex, usage: L.usage });
+        // Report unparseable code even when the parsed part already shows a use.
+        for (const e of L.usage.parseErrors) add('parent_unparseable', { file: e.file, line: e.line, text: e.text, detail: e.message }, lctx);
+        if (r.kind === 'reachable') {
+          for (const ref of r.references.slice(0, 5)) {
+            // chain = [import, reference, later uses of the result...]: point at the reference.
+            const at = ref.chain[Math.min(1, ref.chain.length - 1)];
+            add('transitive_parent_uses_symbol', { ...at, detail: `${L.label} uses ${ref.symbol}` }, ctx);
+          }
+          edgeSummaries.push({ loader: L.label, declared: L.declared, result: 'uses affected symbol' });
+        } else if (r.kind === 'doubt') {
+          for (const d of r.doubts) add(d.code === 'parse_error' || d.code === 'file_unreadable' ? 'parent_unparseable' : d.code, d.location, lctx);
+          edgeSummaries.push({ loader: L.label, declared: L.declared, result: `doubt: ${[...new Set(r.doubts.map((d) => d.code))].join(', ')}` });
+        } else if (r.kind === 'not_imported') {
+          edgeSummaries.push({ loader: L.label, declared: L.declared, mode: L.mode, result: `never loads ${instance.installName} in the files that can run (${L.mode})` });
+        } else {
+          edgeSummaries.push({ loader: L.label, declared: L.declared, mode: L.mode, result: `imports ${instance.installName} at ${r.importSites.slice(0, 3).map(locKey).join(', ')}; ${r.usesChecked} uses checked, none affected` });
+        }
       }
-      const k = `${a.symbol}@${locKey(chain[chain.length - 1])}`;
-      if (seen.has(k)) continue;
-      seen.add(k);
-      evidence.push({ symbol: a.symbol, via: a.via || null, chain });
     }
-    // Drop chains that are a prefix of a longer chain for the same symbol
-    // (import -> use is a prefix of import -> use -> later use of the result).
-    const sig = (e) => e.chain.map(locKey).join('>');
-    const maximal = evidence.filter((e) => !evidence.some((o) => o !== e && o.symbol === e.symbol &&
-      o.chain.length > e.chain.length && sig(o).startsWith(sig(e) + '>')));
-    maximal.sort((x, y) => y.chain.length - x.chain.length);
-    reasons.clear();
-    return finish('reachable', { references: maximal.slice(0, 20), referenceCount: maximal.length });
   }
 
-  for (const u of facts.unresolved) add(u.code, { file: u.file, line: u.line, text: u.text, detail: u.detail }, ctx);
-  if (facts.imports.length === 0) add('no_import_found', null, ctx);
-  for (const g of usage.global) add(g.code, { file: g.file, line: g.line, text: g.text, detail: g.detail }, ctx);
-  for (const e of usage.parseErrors) add('parse_error', { file: e.file, line: e.line, text: e.text, detail: e.message }, ctx);
-  for (const e of usage.fileErrors) add('file_unreadable', { file: e.file, line: null, text: '', detail: e.message }, ctx);
+  if (reasons.size) return finish('cant_tell', edgeSummaries.length ? { tier, loaders: edgeSummaries, paths } : null);
 
-  if (reasons.size) return finish('cant_tell');
-
-  // Every condition for "unreachable" holds: direct dependency, imported at
-  // least once, every import site static and mapped, nothing escaped, no
-  // dynamic access, no project-wide dynamic loading or eval, every file
-  // parsed, and no reference to any affected symbol.
-  const importSites = [];
-  const seenImports = new Set();
-  for (const imp of facts.imports) {
-    if (seenImports.has(locKey(imp))) continue;
-    seenImports.add(locKey(imp));
-    importSites.push({ file: imp.file, line: imp.line, text: imp.text });
-  }
+  // Every condition for "unreachable" holds for every loader.
   return finish('unreachable', {
-    symbols: entry.symbols,
-    importSites: importSites.slice(0, 20),
-    importCount: importSites.length,
-    usesChecked: facts.uses.length,
+    tier,
+    symbols,
+    importSites: projectEvidence ? projectEvidence.importSites : [],
+    importCount: projectEvidence ? projectEvidence.importCount : 0,
+    usesChecked: projectEvidence ? projectEvidence.usesChecked : 0,
+    loaders: edgeSummaries,
+    paths,
   });
 }
 
-/**
- * @param inventory    from readInventory()
- * @param vulnIds      Map "name@version" -> [{id}]
- * @param vulnDetails  Map id -> OSV record
- * @param usage        from extractUsage()
- * @param data         from loadAdvisoryData()
- */
-export function computeVerdicts({ inventory, vulnIds, vulnDetails, usage, data }) {
-  const usageIndex = indexUsage(usage);
-  const results = [];
-  const withdrawn = [];
-  for (const instance of inventory.instances) {
-    for (const ref of vulnIds.get(`${instance.name}@${instance.version}`) || []) {
-      const vuln = vulnDetails.get(ref.id) || {};
-      if (vuln.withdrawn) { withdrawn.push({ id: ref.id, package: instance.name, version: instance.version, withdrawn: vuln.withdrawn }); continue; }
-      const entry = data.advisories[ref.id];
-      const d = decide({ advisoryId: ref.id, instance, data, usageIndex, usage });
-      results.push({
-        id: ref.id,
-        aliases: vuln.aliases || [],
-        summary: vuln.summary || (vuln.details || '').split('\n')[0].slice(0, 120),
-        severity: (vuln.database_specific && vuln.database_specific.severity) || null,
-        url: `https://osv.dev/vulnerability/${ref.id}`,
-        package: instance.name,
-        installName: instance.installName,
-        version: instance.version,
-        lockfilePath: instance.key,
-        direct: instance.direct,
-        dev: instance.dev,
-        affectedSymbols: entry && entry.package === instance.name ? entry.symbols : null,
-        symbolSource: entry && entry.package === instance.name ? entry.source : null,
-        verdict: d.verdict,
-        reason: d.reasons.length ? d.reasons[0].code : null,
-        reasons: d.reasons,
-        evidence: d.evidence,
-      });
-    }
-  }
-  const rank = { reachable: 0, cant_tell: 1, unreachable: 2 };
-  results.sort((a, b) => rank[a.verdict] - rank[b.verdict] || a.package.localeCompare(b.package) ||
-    a.version.localeCompare(b.version) || a.id.localeCompare(b.id));
-  return { results, withdrawn };
+/** Phase 1 compatible wrapper: a direct dependency analysed from the project's code only. */
+export function decide({ advisoryId, instance, data, usageIndex, usage, mentions = { scripts: [], configs: [] }, symbolInfo = null }) {
+  const entry = data.advisories[advisoryId];
+  const info = symbolInfo || (entry && entry.package === instance.name
+    ? { tier: 'curated', symbols: entry.symbols, source: entry.source }
+    : { tier: null, reasons: [{ code: 'no_symbol_data' }] });
+  const packageEdges = instance.direct && !(instance.parentKeys || []).length ? { available: true, loaders: [] } : null;
+  return decideAlert({
+    advisoryId, instance: { parentKeys: [], requiredBy: [], key: `node_modules/${instance.installName}`, ...instance }, data, symbolInfo: info,
+    project: { usageIndex, usage, mentions }, packageEdges,
+  });
 }

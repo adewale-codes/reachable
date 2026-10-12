@@ -102,7 +102,7 @@ const cases = [
   ['private deep import', "const baseGet = require('lodash/_baseGet');", 'a.js', 'cant_tell', 'unmapped_subpath'],
   ['indirect same-name property', "import _ from 'lodash'; _.get(o, 'x').template('y');", 'a.js', 'cant_tell', 'indirect_reference'],
   ['parse error', "import _ from 'lodash'; _.get(o, ;", 'a.js', 'cant_tell', 'parse_error'],
-  ['never imported', 'console.log(1);', 'a.js', 'cant_tell', 'no_import_found'],
+  ['never imported', 'console.log(1);', 'a.js', 'cant_tell', 'declared_unused'],
 ];
 
 for (const [desc, code, file, verdict, reason] of cases) {
@@ -157,10 +157,8 @@ test("a bare '&' inside a JSX attribute string is tolerated, other syntax errors
   assert.ok(bad.reasons.some((r) => r.code === 'parse_error'));
 });
 
-test('a phantom (undeclared, hoisted) dependency imported by the project is pointed out', () => {
-  const instance = { name: 'minimist', installName: 'minimist', key: 'node_modules/minimist', version: '0.0.8', direct: false, requiredBy: ['mkdirp@0.5.1'] };
+test("a phantom (undeclared, hoisted) dependency called by the project's own code is reachable", () => {
+  const instance = { name: 'minimist', installName: 'minimist', key: 'node_modules/minimist', version: '0.0.8', direct: false, parentKeys: ['node_modules/mkdirp'], requiredBy: ['mkdirp@0.5.1'] };
   const d = verdictFor({ 'a.js': "require('minimist')(process.argv);" }, { advisory: 'GHSA-xvch-5gv4-984h', instance });
-  assert.equal(d.verdict, 'cant_tell');
-  assert.equal(d.reasons[0].code, 'transitive_not_analysed');
-  assert.equal(d.reasons[0].locations[0].detail, 'imported by your code, but not declared in package.json');
+  assert.equal(d.verdict, 'reachable');
 });

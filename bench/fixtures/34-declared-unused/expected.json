@@ -1,0 +1,23 @@
+{
+  "description": "underscore is declared but referenced nowhere (code, scripts, root configs).",
+  "results": [
+    {
+      "id": "GHSA-cf4h-3jhx-xvhq",
+      "package": "underscore",
+      "version": "1.12.0",
+      "expected": "cant_tell",
+      "reason": "declared_unused",
+      "truth": "unreachable",
+      "why": "nothing loads underscore"
+    },
+    {
+      "id": "GHSA-qpx9-hpmf-5gmw",
+      "package": "underscore",
+      "version": "1.12.0",
+      "expected": "cant_tell",
+      "reason": "no_symbol_data",
+      "truth": "unreachable",
+      "why": "nothing loads underscore; not curated and not sent to the LLM because the project does not import it"
+    }
+  ]
+}

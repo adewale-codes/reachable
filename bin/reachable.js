@@ -16,8 +16,16 @@ Options:
   --offline          use only cached OSV data; fail if anything is missing
   --cache-dir <dir>  OSV cache directory (default: per-user cache dir, or $REACHABLE_CACHE_DIR)
   --verbose          show more evidence per alert
+  --prod-only        hide alerts on packages reachable only from devDependencies (never changes a verdict)
+  --no-llm           do not use LLM symbol extraction even if ANTHROPIC_API_KEY is set
+  --llm-cache-only   use recorded LLM responses only (no API calls)
+  --no-transitive    do not analyse packages in node_modules (Phase 1 behaviour for dependents)
   -h, --help         show this help
   -v, --version      print the version
+
+Environment:
+  ANTHROPIC_API_KEY    enables LLM symbol extraction for advisories without curated data (optional)
+  REACHABLE_LLM_MODEL  model for extraction (default claude-opus-5)
 
 Exit codes:
   0  nothing reachable
@@ -31,7 +39,7 @@ function fail(message) {
 }
 
 async function main(argv) {
-  const opts = { json: false, strict: false, offline: false, verbose: false, cacheDir: undefined };
+  const opts = { json: false, strict: false, offline: false, verbose: false, cacheDir: undefined, prodOnly: false, llm: 'auto', transitive: true };
   const positional = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -41,6 +49,10 @@ async function main(argv) {
     else if (a === '--strict') opts.strict = true;
     else if (a === '--offline') opts.offline = true;
     else if (a === '--verbose') opts.verbose = true;
+    else if (a === '--prod-only') opts.prodOnly = true;
+    else if (a === '--no-llm') opts.llm = 'off';
+    else if (a === '--llm-cache-only') opts.llm = 'cache';
+    else if (a === '--no-transitive') opts.transitive = false;
     else if (a === '--cache-dir') {
       if (!argv[i + 1]) return fail('--cache-dir needs a directory');
       opts.cacheDir = argv[++i];
@@ -54,7 +66,7 @@ async function main(argv) {
 
   let report;
   try {
-    report = await scan(positional[1], { offline: opts.offline, cacheDir: opts.cacheDir });
+    report = await scan(positional[1], { offline: opts.offline, cacheDir: opts.cacheDir, prodOnly: opts.prodOnly, llm: opts.llm, transitive: opts.transitive });
   } catch (err) {
     if (err && err.name === 'ScanError') {
       if (opts.json) {

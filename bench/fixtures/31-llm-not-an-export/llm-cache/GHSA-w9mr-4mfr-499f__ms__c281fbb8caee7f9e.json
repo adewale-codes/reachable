@@ -1,0 +1,10 @@
+{
+  "advisoryId": "GHSA-w9mr-4mfr-499f",
+  "package": "ms",
+  "model": "synthetic",
+  "synthetic": true,
+  "note": "Hand-written test answer (not from a model): the quote is verbatim, but parse is an internal function, not an export of ms@0.7.0 (module.exports is the function itself), so the guard must drop it.",
+  "createdAt": "2026-10-11T00:00:00.000Z",
+  "stopReason": "end_turn",
+  "responseText": "{\"names_specific_api\":true,\"symbols\":[{\"symbol\":\"parse\",\"quote\":\"This issue affects the function parse of the file index.js.\"}]}"
+}

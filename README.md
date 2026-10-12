@@ -6,17 +6,21 @@ gets one of three verdicts, always with evidence:
 
 | verdict       | meaning |
 |---------------|---------|
-| `reachable`   | Your source contains a reference to a function the advisory names. Evidence: the `file:line` chain from the import to the use. |
-| `unreachable` | Proven: the package is imported, every import and use was resolved statically, nothing escaped the analysis, and no affected function is referenced. Evidence: the import sites and how many uses were checked. |
-| `cant_tell`   | Anything else. Always with a machine-readable reason code and a plain-English explanation. |
+| `reachable`   | Your own source code contains a reference to a function the advisory names. Evidence: the `file:line` chain from the import to the use. |
+| `unreachable` | Proven: every piece of code that can load the vulnerable package (your code, and every installed package that loads it) was resolved statically, nothing escaped the analysis, and no affected function is referenced. Evidence: import sites, loaders checked, dependency paths. |
+| `cant_tell`   | Anything else. Always with machine-readable reason codes and a plain-English explanation. |
+
+Every alert is also tagged `scope: prod | dev`. That tag is a fact, not a verdict.
 
 **The rule the design follows:** a false `unreachable` tells a developer a real
 vulnerability is safe to ignore, so it is the worst possible output.
 `unreachable` is never a default. It is returned only when the list of reasons
 to doubt it is empty. When part of a scan cannot run, the tool exits 2 and says
-so; it never prints a clean report over a partial scan.
+so; it never prints a clean report over a partial scan. When an optional Phase 2
+step cannot run (no `node_modules`, no API key, LLM output rejected), the
+affected alerts stay `cant_tell` with a reason code and the report says so once.
 
-Phase 1 status: CLI and library. No LLM, no GitHub Action, no web UI, no MCP.
+Status: Phase 2. CLI and library. No GitHub Action, web UI or MCP.
 
 ## Usage
 
@@ -28,272 +32,245 @@ node bin/reachable.js scan path/to/project --json     # machine-readable
 
 | option | effect |
 |---|---|
-| `--json` | JSON report on stdout (shape below) |
+| `--json` | JSON report on stdout |
 | `--strict` | `cant_tell` also makes the exit code 1 |
-| `--offline` | use only cached OSV data; fail (exit 2) if anything is missing |
-| `--cache-dir <dir>` | OSV cache location (default `%LOCALAPPDATA%\reachable\cache`, `$XDG_CACHE_HOME/reachable` or `~/.cache/reachable`; or `$REACHABLE_CACHE_DIR`) |
+| `--offline` | use only cached OSV data (and only recorded LLM answers); fail (exit 2) if OSV data is missing |
+| `--cache-dir <dir>` | cache location (default `%LOCALAPPDATA%\reachable\cache`, `$XDG_CACHE_HOME/reachable` or `~/.cache/reachable`; or `$REACHABLE_CACHE_DIR`). LLM answers go in `<dir>/llm`. |
+| `--prod-only` | hide alerts on packages reachable only from `devDependencies`. Hides; never changes a verdict. The report says how many were hidden. |
+| `--no-llm` | never use LLM symbol extraction, even with a key |
+| `--llm-cache-only` | use recorded LLM answers only, no API calls |
+| `--no-transitive` | do not analyse packages in `node_modules` |
 | `--verbose` | more evidence lines per alert |
 
-Exit codes: **0** nothing reachable · **1** at least one alert reachable (or
-`cant_tell` with `--strict`) · **2** the scan could not complete.
+| environment | effect |
+|---|---|
+| `ANTHROPIC_API_KEY` | optional. Enables LLM extraction for advisories with no curated data. Without it the tool behaves like Phase 1 for those advisories and says so once. |
+| `REACHABLE_LLM_MODEL` | extraction model (default `claude-opus-5`) |
+| `REACHABLE_OSV_URL`, `REACHABLE_LLM_URL` | endpoint overrides, for testing outage handling |
 
-Exit 2 cases: missing or invalid `package.json` / `package-lock.json`, a
-lockfileVersion other than 2 or 3, a declared dependency missing from the
-lockfile, OSV unreachable with nothing cached, a source file that does not
-parse, an unreadable source file. Fatal errors print `SCAN FAILED` and no
-report. Parse and read errors still print the report, framed by a
-`SCAN INCOMPLETE` banner, with every would-be `unreachable` downgraded to
-`cant_tell / parse_error`.
-
-`REACHABLE_OSV_URL` overrides the OSV endpoint. It exists for testing outage
-handling.
+Exit codes are unchanged from Phase 1: **0** nothing reachable · **1** at least
+one alert reachable (or `cant_tell` with `--strict`) · **2** the scan could not
+complete (bad lockfile, OSV unavailable with no cache, unparseable or unreadable
+project source). A missing `node_modules`, a missing API key, an LLM failure, or
+an unparseable file inside `node_modules` are not scan failures. They leave the
+affected alerts at `cant_tell` with a reason code.
 
 Library: `import { scan, exitCodeFor, formatText } from 'reachable'`.
-
-## Scope (Phase 1)
-
-- Source: `.js .mjs .cjs .jsx .ts .mts .cts .tsx` (`.d.ts` skipped; it has no
-  runtime code). Every directory except `node_modules` and VCS folders is scanned.
-- Projects: npm with `package.json` + `package-lock.json` (lockfileVersion 2 or 3).
-- Direct dependencies (declared in `dependencies`, `devDependencies`,
-  `optionalDependencies` or `peerDependencies` and installed at the top level)
-  are analysed. Every other installed instance is listed as `cant_tell` /
-  `transitive_not_analysed`, with the packages that require it.
-- Advisories come from OSV.dev (`/v1/querybatch`, then `/v1/vulns/{id}`), cached
-  on disk. Online scans query OSV first and fall back to the cache with a
-  warning if OSV is down. Advisory details are reused from the cache while
-  their `modified` timestamp is unchanged.
-- Affected-function data is hand-curated (`data/advisories.json`). No LLM reads
-  advisory text, so the accuracy measured below is the analysis itself.
 
 ## How it works
 
 ```
-package-lock.json ──► inventory.js ──► instances (name@version, direct?)
-                                            │
-source files ──► usage.js (tree-sitter) ──► facts: imports, uses, unresolved, global flags
-                                            │
-OSV.dev / cache ──► osv.js ──► advisory ids + records
-                                            │
-data/advisories.json ──► verdict.js ──► one verdict per (advisory, installed instance)
-                                            │
-                                     format.js / bin/reachable.js
+package-lock.json ─► inventory.js ─► installed instances, dependency graph, scope (prod/dev)
+project source ────► usage.js (tree-sitter) ─► how the project's code uses each package
+OSV.dev / cache ───► osv.js ─► advisories per instance
+data/advisories.json ─────────────► curated affected symbols          (tier: curated)
+advisory text ──► llm.js ─► guard ─► LLM-extracted affected symbols   (tier: llm)
+node_modules ──► transitive.js / packages.js ─► how every installed loader uses the instance
+                         └──────────────► verdict.js ─► one verdict per (advisory, instance)
 ```
 
-**Usage extraction** (`src/usage.js`) finds every import site of a tracked
-package: `import x / {a, b as c} / * as ns`, `import x = require()` (TS),
-`require()`, `module.require()`, `createRequire()` results, awaited `import()`,
-and `export … from`. It then follows each imported value upward through the
-expression that contains it: member access (`x.a`, `x['a']`, `` x[`a`] ``,
-`x?.a`, statically concatenated keys), calls, `new`, TS wrappers (`as`, `!`,
-`satisfies`, `<T>x`), `await`, aliases (`const y = x`), and object
-destructuring including renames, nested patterns and rest. Matching is by name
-within a file. There is no scope analysis, so shadowed names are
-over-approximated: this can only add facts, never hide one. Type-only imports
-are ignored because they are erased at compile time.
+### The loader model (Phase 2)
 
-Anything the extractor cannot follow is recorded as a fact rather than dropped:
-a computed key, the module object being passed / returned / exported / stored /
-spread / combined with `||`, a dynamic `require`/`import`, `require` itself
-being aliased, `export *`, eval-like code, or the package name appearing as a
-plain string.
+An installed instance (say `node_modules/lodash@4.17.20`) can be loaded by:
 
-**Verdicts** (`src/verdict.js`) classify each use against the advisory's
-affected symbols. Each use is walked step by step from the module's main export:
+- **the project's own code**, which is analysed exactly as in Phase 1;
+- **every installed package that loads it**: its declared dependents in the
+  lockfile, plus packages that `require` it *without declaring it* (which
+  works through hoisting). The second group is found by a text search of
+  `node_modules` for the quoted name. A candidate is kept only when the parser
+  finds the name in its code, since a comment loads nothing, and only when
+  Node resolution from that package actually lands on this instance.
 
-- the first property is an affected symbol → **reference** (reachable)
-- calling the module itself → reference if the advisory's symbol is
-  `(module)`, otherwise a **gateway** (its return value may expose everything)
-- the first property is a curated gateway (`_.chain`, `_.runInContext`,
-  `lodash/fp`, …) → reachable if a later property is affected, else `gateway_used`
-- an affected name read off the return value of an unrelated export → `indirect_reference`
-- the bare module object escaping → `module_escapes`; computed key on it → `dynamic_member_access`
+For each loader package, `reachable` parses the files that can run when the
+package is loaded:
 
-`unreachable` requires all of: direct dependency, curated symbol data, at least
-one import site, every deep import mapped, no escapes, no dynamic access, no
-gateway use, no project-wide dynamic loading / eval / `require` aliasing, every
-file parsed, and no reference to any affected symbol.
+- with an `exports` map: the static closure of the exported entry points
+  (plus `main`/`module`/`browser`);
+- without one: every file, because consumers may deep-import any of them;
+- in both cases, files reachable only from the package's `bin` are left out
+  unless a project npm script runs that bin;
+- if the closure cannot be computed reliably (wildcard exports, an `imports`
+  map, an unresolvable relative import), every file.
+
+It then applies the same strict Phase 1 test to that code.
+
+`unreachable` requires the project edge (if the project loads it) **and every
+loader edge** to pass. If any loader references an affected symbol, the alert
+is `cant_tell / transitive_parent_uses_symbol`, never `reachable`: whether your
+code reaches that part of the dependency is a call-graph question for Phase 3.
+The developer's own code is different. If your code calls the function of a
+package you only get transitively (an undeclared "phantom" dependency), that
+is `reachable`, because the reference is in your source.
+
+**This closes a Phase 1 blind spot.** Phase 1 judged a *direct* dependency only
+by your code. But npm dedupes, so other installed packages usually share the
+same copy. Fixture 35 shows the failure: the project uses `_.get`, an installed
+package calls `lodash/template` on the same copy, and Phase 1 rules say
+`unreachable`. Phase 2 says `cant_tell / transitive_parent_uses_symbol`. With
+`node_modules` present, direct dependencies now get loader analysis too.
+Without it, a direct dependency that other packages declare as a dependency is
+`cant_tell / node_modules_missing`. A direct dependency with no declared
+dependents falls back to Phase 1 behaviour (undeclared loaders cannot be
+searched for without `node_modules`).
+
+### Symbol data and trust tiers
+
+| tier | source | may produce |
+|---|---|---|
+| `curated` | `data/advisories.json`: 15 hand-checked advisories (unchanged from Phase 1) | `reachable`, `unreachable`, `cant_tell` |
+| `llm` | the Anthropic API reading the advisory text, then the code guard below | `reachable`, `cant_tell`, **never `unreachable`** |
+
+The tier rule is enforced at the end of `decideAlert` in `src/verdict.js`, after
+every other rule. An LLM that misses one affected function would otherwise
+create a false `unreachable`. LLM-derived `reachable` evidence is labelled
+`source: llm`, with the model name and the advisory quote.
+
+**LLM extraction** (`src/llm.js`) runs only for alerts with no curated entry
+whose package the project actually imports. Otherwise its answer could not
+change the verdict.
+
+- The call goes through plain `fetch` to the Messages API: no SDK, no new
+  dependency. It requests JSON-schema structured output. For Claude Opus 5 / Opus 5.5 / Fable 5.1 it enables server-side
+  refusal fallback (`fallbacks: "default"`), so a policy decline is retried on
+  another model instead of failing. Set `REACHABLE_LLM_FALLBACKS=0` to turn
+  that off.
+- Output schema: `{ names_specific_api: boolean, symbols: [{ symbol, quote }] }`.
+  Anything that does not parse is rejected (`llm_invalid_output`).
+- Every response is cached on disk, keyed by advisory id + package + a SHA-256
+  of the advisory text, the prompt and the schema. Reruns are offline, and an
+  edited advisory is a cache miss.
+- **The guard (code, not LLM)** drops any symbol whose `quote` is not verbatim
+  in the advisory text (whitespace runs compared as single spaces), whose quote
+  does not contain the symbol name, that is not an identifier (or `(module)`),
+  or that is certainly not an export of the installed package. Exports are read
+  statically from the entry file (`src/packages.js#readExports`). When they
+  cannot be determined (UMD bundles such as lodash and underscore), the symbol
+  is kept with `exportCheck: unknown`. That is safe because LLM data can only
+  produce `reachable`. Dropped symbols are counted and reported per alert.
 
 ### Reason codes
 
 | code | meaning |
 |---|---|
-| `transitive_not_analysed` | only a transitive dependency; Phase 1 does not follow code paths through other packages |
-| `no_symbol_data` | no curated affected-function data for this advisory (or it was excluded on purpose) |
-| `parse_error` / `file_unreadable` | some source could not be analysed (also makes the scan exit 2) |
-| `no_import_found` | direct dependency that no scanned file imports (see open questions) |
-| `module_escapes` | the module object is passed, returned, exported, stored or spread somewhere |
-| `dynamic_member_access` | the module is indexed with a computed key, like `lib[name]` |
-| `gateway_used` | a call returning an object that exposes the package's functions (e.g. `_.chain`, `_()`) |
-| `indirect_reference` | an affected name is read from a value obtained through the package |
-| `unmapped_subpath` | a deep import (`pkg/x`) with no mapping to exports |
-| `dynamic_subpath` | a computed deep import (`require('pkg/' + x)`) |
-| `dynamic_import_promise` | `import('pkg')` not directly awaited |
-| `reexport_all` | `export * from 'pkg'` |
-| `alias_config` | tsconfig/jsconfig `paths` or package.json `imports` map onto the package |
-| `name_as_string` | the package name appears as a string outside an import (bundler alias, plugin name, `jest.mock`, …) |
-| `dynamic_require` / `dynamic_import` | non-literal `require()` / `import()` anywhere in the project |
-| `require_escapes` | `require` itself is aliased or passed around |
-| `eval_present` | `eval`, `Function`, `.constructor(...)`, string timers or the `vm` module anywhere in the project |
+| `transitive_parent_uses_symbol` | an installed package that loads the instance references an affected symbol (never promoted to `reachable`) |
+| `no_symbol_data` | no curated data; with an LLM note when extraction was off, skipped or failed |
+| `llm_unavailable` / `llm_invalid_output` / `llm_no_specific_api` / `llm_no_valid_symbols` | extraction did not run, its output was rejected, it found no specific function, or the guard dropped every symbol |
+| `llm_tier_cannot_prove_unreachable` | analysis was clean but the symbols are LLM-sourced |
+| `node_modules_missing` | loaders could not be inspected; the report prints one `npm ci` hint |
+| `parent_not_installed` / `node_modules_out_of_sync` | a loader is in the lockfile but not installed, or installed at a different version |
+| `parent_unparseable` | a loader's code did not parse (minified, bundled, >3 MB, Flow, ...). A warning tied to the alert, not a scan failure |
+| `used_by_script` | the package (or its bin) is named in an npm script, the project's `bin`, or a root config file (eslint, jest, babel, webpack, vite, tsconfig, prettier) |
+| `declared_unused` | a direct dependency found nowhere: code, scripts, configs |
+| `transitive_not_analysed` | only with `--no-transitive` |
+| `parse_error`, `file_unreadable`, `module_escapes`, `dynamic_member_access`, `gateway_used`, `indirect_reference`, `unmapped_subpath`, `dynamic_subpath`, `dynamic_import_promise`, `reexport_all`, `alias_config`, `name_as_string`, `dynamic_require`, `dynamic_import`, `require_escapes`, `eval_present` | as in Phase 1. Inside a loader package, the message names the package. |
 
-### Curated advisory data
+### Why `used_by_script` and `declared_unused` are not `unreachable`
 
-`data/advisories.json` holds 15 advisories across 6 packages: lodash (8),
-minimist (2), jsonwebtoken (2), json5, underscore, trim-newlines. Each entry
-quotes the advisory text it was based on and links its source. `(module)` means
-"calling the package's main export". Advisories whose text names a function, but
-where other public exports reach the same vulnerable code, were deliberately
-**excluded** and are listed with the reason. Example: lodash's ReDoS advisory
-names `toNumber`/`trim`/`trimEnd`, but `toNumber` is called internally by
-`toInteger`/`toFinite` and by `debounce`, among many others. A three-name list
-would have turned real uses into false `unreachable`.
+`used_by_script` means tooling loads and runs the package (`json5 -c file`
+parses a file with the vulnerable `parse`), so it is plainly not safe to
+ignore. `declared_unused` is a negative claim about everything that was *not*
+scanned: JSON/YAML configs we do not read, other file types, tools invoked from
+CI rather than npm scripts, packages loaded by name from user config. The tool
+can show where a package is used; it cannot prove that nothing else uses it.
+Both stay `cant_tell` until Phase 3 can model entry points.
 
-The data also records per-package facts: lodash and underscore **gateways**, and
-the lodash deep-import layout (`lodash/<name>` = `_.<name>`, `_`-prefixed files
-are internal and never mapped).
+## Scope (Phase 2)
+
+- Source: `.js .mjs .cjs .jsx .ts .mts .cts .tsx` (`.d.ts` skipped).
+- Projects: npm with `package.json` + `package-lock.json` (lockfileVersion 2 or 3).
+  Transitive and loader analysis needs `node_modules` (`npm ci`).
+- `scope` is `dev` only when npm marks the lockfile entry `"dev": true` (every
+  path starts at a devDependency). `devOptional`/optional packages are tagged
+  `prod`, because hiding them under `--prod-only` would be the unsafe direction.
 
 ## Ground-truth benchmark
 
 ```sh
-npm run bench     # offline, deterministic: uses recorded OSV responses in bench/osv-cache
-npm test          # 90 tests: 79 analyser tests (72 adversarial source snippets) + 11 CLI exit-code tests
-npm run bench:record   # re-record OSV responses (network); re-label if the advisory list changed
+npm run bench          # offline, deterministic (recorded OSV + LLM answers)
+npm test               # 111 unit / adversarial / CLI tests
+npm run bench:setup    # once: installs the curated packages for the extraction eval's export check
+npm run bench:eval     # LLM extraction eval + promotion experiment
+npm run bench:record   # re-record OSV (network);  node bench/record.js --llm  re-records LLM answers (API key)
 ```
 
-`bench/fixtures/` has 22 small projects, each with a `package.json`, a real
-npm-generated `package-lock.json`, source files and a hand-written
-`expected.json`. Each advisory carries two labels:
+36 fixtures (22 from Phase 1, 14 new), each with a `package.json`, a real or
+hand-written `package-lock.json`, sources, and a hand-written `expected.json`.
+Each advisory carries `expected` (the verdict the tool must give) and `truth`
+(whether the code can actually trigger it, judged by reading it).
 
-- **`expected`**: the verdict the tool must give (pass/fail)
-- **`truth`**: whether the fixture code can actually trigger the advisory,
-  judged by reading it. This separates "the tool followed its rules" from "the
-  tool was right", and shows what `cant_tell` costs.
+The new fixtures:
 
-The fixtures cover: named import, default import with member call, aliased
-import, destructured require, namespace import (TS), unaffected function of a
-vulnerable package, dynamic require, computed member access, module object
-escaping to another file, `export *`, named re-export, transitive-only package,
-advisory with no symbol data, calling the module itself (minimist), never
-imported, eval present, TS `import = require` + type-only import + TSX, chain
-gateways, lodash deep imports, underscore, trim-newlines.
+- transitive with an unused edge (real mkdirp@0.5.1 → minimist@0.0.8);
+- the same with an npm script that runs mkdirp's CLI;
+- a parent that calls the affected function;
+- a diamond where one path uses it and one does not;
+- missing `node_modules`;
+- an unparseable (Flow-annotated) parent;
+- an LLM-extracted symbol that is called;
+- an LLM quote not in the advisory text;
+- an LLM symbol that is not an export;
+- prod vs dev scope;
+- `used_by_script` and `declared_unused`;
+- a direct dependency shared with a parent that uses the symbol (the Phase 1 blind spot);
+- an undeclared loader.
 
-Result (2026-10-11):
+Packages named `fx-*` are fictional, hand-written to create situations npm
+cannot produce on demand. Real packages in fixture `node_modules` are unmodified
+npm tarball contents. The two "guard" fixtures use hand-written LLM answers
+stored in the fixture's own `llm-cache/`, marked `"synthetic": true`. All other
+LLM answers are real recorded responses in `bench/llm-cache/`.
 
-```
-22 fixtures, 95 labelled advisory alerts, 95 match expected verdict
+Results: see **Phase 2 results** below.
 
-Confusion matrix: ground truth (rows) vs tool verdict (columns)
-  truth           →reachable →unreachable   →cant_tell   total
-  reachable               18            0           14      32
-  unreachable              0           27           35      62
-  unknown                  0            0            1       1
+## Phase 2 results
 
-False "unreachable" (tool said unreachable, truth is not): 0
-False "reachable" (tool said reachable, truth is unreachable): 0
-```
-
-How to read this honestly: the fixtures were written by the same author as the
-analyser, so passing them shows the rules behave as designed on these
-patterns. It does not establish a real-world accuracy rate. The 35
-"truly unreachable → cant_tell" cells are the price of the conservative rules
-(no symbol data, no import found, eval elsewhere, gateways, transitive).
-
-## Real-project check (2026-10-11)
-
-Three small public projects, chosen because they pin affected versions of
-curated packages, were scanned live against OSV. Every `reachable` and
-`unreachable` verdict was then checked by reading the code. This is a sample of
-3 projects and 8 such verdicts, so it supports statements about those verdicts,
-not an accuracy percentage.
-
-| project (commit) | verdicts checked | manual reading |
-|---|---|---|
-| [desirekaleba/node-mysql-jwt-auth](https://github.com/desirekaleba/node-mysql-jwt-auth) (`23bccd6`) | 2 × `reachable`: jsonwebtoken 8.5.1 `verify` (GHSA-hjrf-2m68-5959, GHSA-qwph-4952-7xr6) | Correct per definition: `jwt.verify(token, JWT_SECRET_KEY)` at `src/utils/token.js:9`. **But** it sits inside the exported `decode()`, which nothing in the repo imports. So it is referenced, not invoked by any route. Phase 1 has no call graph, so a reference in dead code counts as reachable. |
-| [odynvolk/omit-deep-lodash](https://github.com/odynvolk/omit-deep-lodash) (`3d4c5ef`) | 2 × `reachable`: lodash 4.17.21 `omit` (GHSA-xxjr-mmjv-4gpg, GHSA-f23m-r3pf-42rh); 1 × `unreachable`: `template` (GHSA-r5fr-rjxr-66jc) | Correct. `require("lodash/omit")` then `omit(o, props)` with caller-supplied keys (`src/index.js:22`). `lodash/omit` is the only lodash import, and its own requires (checked in lodash 4.17.21) never load `template`. |
-| [SashenJayathilaka/Spotify-Clone](https://github.com/SashenJayathilaka/Spotify-Clone) (`02cd054`) | 3 × `unreachable`: lodash 4.17.21 template, unset/omit (×2) | Correct. The only lodash uses are `import { shuffle }` (`components/Center.js:3`) and `import { debounce }` (`components/Player.js:4`); neither reaches `template`, `unset` or `omit`. |
-
-Everything else in these projects was `cant_tell`, mostly
-`transitive_not_analysed` (193 alerts) and `no_symbol_data` (38: express, joi,
-morgan, next, next-auth, postcss, jsonwebtoken's uncurated advisory).
-
-The Spotify-Clone scan first exited 2. tree-sitter-javascript rejects a bare `&`
-inside a JSX attribute string (`href="…?rik=…&pid=ImgRaw&r=0"`), which Babel
-and TypeScript accept. That case alone is now tolerated, and only when the error
-lies entirely inside one properly delimited string literal (which cannot
-contain code). It is reported as a warning naming each location. All other
-parse errors remain fatal.
-
-## Network failure check
-
-- **No network, no cache:** simulated two ways: (a) DNS resolution failing
-  for the whole process (`EAI_AGAIN`, as on an offline machine), and (b) OSV
-  pointed at a closed local port (`ECONNREFUSED`). Both printed
-  `SCAN FAILED [osv_unavailable] … no cached OSV result …`, produced no report,
-  and exited 2. This was a simulation; the machine's network adapter was not
-  disabled.
-- **No network, warm cache:** the report runs and its header says
-  `advisories from local cache (OSV unreachable: …)`, plus a warning that
-  advisories published since the cache was filled are missing.
-- **Live path + cache:** a scan of `bench/fixtures/05-namespace-import` against
-  api.osv.dev with an empty cache fetched 15 package queries and 3 advisory
-  records. A second online run reused all 3 records from cache (unchanged
-  `modified`), and an `--offline` run produced identical verdicts.
+PENDING: filled in after the LLM answers are recorded.
 
 ## Dependencies
 
-Runtime dependencies are exactly tree-sitter and its two grammars:
+No new runtime dependencies in Phase 2. The Anthropic API is called with
+Node's built-in `fetch` (Node ≥ 18.17), so the runtime dependencies are still
+only tree-sitter and its two grammars:
 
 | package | why |
 |---|---|
-| `web-tree-sitter` | The tree-sitter parser runtime, compiled to WebAssembly. Chosen over the native `tree-sitter` binding because it needs no C++ toolchain on any platform. The native JS (0.25) and TS (0.23) grammar bindings also require incompatible native `tree-sitter` peer versions. |
-| `tree-sitter-javascript` | JavaScript + JSX grammar; its shipped `.wasm` file is loaded. |
-| `tree-sitter-typescript` | TypeScript and TSX grammars; its shipped `.wasm` files are loaded. |
+| `web-tree-sitter` | The tree-sitter parser runtime, compiled to WebAssembly: no C++ toolchain on any platform. The native JS (0.25) and TS (0.23) grammar bindings also require incompatible native `tree-sitter` versions. |
+| `tree-sitter-javascript` | JavaScript + JSX grammar (its shipped `.wasm` file is loaded). |
+| `tree-sitter-typescript` | TypeScript and TSX grammars (shipped `.wasm` files). |
 
-Note: the two grammar packages declare `node-addon-api` and `node-gyp-build`
-(for their own native bindings, with prebuilt binaries) and run a small install
-script. `reachable` never loads those bindings. Everything else uses Node
-built-ins (`fetch`, `fs`, `node:test`). Node ≥ 18.17.
+The grammar packages declare `node-addon-api` and `node-gyp-build` for their own
+native bindings, which `reachable` never loads.
 
 ## npm name
 
-`reachable` is **taken** on npm (v0.1.5 by another author, last modified 2022).
-`package.json` is marked `"private": true` so it cannot be published by
-accident. Alternatives:
-
-- scoped: `@<your-npm-user>/reachable` (e.g. `@adewale-codes/reachable` if that is your npm username), or `@reachable/cli` (needs creating an npm org named `reachable`)
-- unscoped and currently unregistered: `reachable-cli`, `vuln-reachable`, `js-reachable`, `reachable-vulns`
+`reachable` is taken on npm (by another author, last modified 2022).
+`package.json` is `"private": true`. Unregistered alternatives (checked
+2026-10-11): `reachable-cli`, `vuln-reachable`, `js-reachable`,
+`reachable-vulns`, or a scope you own (`@<npm-user>/reachable`).
 
 ## Limitations
 
-- No call graph: a reference to an affected function in dead code counts as
-  reachable (see the jsonwebtoken example above). Reachable means "referenced",
-  not "proven executed" or "exploitable"; advisory preconditions (e.g. "a falsy
-  secret") are not checked.
-- No cross-module data flow inside the project: when the module object leaves
-  a file the result is `cant_tell`, not a deeper analysis.
-- Return values of non-gateway exports are not tracked. Soundness for those
-  depends on the curated gateway list being complete for the package.
-- The curated data is only as complete as the curator's reading of the
-  advisory and package source; each entry records its evidence for review.
-- Bundler aliases defined in JS config files are caught only through the
-  `name_as_string` rule (the config contains the package name as a string).
-  `tsconfig` `extends` chains are not followed (a warning says so).
-- Deliberately obfuscated loading (e.g. a computed `require` reached through
-  `globalThis[...]` with a computed name) is out of scope.
-- Workspaces: only the root `package.json` defines direct dependencies.
+- No call graph. `reachable` means "your code references it", not "proven
+  executed" or "exploitable"; advisory preconditions are not checked. A
+  dependency using the function is `cant_tell`, not `reachable`.
+- Loader analysis covers packages that declare the instance or name it in their
+  code. A package that loads it by a fully computed name, without ever writing
+  the name, is not found (the same boundary as Phase 1's computed `require`).
+- Curated symbol sets assume the named exports are the only entry points to the
+  vulnerable code; each entry records the evidence for that.
+- `unreachable` for transitive packages depends on the installed code matching
+  the lockfile. Version mismatches are detected (`node_modules_out_of_sync`);
+  hand-edited installed files are not.
+- Speed: loader analysis parses every file in scope of every loader package.
+  On a real babel 6 dev tree this took about 4 minutes on a OneDrive-synced
+  disk. Parsed packages are cached per scan only.
 
-## Open questions for Phase 2
+## Open questions for Phase 3
 
-- **Never-imported direct dependencies.** Phase 1 answers `cant_tell` /
-  `no_import_found`, because the package may be used by its CLI binary, an npm
-  script, a config file or a file that was not scanned. Phase 2 could inspect
-  `scripts`, known config files and `bin` usage to prove more of these
-  `unreachable`.
-- **Transitive dependencies.** Following paths through direct dependencies
-  needs curated (or analysed) knowledge of which of the direct dependency's
-  exports reach the transitive one.
-- **Dead code.** A project-level call graph would separate "referenced" from
-  "called from an entry point".
-- **Scaling symbol data.** Curating by hand does not scale. Any automated
-  source must keep the "excluded unless the full entry-point set is known" rule
-  that this phase applies.
+- Call graphs and entry points: turn `transitive_parent_uses_symbol` into
+  `reachable` or `unreachable`, and separate "referenced" from "called".
+- Never-imported dependencies: model npm scripts, CI and config loading well
+  enough to prove `declared_unused` safe.
+- LLM promotion: whether LLM symbol data could ever be trusted for
+  `unreachable`. The extraction eval's experiment measures this; Phase 2 does
+  not act on it.

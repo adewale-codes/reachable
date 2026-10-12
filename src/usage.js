@@ -199,6 +199,9 @@ function isDeclarationIdentifier(node) {
 
 // ---------------------------------------------------------------- per file
 
+export const isRelative = (spec) => spec.startsWith('./') || spec.startsWith('../') || spec === '.' || spec === '..';
+
+
 /**
  * Analyse one parsed file.
  * @param tree     tree-sitter tree
@@ -222,6 +225,8 @@ export function analyzeTree(tree, source, file, tracked) {
     parseErrors: [],
     tolerated: [], // grammar errors known not to affect the analysis
     unknownImports: [],
+    relative: [], // relative specifiers ('./x'), used to follow files inside a package
+    typeImports: [], // type-only imports of tracked packages (erased at compile time)
   };
 
   // ---- one pass over the tree to collect the nodes we care about
@@ -516,7 +521,13 @@ export function analyzeTree(tree, source, file, tracked) {
     if (!source) continue;
     consumedStrings.add(source.id);
     const spec = staticString(source);
-    if (spec === null || typeOnly) continue;
+    if (spec === null) continue;
+    if (isRelative(spec)) { if (!typeOnly) result.relative.push({ spec, ...loc(st) }); continue; }
+    if (typeOnly) {
+      const t = resolveSpecifier(spec, null);
+      if (t && t.pkg) result.typeImports.push({ pkg: t.pkg, ...loc(st) });
+      continue;
+    }
     const r = resolveSpecifier(spec, st);
     if (r && r.builtin === 'vm') flagGlobal('eval_present', st, 'imports the vm module, which can run code built from strings');
     if (!r || !r.pkg) continue;
@@ -559,6 +570,7 @@ export function analyzeTree(tree, source, file, tracked) {
     if (hasAnonChild(st, 'type')) continue;
     const spec = staticString(source);
     if (spec === null) continue;
+    if (isRelative(spec)) { result.relative.push({ spec, ...loc(st) }); continue; }
     const r = resolveSpecifier(spec, st);
     if (!r || !r.pkg) continue;
     const origin = { pkg: r.pkg, subpath: r.subpath };
@@ -626,6 +638,7 @@ export function analyzeTree(tree, source, file, tracked) {
       return;
     }
     consumedStrings.add(arg.id);
+    if (isRelative(spec)) { result.relative.push({ spec, ...loc(callNode) }); return; }
     const r = resolveSpecifier(spec, callNode);
     if (r && r.builtin === 'vm') flagGlobal('eval_present', callNode, 'loads the vm module, which can run code built from strings');
     if (!r || !r.pkg) return;
@@ -780,11 +793,11 @@ function scanAliasConfigs(root, packageJson, tracked, warnings) {
  * Scan a whole project.
  * @returns {{ filesScanned, imports, uses, unresolved, global, parseErrors, fileErrors, unknownImports, warnings }}
  */
-export async function extractUsage(root, { tracked, packageJson } = {}) {
+export async function extractUsage(root, { tracked, packageJson, files: explicitFiles = null, aliasConfigs = true } = {}) {
   const parse = await createParser();
-  const { files, skippedLinks } = listSourceFiles(root);
+  const { files, skippedLinks } = explicitFiles ? { files: explicitFiles.map((file) => ({ file })), skippedLinks: [] } : listSourceFiles(root);
   const out = {
-    filesScanned: 0, files: [], imports: [], uses: [], unresolved: [], global: [], parseErrors: [], tolerated: [], fileErrors: [], unknownImports: [], warnings: [],
+    filesScanned: 0, files: [], relative: [], typeImports: [], imports: [], uses: [], unresolved: [], global: [], parseErrors: [], tolerated: [], fileErrors: [], unknownImports: [], warnings: [],
   };
   if (skippedLinks.length) out.warnings.push(`symbolic links were not followed: ${skippedLinks.slice(0, 5).join(', ')}${skippedLinks.length > 5 ? ', ...' : ''}`);
 
@@ -809,7 +822,7 @@ export async function extractUsage(root, { tracked, packageJson } = {}) {
       const r = analyzeTree(tree, source, rel, tracked);
       out.filesScanned++;
       out.files.push(rel);
-      for (const k of ['imports', 'uses', 'unresolved', 'global', 'parseErrors', 'tolerated', 'unknownImports']) out[k].push(...r[k]);
+      for (const k of ['imports', 'uses', 'unresolved', 'global', 'parseErrors', 'tolerated', 'unknownImports', 'relative', 'typeImports']) out[k].push(...r[k]);
     } finally {
       tree.delete();
     }
@@ -818,6 +831,6 @@ export async function extractUsage(root, { tracked, packageJson } = {}) {
     const where = out.tolerated.slice(0, 5).map((t) => `${t.file}:${t.line}`).join(', ');
     out.warnings.push(`${out.tolerated.length} tree-sitter error(s) inside JSX attribute strings were tolerated (a bare '&' in a quoted string, e.g. a URL query; the string holds no code): ${where}${out.tolerated.length > 5 ? ', ...' : ''}`);
   }
-  out.unresolved.push(...scanAliasConfigs(root, packageJson, tracked, out.warnings));
+  if (aliasConfigs) out.unresolved.push(...scanAliasConfigs(root, packageJson, tracked, out.warnings));
   return out;
 }

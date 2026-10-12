@@ -1,0 +1,9 @@
+{
+  "name": "fx-direct-shared-with-parent",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "lodash": "4.17.20",
+    "fx-greeting": "1.0.0"
+  }
+}

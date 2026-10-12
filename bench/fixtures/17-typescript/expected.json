@@ -24,7 +24,7 @@
       "package": "jsonwebtoken",
       "version": "8.5.1",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "jsonwebtoken is only imported as a type (erased at compile time)"
     },
@@ -33,7 +33,7 @@
       "package": "jsonwebtoken",
       "version": "8.5.1",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "jsonwebtoken is only imported as a type (erased at compile time)"
     }

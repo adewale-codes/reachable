@@ -28,7 +28,7 @@ function installNameFromKey(key) {
 }
 
 /** Node-style resolution of `name` as seen from the package installed at `fromKey`. */
-function resolveFrom(packages, fromKey, name) {
+export function resolveFrom(packages, fromKey, name) {
   let base = fromKey;
   for (;;) {
     const candidate = base ? `${base}/node_modules/${name}` : `node_modules/${name}`;
@@ -77,20 +77,31 @@ export function readInventory(projectDir) {
     warnings.push('This project uses workspaces or linked local packages. Only dependencies declared in the root package.json are treated as direct; dependencies of workspace members are reported as transitive.');
   }
 
-  // Reverse edges for "required by".
-  const requiredBy = new Map();
+  // Dependency graph over lockfile keys ('' = the project itself).
+  const children = new Map(); // key -> Set(key)
+  const parents = new Map(); // key -> Set(key)
   for (const [key, entry] of Object.entries(packages)) {
     if (!entry || entry.link) continue;
-    const from = key === '' ? '(project)' : `${entry.name || installNameFromKey(key)}@${entry.version}`;
-    for (const field of ['dependencies', 'optionalDependencies', 'peerDependencies']) {
+    const fields = key === '' ? DEP_FIELDS : ['dependencies', 'optionalDependencies', 'peerDependencies'];
+    for (const field of fields) {
       for (const dep of Object.keys(entry[field] || {})) {
         const target = resolveFrom(packages, key, dep);
-        if (!target) continue;
-        if (!requiredBy.has(target)) requiredBy.set(target, new Set());
-        requiredBy.get(target).add(from);
+        if (!target || target === key) continue;
+        if (!children.has(key)) children.set(key, new Set());
+        children.get(key).add(target);
+        if (!parents.has(target)) parents.set(target, new Set());
+        parents.get(target).add(key);
       }
     }
   }
+  const reachable = new Set(['']);
+  const queue = [''];
+  while (queue.length) {
+    for (const c of children.get(queue.shift()) || []) {
+      if (!reachable.has(c)) { reachable.add(c); queue.push(c); }
+    }
+  }
+  const label = (key) => (key === '' ? '(project)' : `${packages[key].name || installNameFromKey(key)}@${packages[key].version}`);
 
   const instances = [];
   for (const [key, entry] of Object.entries(packages)) {
@@ -103,6 +114,7 @@ export function readInventory(projectDir) {
       continue;
     }
     const direct = key === `node_modules/${installName}` && declared.has(installName);
+    const parentKeys = [...(parents.get(key) || [])].filter((p) => p !== '' && reachable.has(p)).sort();
     instances.push({
       key,
       name: entry.name || installName,
@@ -111,7 +123,13 @@ export function readInventory(projectDir) {
       direct,
       dev: Boolean(entry.dev),
       optional: Boolean(entry.optional),
-      requiredBy: [...(requiredBy.get(key) || [])].sort(),
+      // npm sets dev:true only when every path to the package starts at a
+      // devDependency. devOptional / optional packages may still be on a prod
+      // path, so they are tagged prod: hiding them under --prod-only would be
+      // the unsafe direction.
+      scope: entry.dev ? 'dev' : 'prod',
+      parentKeys,
+      requiredBy: parentKeys.map(label),
     });
   }
 
@@ -130,6 +148,28 @@ export function readInventory(projectDir) {
     }
   }
 
+  /**
+   * Every path from the project through a direct dependency to `key`, as
+   * lists of lockfile keys (excluding ''). Stops at `cap` paths; `complete`
+   * says whether all were enumerated. Cycles are skipped.
+   */
+  function pathsTo(key, cap = 200) {
+    const out = [];
+    let complete = true;
+    const walk = (node, trail) => {
+      if (out.length >= cap) { complete = false; return; }
+      if (node === '') { out.push(trail.slice().reverse()); return; }
+      for (const p of parents.get(node) || []) {
+        if (!reachable.has(p) || trail.includes(p)) continue;
+        trail.push(p);
+        walk(p, trail);
+        trail.pop();
+      }
+    };
+    walk(key, [key]);
+    return { paths: out.map((p) => p.filter((k) => k !== '')), complete };
+  }
+
   instances.sort((a, b) => a.key.localeCompare(b.key));
   return {
     projectName: pkgJson.name || path.basename(projectDir),
@@ -140,6 +180,9 @@ export function readInventory(projectDir) {
       .filter((k) => /^node_modules\/(@[^/]+\/)?[^/]+$/.test(k))
       .map((k) => k.slice('node_modules/'.length)),
     packageJson: pkgJson,
+    lockPackages: packages,
+    pathsTo,
+    label,
     errors,
     warnings,
     workspaces,

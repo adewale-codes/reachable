@@ -1,0 +1,23 @@
+{
+  "description": "Fixture 23 without node_modules installed.",
+  "results": [
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "cant_tell",
+      "reason": "node_modules_missing",
+      "truth": "unreachable",
+      "why": "as fixture 23, but the parent code is not available to prove it"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "0.0.8",
+      "expected": "cant_tell",
+      "reason": "node_modules_missing",
+      "truth": "unreachable",
+      "why": "as fixture 23, but the parent code is not available to prove it"
+    }
+  ]
+}

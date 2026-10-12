@@ -1,0 +1,8 @@
+{
+  "name": "fx-node-modules-missing",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "mkdirp": "0.5.1"
+  }
+}

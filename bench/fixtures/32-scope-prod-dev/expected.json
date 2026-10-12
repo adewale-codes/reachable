@@ -1,0 +1,35 @@
+{
+  "description": "json5 in dependencies (used by src), minimist in devDependencies (used by a release script).",
+  "results": [
+    {
+      "id": "GHSA-9c47-m6qq-7p4h",
+      "package": "json5",
+      "version": "2.2.1",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "JSON5.parse(text) in src/config.js",
+      "scope": "prod"
+    },
+    {
+      "id": "GHSA-vh95-rmgr-6w4m",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "scripts/release.js calls minimist(argv)",
+      "scope": "dev"
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "package": "minimist",
+      "version": "1.2.0",
+      "expected": "reachable",
+      "reason": null,
+      "truth": "reachable",
+      "why": "scripts/release.js calls minimist(argv)",
+      "scope": "dev"
+    }
+  ]
+}

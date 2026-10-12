@@ -1,0 +1,11 @@
+{
+  "name": "fx-used-by-script",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:config": "json5 -c config/app.json5"
+  },
+  "dependencies": {
+    "json5": "2.2.1"
+  }
+}

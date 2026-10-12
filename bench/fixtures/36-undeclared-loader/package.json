@@ -1,0 +1,9 @@
+{
+  "name": "fx-undeclared-loader",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "fx-flags": "1.0.0",
+    "fx-sloppy-cli": "1.0.0"
+  }
+}

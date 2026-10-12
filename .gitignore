@@ -1,1 +1,4 @@
 node_modules/
+# Benchmark fixtures ship their own (small, vendored) node_modules on purpose.
+!bench/fixtures/*/node_modules/
+bench/eval-packages/node_modules/

@@ -1,0 +1,11 @@
+{
+  "name": "fx-declared-unused",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "underscore": "1.12.0"
+  }
+}

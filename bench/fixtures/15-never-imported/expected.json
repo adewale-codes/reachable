@@ -15,7 +15,7 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "lodash is never imported"
     },
@@ -24,7 +24,7 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "lodash is never imported"
     },
@@ -33,7 +33,7 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "lodash is never imported"
     },
@@ -42,7 +42,7 @@
       "package": "lodash",
       "version": "4.17.20",
       "expected": "cant_tell",
-      "reason": "no_import_found",
+      "reason": "declared_unused",
       "truth": "unreachable",
       "why": "lodash is never imported"
     }

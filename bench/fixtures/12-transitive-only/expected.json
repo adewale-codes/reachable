@@ -6,7 +6,7 @@
       "package": "minimist",
       "version": "0.0.8",
       "expected": "cant_tell",
-      "reason": "transitive_not_analysed",
+      "reason": "node_modules_missing",
       "truth": "unreachable",
       "why": "mkdirp only uses minimist in its CLI (bin/cmd.js); the project calls mkdirp.sync"
     },
@@ -15,7 +15,7 @@
       "package": "minimist",
       "version": "0.0.8",
       "expected": "cant_tell",
-      "reason": "transitive_not_analysed",
+      "reason": "node_modules_missing",
       "truth": "unreachable",
       "why": "mkdirp only uses minimist in its CLI (bin/cmd.js); the project calls mkdirp.sync"
     }
